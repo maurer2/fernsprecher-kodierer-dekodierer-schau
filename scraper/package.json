@@ -1,0 +1,19 @@
+{
+  "name": "fernsprecher-kodierer-dekodierer-statistik",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:maurer2/fernsprecher-kodierer-dekodierer-statistik.git",
+  "author": "Martin",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "scrape:fritzbox": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "eslint": "^7.20.0",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
+    "tsc": "^1.20150623.0",
+    "typescript": "^4.1.5"
+  }
+}
