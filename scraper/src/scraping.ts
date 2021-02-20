@@ -1,6 +1,7 @@
 import puppeteer from 'puppeteer';
+// const puppeteer = require('puppeteer');
 
-export default async function () {
+export default async function scape() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
