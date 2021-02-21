@@ -6,7 +6,11 @@ dotenv.config();
 const password = process.env.PASSWORD;
 const url = process.env.URL;
 
-const scrapedPage = scrape();
+if (password === undefined || url === undefined) {
+  process.exit();
+}
+
+const scrapedPage = scrape(url, password);
 
 scrapedPage.then(async (page) => {
   // const html = await page.content();
