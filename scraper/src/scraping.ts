@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 import puppeteer from 'puppeteer';
 // const puppeteer = require('puppeteer');
 
@@ -18,10 +19,17 @@ export default async function scrape(url: string, password: string) {
     return page;
   }
 
-  await page.$eval(loginFormFieldPassword.evaluate(), (element) => element.value = password);
-  await page.$eval(loginForm.evaluate(), (element: HTMLFormElement) => element.submit());
+  await page.evaluate((element: HTMLInputElement, password) => element.value = password, loginFormFieldPassword, password);
+  // await page.evaluate((element: HTMLFormElement) => element.submit(), loginForm);
+
+  const fieldContent = await page.evaluate((element: HTMLInputElement) => element.value, loginFormFieldPassword);
+  console.log(fieldContent);
+
+  page.keyboard.press('Enter');
 
   await page.waitForNavigation();
+
+  await page.screenshot({ path: 'dist/test.png' });
 
   await browser.close();
 
