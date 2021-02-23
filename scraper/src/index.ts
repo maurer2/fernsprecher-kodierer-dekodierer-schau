@@ -3,17 +3,17 @@ import scrape from './scraping';
 
 dotenv.config();
 
-const password = process.env.PASSWORD;
-const url = process.env.URL;
+(async () => {
+  const password = process.env.PASSWORD;
+  const url = process.env.URL;
 
-if (password === undefined || url === undefined) {
-  process.exit();
-}
+  if (password === undefined || url === undefined) {
+    process.exit(1);
+  }
 
-const scrapedPage = scrape(url, password);
+  const page = await scrape(url, password);
 
-scrapedPage.then(async (page) => {
+  console.log(page.url());
   // const html = await page.content();
-
   // console.log(page);
-});
+})();

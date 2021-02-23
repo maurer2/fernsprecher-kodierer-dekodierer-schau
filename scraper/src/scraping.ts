@@ -1,14 +1,19 @@
 /* eslint-disable no-return-assign */
-import puppeteer from 'puppeteer';
-// const puppeteer = require('puppeteer');
+import puppeteer, { Page } from 'puppeteer';
 
-export default async function scrape(url: string, password: string) {
+export default async function scrape(url: string, password: string): Promise<Page> {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  await page.goto(url);
+  await page.goto(url)
+    .catch((error: Error) => {
+      console.log('error', error.message);
+    });
 
-  const pageTitle = await page.$eval('#dialogTitle', (element) => element.textContent);
+  const pageTitle = await page.$eval('#dialogTitle', (element) => element.textContent)
+    .catch((error: Error) => {
+      console.log('error', error.message);
+    });
 
   console.log(pageTitle);
 
@@ -23,6 +28,7 @@ export default async function scrape(url: string, password: string) {
   // await page.evaluate((element: HTMLFormElement) => element.submit(), loginForm);
 
   const fieldContent = await page.evaluate((element: HTMLInputElement) => element.value, loginFormFieldPassword);
+
   console.log(fieldContent);
 
   page.keyboard.press('Enter');
