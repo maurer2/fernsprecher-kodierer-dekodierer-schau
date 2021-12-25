@@ -13,7 +13,7 @@ dotenv.config();
 
   const page = await scrape(url, password);
 
-  console.log(page.url());
+  // console.log(page.url());
   // const html = await page.content();
   // console.log(page);
 })();
