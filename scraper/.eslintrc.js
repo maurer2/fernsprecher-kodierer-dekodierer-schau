@@ -20,6 +20,7 @@ module.exports = {
   ],
   rules: {
     'import/extensions': 'off',
+    'no-unused-vars: ["warn", { "ignoreRestSiblings": true }]',
   },
   settings: {
     'import/resolver': {

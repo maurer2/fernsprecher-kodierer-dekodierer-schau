@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 import puppeteer, { Page } from 'puppeteer';
-
 import { log } from 'console';
 
 export default async function scrape(url: string, password: string): Promise<Page> {
@@ -29,12 +28,12 @@ export default async function scrape(url: string, password: string): Promise<Pag
   const loginFormSubmitButton = await page.$('#submitLoginBtn');
 
   if (loginForm === null || loginFormFieldPassword === null || loginFormSubmitButton === null) {
-    log('error', 'can\'t find login form');
+    log('error', "can't find login form");
     return page;
   }
 
   // eslint-disable-next-line no-shadow
-  await page.$eval('#uiPass', (element) => (element as HTMLInputElement).value = 'meow');
+  await page.$eval('#uiPass', (element) => ((element as HTMLInputElement).value = 'meow'));
   await loginFormSubmitButton.click();
 
   await page.waitForNavigation();
@@ -43,10 +42,7 @@ export default async function scrape(url: string, password: string): Promise<Pag
 
   // step 2
   const telephoneMenuEntry = await page.$('#tel');
-  await Promise.all([
-    telephoneMenuEntry?.click(),
-    page.waitForTimeout(1000),
-  ]);
+  await Promise.all([telephoneMenuEntry?.click(), page.waitForTimeout(1000)]);
   await page.screenshot({ path: 'dist/tel-open.png' });
 
   // step 3
@@ -77,15 +73,14 @@ export default async function scrape(url: string, password: string): Promise<Pag
         return [];
       }
 
-      const { children } = row;
-      const [dateTime, _, codecs] = children;
+      const [dateTime, _, codecs] = row.children;
 
       return [
         {
           dateTime: dateTime.textContent,
           codecs: codecs.textContent,
         },
-      ]; // as [dateStamp: string, codec: string];
+      ];
     });
 
     return extractedValues;
