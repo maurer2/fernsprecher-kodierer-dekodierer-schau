@@ -2,21 +2,26 @@
 /* eslint-disable no-return-assign */
 import puppeteer, { Page } from 'puppeteer';
 
+import { log } from 'console';
+
 export default async function scrape(url: string, password: string): Promise<Page> {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  await page.setViewport({ width: 1200, height: 1000 });
+  // setup
+  await page.setViewport({ width: 1200, height: 720 });
 
+  // step 1
   await page.goto(url).catch((error: Error) => {
-    console.log('error', error.message);
+    log('error', error.message);
     return page;
   });
 
+  // step 2
   await page
     .$eval('#dialogTitle', (element) => element.textContent)
     .catch((error: Error) => {
-      console.log('error', error.message);
+      log('error', error.message);
     });
 
   const loginForm = await page.$('#loginForm');
@@ -24,7 +29,7 @@ export default async function scrape(url: string, password: string): Promise<Pag
   const loginFormSubmitButton = await page.$('#submitLoginBtn');
 
   if (loginForm === null || loginFormFieldPassword === null || loginFormSubmitButton === null) {
-    console.log('error', 'can\'t find login form');
+    log('error', 'can\'t find login form');
     return page;
   }
 
@@ -61,6 +66,32 @@ export default async function scrape(url: string, password: string): Promise<Pag
     page.waitForTimeout(1000),
   ]);
   await page.screenshot({ path: 'dist/quality-list.png' });
+
+  // step 5
+  // const callListTable = await page.$('#uiListOfAllCalls');
+  const callListTableRowContent = await page.evaluate(() => {
+    const rows = Array.from(document.querySelectorAll('#uiListOfAllCalls tr'));
+
+    const extractedValues = rows.flatMap((row) => {
+      if (row.firstElementChild?.hasAttribute('colspan')) {
+        return [];
+      }
+
+      const { children } = row;
+      const [dateTime, _, codecs] = children;
+
+      return [
+        {
+          dateTime: dateTime.textContent,
+          codecs: codecs.textContent,
+        },
+      ]; // as [dateStamp: string, codec: string];
+    });
+
+    return extractedValues;
+  });
+
+  log(await JSON.stringify(callListTableRowContent, null, 2));
 
   await browser.close();
 
