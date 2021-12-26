@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
-import scrape from './scraping';
+import { log } from 'console';
+
+import scrapePage from './scraping';
 
 dotenv.config();
 
@@ -12,9 +14,16 @@ dotenv.config();
   }
 
   try {
-    const page = await scrape(url, password);
+    const values = await scrapePage(url, password);
+    const valuesBeautified = JSON.stringify(values, null, 2);
+
+    log(valuesBeautified);
   } catch (error) {
-    console.log('error has occured')
+    if (error instanceof Error) {
+      console.log(error.message);
+    } else {
+      console.log('error has occurred');
+    }
     process.exit(1);
   }
 

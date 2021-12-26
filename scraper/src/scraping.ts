@@ -1,24 +1,25 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-return-assign */
-import puppeteer, { Page } from 'puppeteer';
-import { log } from 'console';
+import puppeteer, { Page, Browser } from 'puppeteer';
+import type { ScrapedValuesStringified } from '../types/scraper';
 
-export default async function scrape(url: string, password: string): Promise<Page | Error> {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+export default async function scrapePage(
+  url: string,
+  password: string
+): Promise<ScrapedValuesStringified[] | Error> {
+  const browser: Browser = await puppeteer.launch();
+  const page: Page = await browser.newPage();
 
   // step 1 - setup
   await page.setViewport({ width: 1200, height: 720 });
 
   // step 2 - navigate to page
   try {
-    await page.goto(url, { timeout: 5000 })
+    await page.goto(url, { timeout: 5000 });
     // const mainTitle = await page.$eval('#dialogTitle', (element) => element.textContent)
     await page.waitForTimeout(1000);
     await page.screenshot({ path: 'dist/login-page.png' });
   } catch (error) {
     if (error instanceof Error) {
-      throw new Error(error.message)
+      throw new Error(error.message);
     }
   }
 
@@ -30,42 +31,42 @@ export default async function scrape(url: string, password: string): Promise<Pag
     await page.waitForNavigation();
     await page.waitForTimeout(1000);
     await page.screenshot({ path: 'dist/after-login.png' });
-  } catch(error) {
+  } catch (error) {
     if (error instanceof Error) {
-      throw new Error(error.message)
+      throw new Error(error.message);
     }
   }
 
-  // step 4 -
-  const telephoneMenuEntry = await page.$('#tel');
-  await Promise.all([telephoneMenuEntry?.click(), page.waitForTimeout(1000)]);
-  await page.screenshot({ path: 'dist/tel-open.png' });
+  // step 4 - open telephone menu, go to my-numbers and open quality tab
+  try {
+    await page.click('#tel');
 
-  // step 3
-  const myNumbersPage = await page.$('#myNum');
-  await Promise.all([
-    myNumbersPage?.click(),
-    // page.waitForTimeout(1000),
-    page.waitForFunction(() => document.body.classList.contains('mainBtn'), {}),
-  ]);
-  await page.screenshot({ path: 'dist/my-numbers.png' });
+    await page.waitForTimeout(1000);
+    await page.screenshot({ path: 'dist/tel-open.png' });
 
-  // step 4
-  const qualityListPage = await page.$('#sipQual');
-  await Promise.all([
-    qualityListPage?.click(),
-    page.waitForFunction(() => document.body.classList.contains('mainBtn'), {}),
-    page.waitForTimeout(1000),
-  ]);
-  await page.screenshot({ path: 'dist/quality-list.png' });
+    await page.click('#myNum');
 
-  // step 5
-  // const callListTable = await page.$('#uiListOfAllCalls');
-  const callListTableRowContent = await page.evaluate(() => {
+    await page.waitForFunction(() => document.body.classList.contains('mainBtn'), {});
+    await page.waitForTimeout(1000);
+    await page.screenshot({ path: 'dist/my-numbers.png' });
+
+    await page.click('#sipQual');
+
+    await page.waitForFunction(() => document.body.classList.contains('mainBtn'), {});
+    await page.waitForTimeout(1000);
+    await page.screenshot({ path: 'dist/quality-list.png' });
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+  }
+
+  // step 5 - extract codec and dateTime values
+  const callListTableRowContent: ScrapedValuesStringified[] = await page.evaluate(() => {
     const rows = Array.from(document.querySelectorAll('#uiListOfAllCalls tr'));
 
-    const extractedValues = rows.flatMap((row) => {
-      if (row.firstElementChild?.hasAttribute('colspan')) {
+    const dateTimeCodecsList: ScrapedValuesStringified[] = rows.flatMap((row) => {
+      if (row.firstElementChild === null || row.firstElementChild.hasAttribute('colspan')) {
         return [];
       }
 
@@ -79,12 +80,11 @@ export default async function scrape(url: string, password: string): Promise<Pag
       ];
     });
 
-    return extractedValues;
+    return dateTimeCodecsList;
   });
 
-  log(await JSON.stringify(callListTableRowContent, null, 2));
-
+  // step 6 - cleanup
   await browser.close();
 
-  return page;
+  return callListTableRowContent;
 }
