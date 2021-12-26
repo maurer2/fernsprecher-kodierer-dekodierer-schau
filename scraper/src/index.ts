@@ -11,7 +11,12 @@ dotenv.config();
     process.exit(1);
   }
 
-  const page = await scrape(url, password);
+  try {
+    const page = await scrape(url, password);
+  } catch (error) {
+    console.log('error has occured')
+    process.exit(1);
+  }
 
   // console.log(page.url());
   // const html = await page.content();

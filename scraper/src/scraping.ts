@@ -3,44 +3,40 @@
 import puppeteer, { Page } from 'puppeteer';
 import { log } from 'console';
 
-export default async function scrape(url: string, password: string): Promise<Page> {
+export default async function scrape(url: string, password: string): Promise<Page | Error> {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  // setup
+  // step 1 - setup
   await page.setViewport({ width: 1200, height: 720 });
 
-  // step 1
-  await page.goto(url).catch((error: Error) => {
-    log('error', error.message);
-    return page;
-  });
-
-  // step 2
-  await page
-    .$eval('#dialogTitle', (element) => element.textContent)
-    .catch((error: Error) => {
-      log('error', error.message);
-    });
-
-  const loginForm = await page.$('#loginForm');
-  const loginFormFieldPassword = await page.$('#uiPass');
-  const loginFormSubmitButton = await page.$('#submitLoginBtn');
-
-  if (loginForm === null || loginFormFieldPassword === null || loginFormSubmitButton === null) {
-    log('error', "can't find login form");
-    return page;
+  // step 2 - navigate to page
+  try {
+    await page.goto(url, { timeout: 5000 })
+    // const mainTitle = await page.$eval('#dialogTitle', (element) => element.textContent)
+    await page.waitForTimeout(1000);
+    await page.screenshot({ path: 'dist/login-page.png' });
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message)
+    }
   }
 
-  // eslint-disable-next-line no-shadow
-  await page.$eval('#uiPass', (element) => ((element as HTMLInputElement).value = 'meow'));
-  await loginFormSubmitButton.click();
+  // step 3 - fill in/out login-form
+  try {
+    await page.type('#uiPass', password);
+    await page.click('#submitLoginBtn');
 
-  await page.waitForNavigation();
-  await page.waitForTimeout(1000);
-  await page.screenshot({ path: 'dist/after-login.png' });
+    await page.waitForNavigation();
+    await page.waitForTimeout(1000);
+    await page.screenshot({ path: 'dist/after-login.png' });
+  } catch(error) {
+    if (error instanceof Error) {
+      throw new Error(error.message)
+    }
+  }
 
-  // step 2
+  // step 4 -
   const telephoneMenuEntry = await page.$('#tel');
   await Promise.all([telephoneMenuEntry?.click(), page.waitForTimeout(1000)]);
   await page.screenshot({ path: 'dist/tel-open.png' });
