@@ -1,5 +1,6 @@
 import puppeteer, { Page, Browser } from 'puppeteer';
 import type { ScrapedValuesStringified } from '../types/scraper';
+import { promises as fs2 } from 'fs';
 
 export default async function scrapePage(
   url: string,
@@ -10,6 +11,7 @@ export default async function scrapePage(
 
   // step 1 - setup
   await page.setViewport({ width: 1200, height: 720 });
+  await fs2.mkdir('dist', { recursive: true });
 
   // step 2 - navigate to page
   try {
