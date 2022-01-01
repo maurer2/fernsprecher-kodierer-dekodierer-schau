@@ -1,6 +1,8 @@
 import puppeteer, { Page, Browser } from 'puppeteer';
+import { promises as fs2 } from 'node:fs';
 import type { ScrapedValuesStringified } from '../types/scraper';
-import { promises as fs2 } from 'fs';
+
+const screenshotsPath = 'dist/screenshots'
 
 export default async function scrapePage(
   url: string,
@@ -10,15 +12,15 @@ export default async function scrapePage(
   const page: Page = await browser.newPage();
 
   // step 1 - setup
-  await page.setViewport({ width: 1200, height: 720 });
-  await fs2.mkdir('dist', { recursive: true });
+  await page.setViewport({ width: 1200, height: 720, deviceScaleFactor: 1 });
+  await fs2.mkdir(screenshotsPath, { recursive: true });
 
   // step 2 - navigate to page
   try {
     await page.goto(url, { timeout: 5000 });
     // const mainTitle = await page.$eval('#dialogTitle', (element) => element.textContent)
     await page.waitForTimeout(1000);
-    await page.screenshot({ path: 'dist/login-page.png' });
+    await page.screenshot({ path: `${screenshotsPath}/login-page.png` });
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);
@@ -32,7 +34,7 @@ export default async function scrapePage(
 
     await page.waitForNavigation();
     await page.waitForTimeout(1000);
-    await page.screenshot({ path: 'dist/after-login.png' });
+    await page.screenshot({ path: `${screenshotsPath}/after-login.png` });
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);
@@ -44,19 +46,19 @@ export default async function scrapePage(
     await page.click('#tel');
 
     await page.waitForTimeout(1000);
-    await page.screenshot({ path: 'dist/tel-open.png' });
+    await page.screenshot({ path: `${screenshotsPath}/tel-open.png` });
 
     await page.click('#myNum');
 
     await page.waitForFunction(() => document.body.classList.contains('mainBtn'), {});
     await page.waitForTimeout(1000);
-    await page.screenshot({ path: 'dist/my-numbers.png' });
+    await page.screenshot({ path: `${screenshotsPath}/my-numbers.png` });
 
     await page.click('#sipQual');
 
     await page.waitForFunction(() => document.body.classList.contains('mainBtn'), {});
     await page.waitForTimeout(1000);
-    await page.screenshot({ path: 'dist/quality-list.png' });
+    await page.screenshot({ path: `${screenshotsPath}/quality-list.png` });
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);
