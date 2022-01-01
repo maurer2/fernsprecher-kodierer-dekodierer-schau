@@ -76,20 +76,21 @@ export default async function scrapePage(
         return [];
       }
 
-      const [dateTime, _, codecs] = row.children;
-      const codecsTextElements = Array.from(codecs.children).filter((element) =>
+      const [dateTimeElement, _, codecsElement] = row.children;
+      const codecs = Array.from(codecsElement.children).filter((element) =>
         element.classList.contains('LedDesc')
       );
 
-      if (codecsTextElements.length !== 2) {
+      if (codecs.length !== 2) {
         throw new Error('codecTextElements length mismatch');
       }
 
-      const [codecSend, codecReceive] = codecsTextElements;
+      const dateTimeText = dateTimeElement.textContent?.replaceAll(/\u00A0/g, ' ');
+      const [codecSend, codecReceive] = codecs;
 
       return [
         {
-          dateTime: dateTime.textContent,
+          dateTime: dateTimeText !== undefined ? dateTimeText : null,
           codecs: {
             send: codecSend.textContent,
             receive: codecReceive.textContent,
