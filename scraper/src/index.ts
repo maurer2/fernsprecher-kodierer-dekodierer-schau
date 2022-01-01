@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { log } from 'console';
 
 import scrapePage from './scraping';
+import dumpJSON from './dump';
 
 dotenv.config();
 
@@ -15,9 +16,12 @@ dotenv.config();
 
   try {
     const values = await scrapePage(url, password);
-    const valuesBeautified = JSON.stringify(values, null, 2);
+    // const valuesBeautified = JSON.stringify(values, null, 2);
+    // log(valuesBeautified);
 
-    log(valuesBeautified);
+    await dumpJSON(values, 'scraped-entries.json');
+
+    process.exit(0);
   } catch (error) {
     if (error instanceof Error) {
       console.log(error.message);
@@ -26,8 +30,4 @@ dotenv.config();
     }
     process.exit(1);
   }
-
-  // console.log(page.url());
-  // const html = await page.content();
-  // console.log(page);
 })();
