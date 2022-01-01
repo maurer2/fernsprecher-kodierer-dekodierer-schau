@@ -1,6 +1,6 @@
-import { promises as fs2 } from 'fs';
+import { promises as fs2 } from 'node:fs';
 
-const filePath = 'dist/json'
+const filePath = 'dist/json';
 
 export default async function dumpJSON(payload: unknown, fileName: string): Promise<void | Error> {
   try {

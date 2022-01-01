@@ -2,7 +2,7 @@ import puppeteer, { Page, Browser } from 'puppeteer';
 import { promises as fs2 } from 'node:fs';
 import type { ScrapedValuesStringified } from '../types/scraper';
 
-const screenshotsPath = 'dist/screenshots'
+const screenshotsPath = 'dist/screenshots';
 
 export default async function scrapePage(
   url: string,
@@ -14,6 +14,8 @@ export default async function scrapePage(
   // step 1 - setup
   await page.setViewport({ width: 1200, height: 720, deviceScaleFactor: 1 });
   await fs2.mkdir(screenshotsPath, { recursive: true });
+  // pass thru console messages inside page.evaluate
+  page.on('console', (message) => console.log(message.text()));
 
   // step 2 - navigate to page
   try {
@@ -75,11 +77,23 @@ export default async function scrapePage(
       }
 
       const [dateTime, _, codecs] = row.children;
+      const codecsTextElements = Array.from(codecs.children).filter((element) =>
+        element.classList.contains('LedDesc')
+      );
+
+      if (codecsTextElements.length !== 2) {
+        throw new Error('codecTextElements length mismatch');
+      }
+
+      const [codecSend, codecReceive] = codecsTextElements;
 
       return [
         {
           dateTime: dateTime.textContent,
-          codecs: codecs.textContent,
+          codecs: {
+            send: codecSend.textContent,
+            receive: codecReceive.textContent,
+          },
         },
       ];
     });
