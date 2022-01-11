@@ -9,14 +9,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 // }
 
 type CallSliceState = {
-  calls: typeof Date['now'][],
+  calls: ReturnType<typeof Date['now']>[],
   test: string,
 }
 
 export const callSlice = createSlice({
   name: 'Calls',
   initialState: {
-    calls: [],
+    calls: [Date.now()],
     test: 'meow'
   } as CallSliceState,
   reducers: {
