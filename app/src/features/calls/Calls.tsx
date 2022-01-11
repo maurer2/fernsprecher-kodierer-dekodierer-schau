@@ -1,20 +1,21 @@
-import { configureStore } from '@reduxjs/toolkit'
+import {ReactElement} from 'react';
+import { RootState } from '../../app/store';
 
-type Call = {
-  dateTime: typeof Date['now'],
-  codecs: {
-    send: string | null,
-    receive: string | null,
+export default function Calls(): ReactElement  {
+  const x = 5;
+
+  function handleClick(): void {
+    console.log('click');
   }
+
+  return (
+    <div className='container'>
+      <code>
+        {x}
+      </code>
+      <button type="button" onClick={handleClick}>
+        Add call
+      </button>
+    </div>
+  )
 }
-
-const initialState = {
-  calls: []
-};
-
-export const store = configureStore({
-  preloadedState: initialState,
-  reducer: {}
-})
-
-export default initialState
