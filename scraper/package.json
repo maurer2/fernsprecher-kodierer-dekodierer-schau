@@ -10,6 +10,7 @@
     "scrape:fritzbox": "ts-node src/index.ts"
   },
   "dependencies": {
+    "@types/node": "^17.0.8",
     "@types/puppeteer": "^5.4.3",
     "dotenv": "^8.2.0",
     "prettier": "^2.2.1",

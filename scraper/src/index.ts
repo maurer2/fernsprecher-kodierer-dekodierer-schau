@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import { log } from 'console';
 
 import scrapePage from './scraping';
 import dumpJSON from './dump';

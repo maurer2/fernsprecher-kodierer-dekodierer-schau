@@ -76,7 +76,7 @@ export default async function scrapePage(
         return [];
       }
 
-      const [dateTimeElement, _, codecsElement] = row.children;
+      const {0: dateTimeElement, 2: codecsElement} = row.children;
       const codecs = Array.from(codecsElement.children).filter((element) =>
         element.classList.contains('LedDesc')
       );
