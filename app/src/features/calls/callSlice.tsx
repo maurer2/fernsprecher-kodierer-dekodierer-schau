@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // type Call = {
 //   dateTime: typeof Date['now'],
@@ -9,15 +9,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 // }
 
 type CallSliceState = {
-  calls: ReturnType<typeof Date['now']>[],
-  test: string,
-}
+  calls: ReturnType<typeof Date['now']>[];
+  test: string;
+};
 
 export const callSlice = createSlice({
   name: 'Calls',
   initialState: {
     calls: [Date.now()],
-    test: 'meow'
+    test: 'meow',
   } as CallSliceState,
   reducers: {
     addCall: (state, action: PayloadAction<typeof state['calls'][number]>) => {
@@ -25,9 +25,8 @@ export const callSlice = createSlice({
 
       state.calls.push(action.payload);
     },
-  }
-})
+  },
+});
 
-
-export const { addCall } = callSlice.actions
-export default callSlice.reducer
+export const { addCall } = callSlice.actions;
+export default callSlice.reducer;
