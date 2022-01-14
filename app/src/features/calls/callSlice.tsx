@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { getEntry } from './CallsApi';
 
 // type Call = {
 //   dateTime: typeof Date['now'],
@@ -8,16 +9,25 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 //   }
 // }
 
+export const getCallEntry = createAsyncThunk(
+  'calls/getCallEntry',
+  async () => {
+    const entry = await getEntry();
+
+    return entry;
+  }
+);
+
 type CallSliceState = {
   calls: ReturnType<typeof Date['now']>[];
-  test: string;
+  isLoading: boolean;
 };
 
 export const callSlice = createSlice({
   name: 'Calls',
   initialState: {
     calls: [Date.now()],
-    test: 'meow',
+    isLoading: false,
   } as CallSliceState,
   reducers: {
     addCall: (state, action: PayloadAction<typeof state['calls'][number]>) => {
@@ -25,6 +35,16 @@ export const callSlice = createSlice({
 
       state.calls.push(action.payload);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getCallEntry.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getCallEntry.fulfilled, (state, action) => {
+        state.calls.push(action.payload)
+        state.isLoading = false;
+      })
   },
 });
 
