@@ -1,0 +1,12 @@
+// https://json-generator.com/
+
+[
+  '{{repeat(10000)}}',
+  {
+    "dateTime": '{{date(new Date(2022, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
+    "codecs": {
+      "send": '{{random("G.722", "G.711")}}',
+      "receive": '{{random("G.722", "G.711")}}',
+    }
+  },
+]
