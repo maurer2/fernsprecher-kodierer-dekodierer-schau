@@ -1,15 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { getEntry, getCallList } from './callsApi';
+import { getCallList } from './callsApi';
 import type { Call } from './callsApi';
-
-export const getCallEntry = createAsyncThunk(
-  'calls/getCallEntry',
-  async () => {
-    const entry = await getEntry();
-
-    return entry;
-  }
-);
 
 export const getCalls = createAsyncThunk(
   'calls/getCalls',
@@ -26,13 +17,15 @@ type CallSliceState = {
   isLoading: boolean;
 };
 
+const initialState: CallSliceState = {
+  isLoading: false,
+  calls: [Date.now()],
+  callList: [],
+}
+
 export const callSlice = createSlice({
   name: 'Calls',
-  initialState: {
-    calls: [Date.now()],
-    callList: [],
-    isLoading: false,
-  } as CallSliceState,
+  initialState,
   reducers: {
     addCall: (state, action: PayloadAction<typeof state['calls'][number]>) => {
       console.log(action.payload);
@@ -42,20 +35,12 @@ export const callSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // test entries
-      .addCase(getCallEntry.pending, (state, action) => {
-        state.isLoading = true;
-      })
-      .addCase(getCallEntry.fulfilled, (state, action) => {
-        state.calls.push(action.payload)
-        state.isLoading = false;
-      })
       // real calls
       .addCase(getCalls.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(getCalls.fulfilled, (state, action) => {
-        state.callList = [...state.callList, ...action.payload]
+        state.callList = state.callList.concat(action.payload)
         state.isLoading = false;
       })
   },

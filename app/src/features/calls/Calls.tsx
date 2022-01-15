@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { RootState } from '../../app/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCall, getCallEntry, getCalls } from './callSlice';
+import { addCall, getCalls } from './callSlice';
 
 export default function Calls(): ReactElement {
   const {calls, callList} = useSelector((state: RootState) => state.calls);
