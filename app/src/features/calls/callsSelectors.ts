@@ -55,4 +55,20 @@ const getSendCodecsQuantities = (state: RootState) => {
   return codecs;
 };
 
-export { getCallsUnsorted, getCallsOrderedByDate, getSendCodecsQuantities };
+const getDaysWithCalls = (state: RootState) => {
+  const callsSortedByDate = [...state.calls.callList].sort(
+    (callA, callB) => callA.dateTime - callB.dateTime
+  );
+
+  const daysBag = callsSortedByDate.map(({ dateTime }) => {
+    const dateFormatted = new Intl.DateTimeFormat('en-GB').format(dateTime);
+
+    return dateFormatted;
+  });
+
+  const daysSet = [...new Set(daysBag)];
+
+  return daysSet;
+};
+
+export { getCallsUnsorted, getCallsOrderedByDate, getSendCodecsQuantities, getDaysWithCalls };
