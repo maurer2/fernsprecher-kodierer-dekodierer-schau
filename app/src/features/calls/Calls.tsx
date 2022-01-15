@@ -1,21 +1,17 @@
 import { ReactElement } from 'react';
 import { RootState } from '../../app/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCall, getCalls } from './callsSlice';
+import { getCalls } from './callsSlice';
+import { getCallsUnsorted, getSendCodecsQuantities } from './callsSelectors';
 
 export default function Calls(): ReactElement {
-  const {calls, callList} = useSelector((state: RootState) => state.calls);
   const isLoading = useSelector((state: RootState) => state.calls.isLoading);
+  const callList = useSelector(getCallsUnsorted);
+  const sendCodecs = useSelector(getSendCodecsQuantities);
+
   const dispatch = useDispatch();
 
-  function handleClickSync(): void {
-    const currentDate = Date.now();
-    const addCallAction = addCall(currentDate);
-
-    dispatch(addCallAction);
-  }
-
-  function handleClickAsync(): void {
+  function handleClick(): void {
     const getCallsAction = getCalls();
 
     dispatch(getCallsAction);
@@ -23,27 +19,22 @@ export default function Calls(): ReactElement {
 
   return (
     <div className="container">
-      <button
-        type="button"
-        onClick={handleClickSync}
-        disabled={isLoading}
-      >
-        Add a call
-      </button>
-      <button
-        type="button"
-        onClick={handleClickAsync}
-        disabled={isLoading}
-      >
-        Add real calls
+      <button type="button" onClick={handleClick} disabled={isLoading}>
+        Load calls
       </button>
       <div>
-        <code>{calls.length} / {callList.length}</code>
+        <h2>Send Codecs distribution:</h2>
+        <dl>
+          {Object.entries(sendCodecs).map(([key, value]) => (
+            <>
+              <dt>{key}:</dt>
+              <dt>{value.percentage.toFixed(2)}%</dt>
+            </>
+          ))}
+        </dl>
       </div>
       <div>
-        <code>
-          <pre>{JSON.stringify(calls, null, 2)}</pre>
-        </code>
+        <code>List length: {callList.length}</code>
       </div>
       <div>
         <code>
