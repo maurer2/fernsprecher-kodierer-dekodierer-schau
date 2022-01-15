@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import callSliceReducer from '../features/calls/callSlice';
+import callsSliceReducer from '../features/calls/callsSlice';
 
 export const store = configureStore({
   reducer: {
-    calls: callSliceReducer,
+    calls: callsSliceReducer,
   },
 });
 

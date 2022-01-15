@@ -11,19 +11,19 @@ export const getCalls = createAsyncThunk(
   }
 );
 
-type CallSliceState = {
+type CallsSliceState = {
   calls: ReturnType<typeof Date['now']>[];
   callList: Call[];
   isLoading: boolean;
 };
 
-const initialState: CallSliceState = {
+const initialState: CallsSliceState = {
   isLoading: false,
   calls: [Date.now()],
   callList: [],
 }
 
-export const callSlice = createSlice({
+export const callsSlice = createSlice({
   name: 'Calls',
   initialState,
   reducers: {
@@ -46,5 +46,5 @@ export const callSlice = createSlice({
   },
 });
 
-export const { addCall } = callSlice.actions;
-export default callSlice.reducer;
+export const { addCall } = callsSlice.actions;
+export default callsSlice.reducer;
