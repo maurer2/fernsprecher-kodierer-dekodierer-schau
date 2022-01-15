@@ -5,8 +5,8 @@
   {
     "dateTime": '{{date(new Date(2022, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
     "codecs": {
-      "send": '{{random("G.722", "G.711")}}',
-      "receive": '{{random("G.722", "G.711")}}',
+      "send": '{{random("G.722", "G.711", null)}}',
+      "receive": '{{random("G.722", "G.711", null)}}',
     }
   },
 ]
