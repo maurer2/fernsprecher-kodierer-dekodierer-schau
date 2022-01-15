@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
 import { RootState } from '../../app/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCall, getCallEntry } from './callSlice';
+import { addCall, getCallEntry, getCalls } from './callSlice';
 
 export default function Calls(): ReactElement {
-  const callList = useSelector((state: RootState) => state.calls.calls);
+  const {calls, callList} = useSelector((state: RootState) => state.calls);
   const isLoading = useSelector((state: RootState) => state.calls.isLoading);
   const dispatch = useDispatch();
 
@@ -16,9 +16,9 @@ export default function Calls(): ReactElement {
   }
 
   function handleClickAsync(): void {
-    const addCallActionAsync = getCallEntry();
+    const getCallsAction = getCalls();
 
-    dispatch(addCallActionAsync);
+    dispatch(getCallsAction);
   }
 
   return (
@@ -35,10 +35,15 @@ export default function Calls(): ReactElement {
         onClick={handleClickAsync}
         disabled={isLoading}
       >
-        Add a call async
+        Add real calls
       </button>
       <div>
-        <code>{callList.length}</code>
+        <code>{calls.length} / {callList.length}</code>
+      </div>
+      <div>
+        <code>
+          <pre>{JSON.stringify(calls, null, 2)}</pre>
+        </code>
       </div>
       <div>
         <code>
