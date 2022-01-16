@@ -38,7 +38,7 @@ const getSendCodecsQuantities = (state: RootState) => {
 
   const codecsWithQuantities = Object.entries(codecsTally).map((codec) => {
     const [key, count] = codec;
-    const percentage = (count * 100) / codecsTotal;
+    const percentage = (codecsTotal === 0) ? 0 : (count * 100) / codecsTotal;
 
     return [
       [key],
@@ -56,11 +56,11 @@ const getSendCodecsQuantities = (state: RootState) => {
 };
 
 const getDaysWithCalls = (state: RootState) => {
-  const callsSortedByDate = [...state.calls.callList].sort(
-    (callA, callB) => callA.dateTime - callB.dateTime
-  );
+  // const callsSortedByDate = [...state.calls.callList].sort(
+  //   (callA, callB) => callA.dateTime - callB.dateTime
+  // );
 
-  const daysBag = callsSortedByDate.map(({ dateTime }) => {
+  const daysBag = state.calls.callList.map(({ dateTime }) => {
     const dateFormatted = new Intl.DateTimeFormat('en-GB').format(dateTime);
 
     return dateFormatted;
