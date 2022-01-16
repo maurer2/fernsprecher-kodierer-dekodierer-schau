@@ -1,4 +1,4 @@
-import { Fragment, ReactElement, MouseEvent } from 'react';
+import { Fragment, ReactElement, MouseEvent, useEffect } from 'react';
 import { RootState } from '../../app/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCalls } from './callsSlice';
@@ -13,9 +13,7 @@ export default function Calls(): ReactElement {
   const dispatch = useDispatch();
 
   function handleClick(): void {
-    const getCallsAction = getCalls();
-
-    dispatch(getCallsAction);
+    console.log('click');
   }
 
   function handleNavClick(event: MouseEvent<HTMLButtonElement>, day: string): void {
@@ -23,8 +21,14 @@ export default function Calls(): ReactElement {
     console.log('day clicked:', day);
   }
 
+  useEffect(() => {
+    const getCallsAction = getCalls();
+    dispatch(getCallsAction);
+  }, [dispatch]);
+
   return (
     <div className="container">
+      {isLoading && <h2>isLoading</h2>}
       <button type="button" onClick={handleClick} disabled={isLoading}>
         Load calls
       </button>

@@ -21,6 +21,7 @@ export function getEntry(): Promise<ReturnType<typeof Date['now']>> {
 export function getCallList(): Promise<Call[]> {
   return new Promise((resolve) => {
     const callListRaw: CallStringlyTyped[] = callJSON;
+
     const callList: Call[] = callListRaw.map((call) => {
       const { dateTime } = call;
       const dateTimeParsed = Date.parse(dateTime);
