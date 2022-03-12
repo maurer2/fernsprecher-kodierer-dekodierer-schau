@@ -1,11 +1,14 @@
 import { RootState } from '../../app/store';
 
-const getReceivingCalls = (state: RootState) =>
-  state.calls.callList.flatMap((call) => {
+const getReceivingCalls = (state: RootState) => {
+  // console.log(state)
+
+  return state.calls.callList.flatMap((call) => {
     const { receive } = call.codecs;
 
     return receive !== null ? receive : [];
   });
+}
 
 const getSendingCalls = (state: RootState) =>
   state.calls.callList.flatMap((call) => {
@@ -20,6 +23,10 @@ const getCallsOrderedByDate = (state: RootState) =>
   state.calls.callList.map((call) => {
     return call;
   });
+
+const getSendCodecs = (state: RootState) => {
+  return state.calls.callList
+}
 
 const getSendCodecsQuantities = (state: RootState) => {
   const codecsBag = getReceivingCalls(state);
@@ -71,4 +78,4 @@ const getDaysWithCalls = (state: RootState) => {
   return daysSet;
 };
 
-export { getCallsUnsorted, getCallsOrderedByDate, getSendCodecsQuantities, getDaysWithCalls };
+export { getCallsUnsorted, getCallsOrderedByDate, getSendCodecs, getSendCodecsQuantities, getDaysWithCalls };
