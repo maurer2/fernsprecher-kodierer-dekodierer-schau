@@ -32,6 +32,6 @@ export function getCallList(): Promise<Call[]> {
       };
     });
 
-    setTimeout(() => resolve(callList), 2500);
+    setTimeout(() => resolve(callList), 250);
   });
 }

@@ -3,7 +3,7 @@ import { RootState } from '../../app/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCalls } from './callsSlice';
 import { getCallsUnsorted, getSendCodecsQuantities, getDaysWithCalls } from './callsSelectors';
-import  useCallListGroupedByDate from './hooks/useCallListGroupedByDate'
+import useCallListGroupedByDate from './hooks/useCallListGroupedByDate';
 
 export default function Calls(): ReactElement {
   const isLoading = useSelector((state: RootState) => state.calls.isLoading);
@@ -14,8 +14,9 @@ export default function Calls(): ReactElement {
 
   const dispatch = useDispatch();
 
-  const {groupedCallList} = useCallListGroupedByDate(callList)
+  const [groupedCallList] = useCallListGroupedByDate(callList);
 
+  console.log(groupedCallList)
 
   const sendStatistics = useMemo(() => Object.entries(sendCodecs), [sendCodecs]);
 
@@ -28,7 +29,6 @@ export default function Calls(): ReactElement {
     const getCallsAction = getCalls();
     dispatch(getCallsAction);
   }, [dispatch]);
-
 
   return (
     <div className="container">
