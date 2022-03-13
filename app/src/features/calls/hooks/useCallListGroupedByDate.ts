@@ -2,10 +2,10 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import type { Call } from '../callsApi';
 import { groupBy } from 'lodash-es';
 
-// type CallListOrderedByDate = Record<string, Call['codecs']>;
+type CallListOrderedByDate = Record<ReturnType<Intl.DateTimeFormat['format']>, Call[]>;
 
-export default function useCallListGroupedByDate(callList: Call[]) {
-  const [callsOrdered, setIsOnline] = useState({});
+export default function useCallListGroupedByDate(callList: Call[]): readonly [CallListOrderedByDate] {
+  const [callsOrdered, setIsOnline] = useState<CallListOrderedByDate>({});
 
   const formatter = useMemo(() => new Intl.DateTimeFormat('en-GB', {
     month: '2-digit',
@@ -22,10 +22,8 @@ export default function useCallListGroupedByDate(callList: Call[]) {
   useEffect(() => {
     const callsGroupedByDate = groupBy(callList, (call) => getDateFormattedForSorting(call.dateTime));
 
-    // console.log('groupedByDateObject', callsGroupedByDate);
-
     setIsOnline(callsGroupedByDate);
   }, [callList, getDateFormattedForSorting]);
 
-  return [callsOrdered];
+  return [callsOrdered] as const;
 }
