@@ -17,17 +17,15 @@ export default function Navigation(props: NavigationProps): ReactElement {
   // }
 
   useEffect(() => {
-    console.log('mounted', props);
+    // console.log('mounted', props);
   }, [props]);
 
   return (
     <nav>
       {props.daysWithCalls.map((day) => (
-        <Fragment
-          key={day}
-        >
+        <Fragment key={day}>
           <Link
-            to={day}
+            to={`/${day}`}
             // onClick={(event: MouseEvent<HTMLButtonElement>) => handleNavClick(event, day)}
           >
             {day}
