@@ -21,11 +21,12 @@ export default function Navigation(props: NavigationProps): ReactElement {
   }, [props]);
 
   return (
-    <nav>
+    <nav className='nav'>
       {props.daysWithCalls.map((day) => (
         <Fragment key={day}>
           <Link
             to={`/${day}`}
+            className='nav-link'
             // onClick={(event: MouseEvent<HTMLButtonElement>) => handleNavClick(event, day)}
           >
             {day}
