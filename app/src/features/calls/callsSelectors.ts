@@ -72,7 +72,9 @@ const getDaysWithCalls = (state: RootState): string[] => {
   const dateTimeFormatter = new Intl.DateTimeFormat('en-GB');
 
   const daysBag = state.calls.callList.map(({ dateTime }) => {
-    const dateFormatted =dateTimeFormatter.format(dateTime);
+    const dateFormatted =
+      dateTimeFormatter.format(dateTime)
+      .replaceAll('/', '-'); // todo use DateTimeFormatPartTypes instead
 
     return dateFormatted;
   });
