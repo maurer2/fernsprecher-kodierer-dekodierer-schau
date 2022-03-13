@@ -10,13 +10,10 @@ export default function Calls(): ReactElement {
   const callList = useSelector(getCallsUnsorted);
   const sendCodecs = useSelector(getSendCodecsQuantities);
   const daysWithCalls = useSelector(getDaysWithCalls);
-  // const sendCodecsWithTimestamp = useSelector(getSendCodecs)
 
   const dispatch = useDispatch();
-
   const [groupedCallList] = useCallListGroupedByDate(callList);
 
-  console.log(groupedCallList)
 
   const sendStatistics = useMemo(() => Object.entries(sendCodecs), [sendCodecs]);
 
@@ -47,6 +44,7 @@ export default function Calls(): ReactElement {
               ))}
             </dl>
           </div>
+          <hr />
           <div>
             <h2>Date nav:</h2>
             {daysWithCalls.map((day) => (
@@ -59,9 +57,15 @@ export default function Calls(): ReactElement {
               </button>
             ))}
           </div>
+          <hr />
           <div>
             <code>
-              <pre>{JSON.stringify(callList, null, 2)}</pre>
+              {Object.entries(groupedCallList).map((group) => (
+                <Fragment key={group[0]}>
+                  <h3>{group[0]} {group[1].length}</h3>
+                  <pre>{JSON.stringify(group[1], null, 4)}</pre>
+                </Fragment>
+              ))}
             </code>
           </div>
         </>
