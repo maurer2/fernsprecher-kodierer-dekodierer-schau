@@ -1,12 +1,10 @@
-import { ReactElement, useEffect, MouseEvent, Fragment } from 'react';
+import { ReactElement, useEffect, MouseEvent, Fragment, VFC } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-type NavigationProps = {
-  daysWithCalls: string[];
-};
+import * as Types from './Navigation.types'
 
-export default function Navigation(props: NavigationProps): ReactElement {
+const Navigation: VFC<Readonly<Types.NavigationProps>> = ({daysWithCalls}): ReactElement => {
   // let navigate = useNavigate();
 
   // function handleNavClick(event: MouseEvent<HTMLButtonElement>, day: string): void {
@@ -18,11 +16,11 @@ export default function Navigation(props: NavigationProps): ReactElement {
 
   useEffect(() => {
     // console.log('mounted', props);
-  }, [props]);
+  }, [daysWithCalls]);
 
   return (
     <nav className='nav'>
-      {props.daysWithCalls.map((day) => (
+      {daysWithCalls.map((day) => (
         <Fragment key={day}>
           <Link
             to={`/${day}`}
@@ -36,3 +34,5 @@ export default function Navigation(props: NavigationProps): ReactElement {
     </nav>
   );
 }
+
+export default Navigation

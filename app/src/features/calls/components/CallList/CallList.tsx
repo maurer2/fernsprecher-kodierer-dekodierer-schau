@@ -1,28 +1,16 @@
-import { Fragment, ReactElement, useEffect } from 'react';
+import { Fragment, ReactElement, useEffect, VFC } from 'react';
 import { useParams } from 'react-router-dom';
-import { Call } from '../../callsApi';
 import useCallListGroupedByDate from '../../hooks/useCallListGroupedByDate';
 
-type CallListProps = {
-  calls: Call[];
-  sendStatistics: [
-    string,
-    {
-      count: string;
-      percentage: number;
-    }
-  ][];
-};
+import * as Types from './CallList.types'
 
-export default function CallList(props: CallListProps): ReactElement {
-  const [groupedCallList] = useCallListGroupedByDate(props.calls);
+const CallList: VFC<Readonly<Types.CallListProps>> = ({calls, sendStatistics}): ReactElement => {
+  const [groupedCallList] = useCallListGroupedByDate(calls);
   const { day } = useParams();
 
-  console.log(day);
-
   useEffect(() => {
-    console.log('mounted', props);
-  }, [props]);
+    console.log('mounted', calls);
+  }, [calls]);
 
   return (
     <div className="container">
@@ -30,7 +18,7 @@ export default function CallList(props: CallListProps): ReactElement {
       <div>
         <h2>Send Codecs distribution:</h2>
         <dl>
-          {props.sendStatistics.map(([key, value]) => (
+          {sendStatistics.map(([key, value]) => (
             <Fragment key={key}>
               <dt>{key}:</dt>
               <dt>{value.percentage.toFixed(2)}%</dt>
@@ -53,3 +41,5 @@ export default function CallList(props: CallListProps): ReactElement {
     </div>
   );
 }
+
+export default CallList
