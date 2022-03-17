@@ -9,5 +9,5 @@ type Statistics = [dateTime: string, statistics: Count];
 
 export type CallListProps = {
   calls: Call[];
-  sendStatistics: Statistics[];
+  sendStatistics?: Statistics[];
 };

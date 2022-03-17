@@ -5,7 +5,7 @@ import Call from '../Call/Call';
 
 import * as Types from './CallList.types';
 
-const CallList: VFC<Readonly<Types.CallListProps>> = ({ calls, sendStatistics }): ReactElement => {
+const CallList: VFC<Readonly<Types.CallListProps>> = ({ calls }): ReactElement => {
   const [groupedCallList] = useCallListGroupedByDate(calls);
   const { day } = useParams();
 
@@ -29,7 +29,7 @@ const CallList: VFC<Readonly<Types.CallListProps>> = ({ calls, sendStatistics })
     <div className="container">
       <h1>{day}</h1>
       <span>{numberOfEntries} entries</span>
-      <Call calls={calls} sendStatistics={sendStatistics} />
+      <Call calls={calls}/>
     </div>
   );
 };

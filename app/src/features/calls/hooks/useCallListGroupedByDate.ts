@@ -2,8 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import type { Call } from '../callsApi';
 import { groupBy } from 'lodash-es';
 
-type CallListOrderedByDate = Record<ReturnType<Intl.DateTimeFormat['format']>, Call[]>;
-
+type CallListOrderedByDate = Record<string, Call[]>;
 export default function useCallListGroupedByDate(callList: Call[]): readonly [CallListOrderedByDate] {
   const [callsOrdered, setIsOnline] = useState<CallListOrderedByDate>({});
 
