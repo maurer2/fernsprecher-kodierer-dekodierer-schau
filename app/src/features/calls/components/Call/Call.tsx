@@ -1,4 +1,4 @@
-import { Fragment, ReactElement, useEffect, useMemo, VFC } from 'react';
+import { Fragment, VFC } from 'react';
 import { useParams } from 'react-router-dom';
 import useCallListGroupedByDate from '../../hooks/useCallListGroupedByDate';
 
@@ -17,7 +17,7 @@ const Call: VFC<Readonly<Types.CallProps>> = ({calls}) => {
 
   return (
     <div className="container">
-      <h2>Send Codecs statistics:</h2>
+      {/* <h2>Send Codecs statistics:</h2> */}
       {/* <dl>
         {sendStatistics.map(([key, value]) => (
           <Fragment key={key}>
@@ -27,6 +27,7 @@ const Call: VFC<Readonly<Types.CallProps>> = ({calls}) => {
         ))}
       </dl> */}
       <div>
+        <h2>{entriesForDay.length} entries for the day</h2>
         <code>
           {Boolean(entriesForDay) && entriesForDay.map((group, index) => (
             <Fragment key={index}>
