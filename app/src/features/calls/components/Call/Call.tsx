@@ -1,33 +1,34 @@
-import { Fragment, VFC } from 'react';
+import React, { Fragment, VFC, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import useCallListGroupedByDate from '../../hooks/useCallListGroupedByDate';
+import useCallStatistics from '../../hooks/useCallStatistics/useCallStatistics';
 
 import * as Types from './Call.types'
 
 const Call: VFC<Readonly<Types.CallProps>> = ({calls}) => {
-  const [groupedCallList] = useCallListGroupedByDate(calls);
-  const { day } = useParams();
-
-  if (!day) {
-    return null
-  }
-
+  const { day = '' } = useParams();
   const dayFormatted = day.replaceAll('-', '/')
-  const entriesForDay = groupedCallList[dayFormatted];
+
+  const [groupedCallList] = useCallListGroupedByDate(calls);
+  const entriesForDay = useMemo(() => groupedCallList[dayFormatted] ?? [], [dayFormatted, groupedCallList]);
+  const receiveCodecs = useMemo(() => entriesForDay.map((entry => entry.codecs.receive)), [entriesForDay]);
+
+  const [numberOfCodecs, _, codecStatisticRelative] = useCallStatistics(receiveCodecs)
+
 
   return (
     <div className="container">
-      {/* <h2>Send Codecs statistics:</h2> */}
-      {/* <dl>
-        {sendStatistics.map(([key, value]) => (
+      <h2>Codecs statistics:</h2>
+      <dl>
+        {codecStatisticRelative.map(([key, value]) => (
           <Fragment key={key}>
             <dt>{key}:</dt>
-            <dt>{value.percentage.toFixed(2)}%</dt>
+            <dt>{value.toFixed(2)}%</dt>
           </Fragment>
         ))}
-      </dl> */}
+      </dl>
       <div>
-        <h2>{entriesForDay.length} entries for the day</h2>
+        <h2>{numberOfCodecs} entries for the day</h2>
         <code>
           {Boolean(entriesForDay) && entriesForDay.map((group, index) => (
             <Fragment key={index}>
