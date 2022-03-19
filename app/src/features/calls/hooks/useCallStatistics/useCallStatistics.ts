@@ -1,8 +1,8 @@
-import type { Codec, StatisticsAbsolute, StatisticsRelative } from './useCallStatistics.types';
+import type { Codec, StatisticsAbsolute, CodecsStatistics } from './useCallStatistics.types';
 
 export default function useCallStatistics(
   codecs: Codec[]
-): readonly [number, StatisticsAbsolute, StatisticsRelative] {
+): readonly [number, CodecsStatistics] {
   const codecsAbsoluteUnsorted = codecs.reduce(
     (total: StatisticsAbsolute, current) => {
       if (current === null) {
@@ -24,12 +24,12 @@ export default function useCallStatistics(
   );
 
   const codecsTotal = codecsAbsolute.reduce((total, [, count]) => total + count, 0);
-  const codecsRelative: StatisticsRelative = codecsAbsolute.map((codec) => {
+  const codecsStatistics: CodecsStatistics = codecsAbsolute.map((codec) => {
     const [key, count] = codec;
     const percentage = codecsTotal === 0 ? 0 : (count * 100) / codecsTotal;
 
-    return [key, percentage];
+    return [key, percentage, count];
   });
 
-  return [codecsTotal, codecsAbsoluteUnsorted, codecsRelative] as const;
+  return [codecsTotal, codecsStatistics] as const;
 }

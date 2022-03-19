@@ -14,6 +14,6 @@ code {
 
 dl {
   display: inline-grid;
-  grid-template-columns: max-content 1fr;
+  grid-template-columns: max-content 1fr min-content min-content;
   grid-gap: 1rem;
 }

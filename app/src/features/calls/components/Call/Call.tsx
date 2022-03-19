@@ -19,10 +19,10 @@ const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
     [entriesForDay]
   );
 
-  const [numberOfCodecs, _, codecStatisticRelative] = useCallStatistics(receiveCodecs);
+  const [numberOfCodecs, codecsStatistics] = useCallStatistics(receiveCodecs);
 
   const colours = ['red', 'green', 'blue', 'yellow', 'orange', 'deeppink'];
-  const gradientSections = codecStatisticRelative.reduce(
+  const gradientSections = codecsStatistics.reduce(
     (total, current, index) => {
       const colour = colours[index]; // todo wrap around
       const endValue = total.startValue + current[1];
@@ -43,7 +43,6 @@ const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
   );
 
   const gradientsSectionsString = gradientSections.sections.join(', ');
-
   const pieChartStyle = {
     width: '250px',
     height: '250px',
@@ -55,21 +54,25 @@ const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
     <div className="container">
       <h2>Codecs statistics</h2>
       <dl>
-        {codecStatisticRelative.map(([key, value], index) => (
+        {codecsStatistics.map(([key, percentage, count], index) => (
           <Fragment key={key}>
             <dt>{key}:</dt>
-            <dt>
-              <span>{value.toFixed(2)}%</span>
+            <dd>
+              {percentage.toFixed(2)}%
+            </dd>
+            <dd>
+              {count}
+            </dd>
+            <dd>
               <span
                 style={{
                   display: 'inline-block',
-                  marginLeft: '1rem',
                   width: '1ch',
                   height: '1ch',
                   background: `${colours[index]}`,
                 }}
-              ></span>
-            </dt>
+              />
+            </dd>
           </Fragment>
         ))}
       </dl>
