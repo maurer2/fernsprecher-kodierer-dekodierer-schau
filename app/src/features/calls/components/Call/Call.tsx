@@ -4,11 +4,11 @@ import useCallListGroupedByDate from '../../hooks/useCallListGroupedByDate';
 import useCallStatistics from '../../hooks/useCallStatistics/useCallStatistics';
 
 import PieChart from '../PieChart';
+import { COLOURS } from '../PieChart/constants';
 
 import * as Types from './Call.types';
 
 const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
-  const colours = ['red', 'green', 'blue', 'yellow', 'orange', 'deeppink'];
   const { day = '' } = useParams();
   const dayFormatted = day.replaceAll('-', '/');
 
@@ -44,7 +44,7 @@ const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
                   display: 'inline-block',
                   width: '1ch',
                   height: '1ch',
-                  background: `${colours[index]}`,
+                  background: `${COLOURS[index]}`,
                 }}
               />
             </dd>

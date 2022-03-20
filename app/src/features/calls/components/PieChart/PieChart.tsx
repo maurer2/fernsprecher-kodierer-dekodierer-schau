@@ -3,7 +3,7 @@ import React, { Fragment, VFC, useMemo } from 'react';
 import * as Types from './PieChart.types';
 
 const PieChart: VFC<Readonly<Types.PieChartProps>> = ({ numberOfCodecs, codecStatistics }) => {
-  const colours = ['red', 'green', 'blue', 'yellow', 'orange', 'deeppink'];
+  const colours: Types.Colour[] = ['red', 'green', 'blue', 'yellow', 'orange', 'deeppink'];
 
   const gradientSections = codecStatistics.reduce(
     (total, current, index) => {
@@ -36,7 +36,9 @@ const PieChart: VFC<Readonly<Types.PieChartProps>> = ({ numberOfCodecs, codecSta
   return (
     <div className="container">
       <h2>Pie chart</h2>
-      <div className="pie-chart" style={pieChartStyle} />
+      <div className="pie-chart" style={pieChartStyle}>
+        <span className="sr-only">Pie chart</span>
+      </div>
     </div>
   );
 };
