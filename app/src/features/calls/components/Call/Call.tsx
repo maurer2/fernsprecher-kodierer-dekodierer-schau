@@ -3,9 +3,12 @@ import { useParams } from 'react-router-dom';
 import useCallListGroupedByDate from '../../hooks/useCallListGroupedByDate';
 import useCallStatistics from '../../hooks/useCallStatistics/useCallStatistics';
 
+import PieChart from '../PieChart';
+
 import * as Types from './Call.types';
 
 const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
+  const colours = ['red', 'green', 'blue', 'yellow', 'orange', 'deeppink'];
   const { day = '' } = useParams();
   const dayFormatted = day.replaceAll('-', '/');
 
@@ -21,34 +24,6 @@ const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
 
   const [numberOfCodecs, codecsStatistics] = useCallStatistics(receiveCodecs);
 
-  const colours = ['red', 'green', 'blue', 'yellow', 'orange', 'deeppink'];
-  const gradientSections = codecsStatistics.reduce(
-    (total, current, index) => {
-      const colour = colours[index]; // todo wrap around
-      const endValue = total.startValue + current[1];
-
-      const section = `${colour} ${total.startValue.toFixed(5)}% ${endValue.toFixed(5)}%`;
-
-      const newTotal = {
-        startValue: total.startValue + current[1],
-        sections: total.sections.concat(section),
-      };
-
-      return newTotal;
-    },
-    {
-      startValue: 0,
-      sections: [] as string[],
-    }
-  );
-
-  const gradientsSectionsString = gradientSections.sections.join(', ');
-  const pieChartStyle = {
-    width: '250px',
-    height: '250px',
-    background: `conic-gradient(${gradientsSectionsString})`,
-    borderRadius: '50%',
-  };
 
   return (
     <div className="container">
@@ -77,7 +52,7 @@ const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
         ))}
       </dl>
       <h2>Pie chart</h2>
-      <div className="pie-chart" style={pieChartStyle} />
+      <PieChart numberOfCodecs={numberOfCodecs} codecStatistics={codecsStatistics} />
       <h2>{numberOfCodecs} entries for the day</h2>
       <code>
         {Boolean(entriesForDay) &&
