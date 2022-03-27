@@ -1,19 +1,25 @@
-import { ReactElement, useEffect, useMemo } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { RootState } from '../../app/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCalls } from './callsSlice';
-import { getCallsUnsorted, /*getSendCodecsQuantities,*/ getDaysWithCalls } from './callsSelectors';
+import { getCallsUnsorted, getDaysWithCalls } from './callsSelectors';
 import Navigation from './components/Navigation';
 import CallList from './components/CallList';
+import {
+  useLocation, matchPath
+} from "react-router-dom";
 
 export default function Calls(): ReactElement {
   const isLoading = useSelector((state: RootState) => state.calls.isLoading);
   const calls = useSelector(getCallsUnsorted);
-  // const sendCodecs = useSelector(getSendCodecsQuantities);
   const daysWithCalls = useSelector(getDaysWithCalls);
-
   const dispatch = useDispatch();
-  // const sendStatistics = useMemo(() => Object.entries(sendCodecs), [sendCodecs]);
+  const {pathname} = useLocation()
+
+  const hasDayParameter = matchPath(
+    { path: "/calls/:day" },
+    pathname,
+  ) !== null
 
   useEffect(() => {
     const getCallsAction = getCalls();
@@ -22,12 +28,13 @@ export default function Calls(): ReactElement {
 
   return (
     <div className="container">
+      <h2>Calls</h2>
       {isLoading ? (
         <h2>Is Loading!</h2>
       ) : (
         <>
           <Navigation daysWithCalls={daysWithCalls} />
-          <CallList calls={calls} />
+          {hasDayParameter && <CallList calls={calls} />}
         </>
       )}
     </div>

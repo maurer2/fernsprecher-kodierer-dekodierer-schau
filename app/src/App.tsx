@@ -10,8 +10,12 @@ function App() {
     <article className="App">
       <Router>
         <Routes>
+        <Route
+            path='/calls'
+            element={<Calls />}
+          />
           <Route
-            path='/:day'
+            path='/calls/:day'
             element={<Calls />}
           />
           <Route

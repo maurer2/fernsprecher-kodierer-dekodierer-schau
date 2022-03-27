@@ -23,9 +23,8 @@ const Navigation: VFC<Readonly<Types.NavigationProps>> = ({daysWithCalls}): Reac
       {daysWithCalls.map((day) => (
         <Fragment key={day}>
           <Link
-            to={`/${day}`}
+            to={`/calls/${day}`}
             className='nav-link'
-            // onClick={(event: MouseEvent<HTMLButtonElement>) => handleNavClick(event, day)}
           >
             {day}
           </Link>
