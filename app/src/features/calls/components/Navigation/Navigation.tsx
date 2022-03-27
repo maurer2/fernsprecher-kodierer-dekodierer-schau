@@ -5,18 +5,7 @@ import { Link } from 'react-router-dom';
 import * as Types from './Navigation.types'
 
 const Navigation: VFC<Readonly<Types.NavigationProps>> = ({daysWithCalls}): ReactElement => {
-  // let navigate = useNavigate();
-
-  // function handleNavClick(event: MouseEvent<HTMLButtonElement>, day: string): void {
-  //   event.preventDefault();
-  //   console.log('day clicked:', day);
-
-  //   navigate('/${day')
-  // }
-
-  useEffect(() => {
-    // console.log('mounted', props);
-  }, [daysWithCalls]);
+  const activeDate = false
 
   return (
     <nav className='nav'>

@@ -1,13 +1,12 @@
 import { ReactElement, useEffect } from 'react';
-import { RootState } from '../../app/store';
+import { useLocation, matchPath } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../app/store';
 import { getCalls } from './callsSlice';
 import { getCallsUnsorted, getDaysWithCalls } from './callsSelectors';
 import Navigation from './components/Navigation';
 import CallList from './components/CallList';
-import {
-  useLocation, matchPath
-} from "react-router-dom";
+import Overlay from './components/Overlay';
 
 export default function Calls(): ReactElement {
   const isLoading = useSelector((state: RootState) => state.calls.isLoading);
@@ -30,7 +29,11 @@ export default function Calls(): ReactElement {
     <div className="container">
       <h2>Calls</h2>
       {isLoading ? (
-        <h2>Is Loading!</h2>
+        <Overlay isShowing={true}>
+          <>
+            Loading calls
+          </>
+        </Overlay>
       ) : (
         <>
           <Navigation daysWithCalls={daysWithCalls} />
