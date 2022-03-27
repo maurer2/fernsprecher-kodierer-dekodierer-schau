@@ -4,7 +4,7 @@ import useCallListGroupedByDate from '../../hooks/useCallListGroupedByDate';
 import useCallStatistics from '../../hooks/useCallStatistics/useCallStatistics';
 
 import PieChart from '../PieChart';
-import { COLOURS } from '../PieChart/constants';
+import Statistics from '../Statistics';
 
 import * as Types from './Call.types';
 
@@ -21,37 +21,14 @@ const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
     () => entriesForDay.map((entry) => entry.codecs.receive),
     [entriesForDay]
   );
-
   const [numberOfCodecs, codecsStatistics] = useCallStatistics(receiveCodecs);
-
-  console.log(codecsStatistics)
 
   return (
     <div className="container">
-      <h2>Codecs statistics</h2>
-      <dl>
-        {codecsStatistics.map(([key, percentage, count], index) => (
-          <Fragment key={key}>
-            <dt>{key}:</dt>
-            <dd>
-              {percentage.toFixed(2)}%
-            </dd>
-            <dd>
-              {count}
-            </dd>
-            <dd>
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: '1ch',
-                  height: '1ch',
-                  background: `${COLOURS[index]}`,
-                }}
-              />
-            </dd>
-          </Fragment>
-        ))}
-      </dl>
+      <div>
+        <h2>Codecs statistics</h2>
+        <Statistics codecStatistics={codecsStatistics} />
+      </div>
       <div>
         <h2>Pie chart</h2>
         <PieChart numberOfCodecs={numberOfCodecs} codecStatistics={codecsStatistics} />
