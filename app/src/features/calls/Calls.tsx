@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, VFC } from 'react';
-import { useLocation, matchPath } from "react-router-dom";
+import { useLocation, matchPath } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/store';
 import { getCalls } from './callsSlice';
@@ -11,17 +11,14 @@ import Overlay from './components/Overlay';
 
 import * as Types from './Calls.types';
 
-const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement  => {
+const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement => {
   const isLoading = useSelector((state: RootState) => state.calls.isLoading);
   const calls = useSelector(getCallsUnsorted);
   const daysWithCalls = useSelector(getDaysWithCalls);
   const dispatch = useDispatch();
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
 
-  const hasDayParameter = matchPath(
-    { path: "/calls/:day" },
-    pathname,
-  ) !== null
+  const hasDayParameter = matchPath({ path: '/calls/:day' }, pathname) !== null;
 
   useEffect(() => {
     const getCallsAction = getCalls();
@@ -31,20 +28,15 @@ const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement  => {
   return (
     <div className="container">
       <h1>Calls</h1>
-      {isLoading ? (
-        <Overlay isShowing={true}>
-          <>
-            Loading calls
-          </>
-        </Overlay>
-      ) : (
+      <Overlay isShowing={isLoading}>Loading calls</Overlay>
+      {!isLoading ? (
         <>
           <Navigation daysWithCalls={daysWithCalls} />
           {hasDayParameter && <Call calls={calls} />}
         </>
-      )}
+      ) : null}
     </div>
   );
-}
+};
 
 export default Calls;
