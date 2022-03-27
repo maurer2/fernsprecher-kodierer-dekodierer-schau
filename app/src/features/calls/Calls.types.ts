@@ -1,3 +1,1 @@
-export type CallsProps = {
-};
-
+export type CallsProps = {};

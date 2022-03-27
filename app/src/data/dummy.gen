@@ -1,12 +1,11 @@
 // https://json-generator.com/
-// todo add G.729
 [
-  '{{repeat(10000)}}',
+  '{{repeat(1000)}}',
   {
     "dateTime": '{{date(new Date(2022, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
     "codecs": {
-      "send": '{{random("G.722", "G.711", null)}}',
-      "receive": '{{random("G.722", "G.711", null)}}',
+      "send": '{{random("G.722", "G.711", "G.726", "G.729", null)}}',
+      "receive": '{{random("G.722", "G.711", "G.726", "G.729", null)}}',
     }
   },
 ]
