@@ -21,14 +21,8 @@ const CallList: VFC<Readonly<Types.CallListProps>> = ({ calls }): ReactElement =
     return count
   }, [groupedCallList]);
 
-  useEffect(() => {
-    console.log('mounted');
-  }, [calls]);
-
   return (
     <div className="container">
-      <h1>{day}</h1>
-      <span>{numberOfEntries} entries</span>
       <Call calls={calls}/>
     </div>
   );

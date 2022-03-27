@@ -1,7 +1,7 @@
 import callJSON from '../../data/dummy.json';
 
-const codecsValues = ['G.711', 'G.722', 'G.726', 'G.729'] as const;
-type Codec = typeof codecsValues[number];
+const codecsValues = ['G.711', 'G.722', 'G.726', 'G.729', 'Unknown'] as const;
+export type Codec = typeof codecsValues[number];
 
 // Codec type guard
 function isCodec(codecString: string | null): codecString is Codec {
@@ -20,12 +20,11 @@ type CallStringlyTyped = {
   };
 };
 
-// export type Call = Omit<CallStringlyTyped, 'codecs'> & {
 export type Call = {
   dateTime: ReturnType<typeof Date['now']>;
   codecs: {
-    send: Codec | null;
-    receive: Codec | null;
+    send: Codec;
+    receive: Codec;
   };
 };
 
@@ -47,12 +46,12 @@ export function getCallList(): Promise<Call[]> {
       return {
         dateTime: dateTimeParsed,
         codecs: {
-          send: isCodec(send) ? send : null,
-          receive: isCodec(receive) ? receive : null,
+          send: isCodec(send) ? send : 'Unknown',
+          receive: isCodec(receive) ? receive : 'Unknown',
         },
       };
     });
 
-    setTimeout(() => resolve(callList), 2250);
+    setTimeout(() => resolve(callList), 2500);
   });
 }

@@ -1,34 +1,31 @@
-import type { Codec, StatisticsAbsolute, CodecsStatistics } from './useCallStatistics.types';
+import type { StatisticsAbsolute, CodecsStatistics } from './useCallStatistics.types';
+import { Codec } from '../../callsApi';
 
-export default function useCallStatistics(
-  codecs: Codec[]
-): readonly [number, CodecsStatistics] {
-  const codecsAbsoluteUnsorted = codecs.reduce(
-    (total: StatisticsAbsolute, current) => {
-      if (current === null) {
-        total['Unknown'] += 1;
-        return total;
-      }
+export default function useCallStatistics(codecs: Codec[]): readonly [number, CodecsStatistics] {
+  const emptyCount: StatisticsAbsolute = {
+    'G.711': 0,
+    'G.722': 0,
+    'G.726': 0,
+    'G.729': 0,
+    'Unknown': 0,
+  };
 
-      total[current] = current in total ? (total[current] += 1) : (total[current] = 0);
+  const codecsAbsoluteUnsorted = codecs.reduce((total, current) => {
+    total[current] += 1;
 
-      return total;
-    },
-    {
-      Unknown: 0,
-    }
-  );
+    return total;
+  }, emptyCount);
 
-  const codecsAbsolute = Object.entries(codecsAbsoluteUnsorted).sort(
+  const codecsAbsoluteSorted = Object.entries(codecsAbsoluteUnsorted).sort(
     (codecA, codecB) => codecB[1] - codecA[1]
   );
 
-  const codecsTotal = codecsAbsolute.reduce((total, [, count]) => total + count, 0);
-  const codecsStatistics: CodecsStatistics = codecsAbsolute.map((codec) => {
-    const [key, count] = codec;
+  const codecsTotal = codecsAbsoluteSorted.reduce((total, [, count]) => total + count, 0);
+  const codecsStatistics: CodecsStatistics = codecsAbsoluteSorted.map((codec) => {
+    const [name, count] = codec;
     const percentage = codecsTotal === 0 ? 0 : (count * 100) / codecsTotal;
 
-    return [key, percentage, count];
+    return [name as Codec, percentage, count]; // dirty
   });
 
   return [codecsTotal, codecsStatistics] as const;

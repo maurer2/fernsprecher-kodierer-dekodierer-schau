@@ -24,6 +24,7 @@ const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
 
   const [numberOfCodecs, codecsStatistics] = useCallStatistics(receiveCodecs);
 
+  console.log(codecsStatistics)
 
   return (
     <div className="container">
@@ -51,8 +52,10 @@ const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
           </Fragment>
         ))}
       </dl>
-      <h2>Pie chart</h2>
-      <PieChart numberOfCodecs={numberOfCodecs} codecStatistics={codecsStatistics} />
+      <div>
+        <h2>Pie chart</h2>
+        <PieChart numberOfCodecs={numberOfCodecs} codecStatistics={codecsStatistics} />
+      </div>
       <h2>{numberOfCodecs} entries for the day</h2>
       <code>
         {Boolean(entriesForDay) &&

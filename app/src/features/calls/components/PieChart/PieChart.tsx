@@ -1,4 +1,4 @@
-import React, { Fragment, VFC, useMemo } from 'react';
+import React, { VFC } from 'react';
 
 import * as Types from './PieChart.types';
 
@@ -35,7 +35,6 @@ const PieChart: VFC<Readonly<Types.PieChartProps>> = ({ numberOfCodecs, codecSta
 
   return (
     <div className="container">
-      <h2>Pie chart</h2>
       <div className="pie-chart" style={pieChartStyle}>
         <span className="sr-only">Pie chart</span>
       </div>

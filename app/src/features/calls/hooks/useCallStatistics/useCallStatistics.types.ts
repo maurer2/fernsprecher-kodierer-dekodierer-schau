@@ -1,9 +1,9 @@
-export type Codec = string | null;
+import {Codec} from '../../callsApi'
 
-export type StatisticsAbsolute = Record<Extract<Codec, string>, number>;
+export type StatisticsAbsolute = Record<Codec, number>;
 
 export type CodecsStatistics = [
-  codecName: Extract<Codec, string>,
+  name: Codec,
   percentage: number,
   count: number
 ][];
