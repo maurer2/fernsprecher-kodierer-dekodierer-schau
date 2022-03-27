@@ -1,19 +1,22 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect, VFC } from 'react';
 import { useLocation, matchPath } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/store';
 import { getCalls } from './callsSlice';
 import { getCallsUnsorted, getDaysWithCalls } from './callsSelectors';
+
 import Navigation from './components/Navigation';
-import CallList from './components/CallList';
+import Call from './components/Call';
 import Overlay from './components/Overlay';
 
-export default function Calls(): ReactElement {
+import * as Types from './Calls.types';
+
+const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement  => {
   const isLoading = useSelector((state: RootState) => state.calls.isLoading);
   const calls = useSelector(getCallsUnsorted);
   const daysWithCalls = useSelector(getDaysWithCalls);
   const dispatch = useDispatch();
-  const {pathname} = useLocation()
+  const {pathname} = useLocation();
 
   const hasDayParameter = matchPath(
     { path: "/calls/:day" },
@@ -27,7 +30,7 @@ export default function Calls(): ReactElement {
 
   return (
     <div className="container">
-      <h2>Calls</h2>
+      <h1>Calls</h1>
       {isLoading ? (
         <Overlay isShowing={true}>
           <>
@@ -37,9 +40,11 @@ export default function Calls(): ReactElement {
       ) : (
         <>
           <Navigation daysWithCalls={daysWithCalls} />
-          {hasDayParameter && <CallList calls={calls} />}
+          {hasDayParameter && <Call calls={calls} />}
         </>
       )}
     </div>
   );
 }
+
+export default Calls;
