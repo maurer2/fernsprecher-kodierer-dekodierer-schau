@@ -1,13 +1,13 @@
 import React, { VFC } from 'react';
 
 import * as Types from './PieChart.types';
+import { COLOURS } from './constants';
 
 const PieChart: VFC<Readonly<Types.PieChartProps>> = ({ numberOfCodecs, codecStatistics }) => {
-  const colours: Types.Colour[] = ['red', 'green', 'blue', 'yellow', 'orange', 'deeppink'];
 
   const gradientSections = codecStatistics.reduce(
     (total, current, index) => {
-      const colour = colours[index]; // todo wrap around
+      const colour = COLOURS[index];
       const endValue = total.startValue + current[1];
 
       const section = `${colour} ${total.startValue.toFixed(5)}% ${endValue.toFixed(5)}%`;
