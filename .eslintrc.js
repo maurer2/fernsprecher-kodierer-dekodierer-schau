@@ -13,6 +13,7 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:react-hooks/recommended',
+    'plugin:lodash/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -21,10 +22,14 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
+    'lodash',
   ],
   rules: {
     'import/extensions': 'off',
-    'no-unused-vars: ["warn", { "ignoreRestSiblings": true }]',
+    'no-unused-vars': ["warn", { "ignoreRestSiblings": true }],
+    // lodash
+    'lodash/import-scope': [2, 'member'],
+    'lodash/prefer-lodash-method': 'off',
   },
   settings: {
     'import/resolver': {
