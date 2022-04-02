@@ -54,7 +54,7 @@ const getSendCodecsQuantities = (state: RootState) => {
 };
 
 const getDaysWithCalls = (state: RootState): string[] => {
-  const daysBag: string[] = state.calls.callList.map(({ dates }) => dates.user)
+  const daysBag: string[] = state.calls.callList.map(({ dates }) => dates.iso)
   const daysSet: string[] = [...new Set(daysBag)];
 
   return daysSet;

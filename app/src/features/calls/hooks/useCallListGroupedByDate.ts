@@ -7,7 +7,7 @@ export default function useCallListGroupedByDate(callList: Call[]): readonly [Ca
   const [callsOrdered, setIsOnline] = useState<CallListOrderedByDate>({});
 
   useEffect(() => {
-    const callsGroupedByDate = groupBy(callList, (call) => call.dates.user);
+    const callsGroupedByDate = groupBy(callList, (call) => call.dates.iso);
 
     setIsOnline(callsGroupedByDate);
   }, [callList]);

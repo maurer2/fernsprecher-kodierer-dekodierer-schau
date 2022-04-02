@@ -10,18 +10,18 @@ import * as Types from './Call.types';
 
 const Call: VFC<Readonly<Types.CallProps>> = ({ calls }) => {
   const { day = '' } = useParams();
-  const dayFormatted = day.replaceAll('-', '/');
-
   const [groupedCallList] = useCallListGroupedByDate(calls);
+
   const entriesForDay = useMemo(
-    () => groupedCallList[dayFormatted] ?? [],
-    [dayFormatted, groupedCallList]
+    () => groupedCallList[day] ?? [],
+    [groupedCallList, day]
   );
-  const receiveCodecs = useMemo(
+  const receiveCodecsForDay = useMemo(
     () => entriesForDay.map((entry) => entry.codecs.receive),
     [entriesForDay]
   );
-  const [numberOfCodecs, codecsStatistics] = useCallStatistics(receiveCodecs);
+
+  const [numberOfCodecs, codecsStatistics] = useCallStatistics(receiveCodecsForDay);
 
   return (
     <div className="container">

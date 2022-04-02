@@ -15,8 +15,8 @@ const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement => {
   const isLoading = useSelector((state: RootState) => state.calls.isLoading);
   const calls = useSelector(getCallsUnsorted);
   const daysWithCalls = useSelector(getDaysWithCalls);
-  const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   const hasDayParameter = matchPath({ path: '/calls/:day' }, pathname) !== null;
 

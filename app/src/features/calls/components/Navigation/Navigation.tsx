@@ -13,7 +13,7 @@ const Navigation: VFC<Readonly<Types.NavigationProps>> = ({daysWithCalls}): Reac
       {daysWithCalls.map((day) => (
         <Fragment key={day}>
           <Link
-            to={`/calls/${day.replaceAll('/', '-')}`}
+            to={`/calls/${day}`}
             className='nav-link'
           >
             {day}
