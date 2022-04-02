@@ -6,10 +6,8 @@ import { colourCodecMap } from '../PieChart/constants';
 const Statistics: VFC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) => {
   const digitsAll = codecStatistics.reduce(
     (total, current) => {
-      // const percentageDigits = current[1].toFixed(2).toString().length;
       const countDigits = current[2].toString().length;
 
-      // total['percentage'] = total['percentage'].concat(percentageDigits);
       total['count'] = total['count'].concat(countDigits);
 
       return total;
@@ -19,30 +17,42 @@ const Statistics: VFC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =
       count: [] as number[],
     }
   );
-
-  // const numberOfDigitsForPercentage = Math.max(...digitsAll.percentage);
   const numberOfDigitsForCount = Math.max(...digitsAll.count);
 
+  if (!codecStatistics.length) {
+    return null;
+  }
+
   return (
-    <dl>
-      {codecStatistics.map(([name, percentage, count]) => (
-        <Fragment key={name}>
-          <dt>{name}:</dt>
-          <dd>{percentage.toFixed(2)}%</dd>
-          <dd>{String(count).padStart(numberOfDigitsForCount, '0')}</dd>
-          <dd>
-            <span
-              style={{
-                display: 'inline-block',
-                width: '1ch',
-                height: '1ch',
-                background: `${colourCodecMap[name]}`,
-              }}
-            />
-          </dd>
-        </Fragment>
-      ))}
-    </dl>
+    <table className="pure-table">
+      <thead>
+        <tr>
+            <th>Name</th>
+            <th>Percentage</th>
+            <th>Count</th>
+            <th>Color</th>
+        </tr>
+      </thead>
+      <tbody>
+        {codecStatistics.map(([name, percentage, count]) => (
+          <tr key={name}>
+            <td>{name}</td>
+            <td>{percentage.toFixed(2)}%</td>
+            <td>{String(count).padStart(numberOfDigitsForCount, '0')}</td>
+            <td>
+              <span
+                style={{
+                  display: 'inline-block',
+                  width: '1ch',
+                  height: '1ch',
+                  background: `${colourCodecMap[name]}`,
+                }}
+              />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

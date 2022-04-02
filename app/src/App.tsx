@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Calls from './features/calls';
 import Home from './features/home/index';
 import './App.css';
+import 'purecss';
 
 function App() {
   return (
