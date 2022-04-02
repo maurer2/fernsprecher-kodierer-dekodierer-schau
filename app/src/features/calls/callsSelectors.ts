@@ -6,7 +6,7 @@ const getReceivingCalls = (state: RootState) => {
 
     return receive !== null ? receive : [];
   });
-}
+};
 
 const getCallsUnsorted = (state: RootState) => state.calls.callList.map((call) => call);
 
@@ -16,8 +16,8 @@ const getCallsOrderedByDate = (state: RootState) =>
   });
 
 const getSendCodecs = (state: RootState) => {
-  return state.calls.callList
-}
+  return state.calls.callList;
+};
 
 const getSendCodecsQuantities = (state: RootState) => {
   const codecsBag = getReceivingCalls(state);
@@ -36,7 +36,7 @@ const getSendCodecsQuantities = (state: RootState) => {
 
   const codecsWithQuantities = Object.entries(codecsTally).map((codec) => {
     const [key, count] = codec;
-    const percentage = (codecsTotal === 0) ? 0 : (count * 100) / codecsTotal;
+    const percentage = codecsTotal === 0 ? 0 : (count * 100) / codecsTotal;
 
     return [
       [key],
@@ -56,17 +56,20 @@ const getSendCodecsQuantities = (state: RootState) => {
 const getDaysWithCalls = (state: RootState): string[] => {
   const dateTimeFormatter = new Intl.DateTimeFormat('en-GB');
 
-  const daysBag = state.calls.callList.map(({ dateTime }) => {
-    const dateFormatted =
-      dateTimeFormatter.format(dateTime)
-      .replaceAll('/', '-'); // todo use DateTimeFormatPartTypes instead
+  const daysBag: string[] = state.calls.callList.map(({ dateTime }) => {
+    const dateFormatted = dateTimeFormatter.format(dateTime);
 
     return dateFormatted;
   });
-
-  const daysSet = [...new Set(daysBag)];
+  const daysSet: string[] = [...new Set(daysBag)];
 
   return daysSet;
 };
 
-export { getCallsUnsorted, getCallsOrderedByDate, getSendCodecs, getSendCodecsQuantities, getDaysWithCalls };
+export {
+  getCallsUnsorted,
+  getCallsOrderedByDate,
+  getSendCodecs,
+  getSendCodecsQuantities,
+  getDaysWithCalls,
+};
