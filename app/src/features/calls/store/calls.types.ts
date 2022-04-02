@@ -1,4 +1,5 @@
 export const codecsValues = ['G.711', 'G.722', 'G.726', 'G.729', 'Unknown'] as const;
+export const codecsValuesDefault = codecsValues[4];
 export type Codec = typeof codecsValues[number];
 
 // Codec type guard
@@ -9,6 +10,10 @@ export function isCodec(codecString: string | null): codecString is Codec {
   return codecsValues.includes(codecString as Codec);
 }
 
+type DateTimeStamp = ReturnType<typeof Date['now']>;
+export type ISODate = `${number}${number}${number}${number}-${number}${number}-${number}${number}`;
+export type GBDate = `${number}${number}/${number}${number}/${number}${number}${number}${number}`;
+
 export type CallStringlyTyped = {
   dateTime: string;
   codecs: {
@@ -18,7 +23,11 @@ export type CallStringlyTyped = {
 };
 
 export type Call = {
-  dateTime: ReturnType<typeof Date['now']>;
+  dateTime: DateTimeStamp;
+  dates: {
+    iso: ISODate | string,
+    user: GBDate | string,
+  },
   codecs: {
     send: Codec;
     receive: Codec;

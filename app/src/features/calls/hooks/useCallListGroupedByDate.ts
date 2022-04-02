@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import type { Call } from '../store/calls.types';
 import { groupBy } from 'lodash-es';
 
@@ -6,23 +6,11 @@ type CallListOrderedByDate = Record<string, Call[]>;
 export default function useCallListGroupedByDate(callList: Call[]): readonly [CallListOrderedByDate] {
   const [callsOrdered, setIsOnline] = useState<CallListOrderedByDate>({});
 
-  const formatter = useMemo(() => new Intl.DateTimeFormat('en-GB', {
-    month: '2-digit',
-    day: '2-digit',
-    year: 'numeric',
-  }), []);
-
-  const getDateFormattedForSorting = useCallback((dateTime: ReturnType<typeof Date['now']>) => {
-    const dateTimeFormatted = formatter.format(dateTime);
-
-    return dateTimeFormatted;
-  }, [formatter])
-
   useEffect(() => {
-    const callsGroupedByDate = groupBy(callList, (call) => getDateFormattedForSorting(call.dateTime));
+    const callsGroupedByDate = groupBy(callList, (call) => call.dates.user);
 
     setIsOnline(callsGroupedByDate);
-  }, [callList, getDateFormattedForSorting]);
+  }, [callList]);
 
   return [callsOrdered] as const;
 }
