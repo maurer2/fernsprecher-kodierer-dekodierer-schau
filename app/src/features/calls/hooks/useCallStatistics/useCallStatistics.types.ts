@@ -1,4 +1,4 @@
-import {Codec} from '../../Calls.types'
+import {Codec} from '../../store/calls.types'
 
 export type StatisticsAbsolute = Record<Codec, number>;
 

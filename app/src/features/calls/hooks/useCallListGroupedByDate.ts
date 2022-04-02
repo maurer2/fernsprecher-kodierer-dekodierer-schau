@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import type { Call } from '../Calls.types';
+import type { Call } from '../store/calls.types';
 import { groupBy } from 'lodash-es';
 
 type CallListOrderedByDate = Record<string, Call[]>;

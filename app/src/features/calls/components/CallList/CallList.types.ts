@@ -1,4 +1,4 @@
-import { Call } from '../../Calls.types';
+import { Call } from '../../store/calls.types';
 
 type Count = {
   count: string;

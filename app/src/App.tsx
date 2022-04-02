@@ -11,17 +11,17 @@ function App() {
       <Router>
         <Routes>
         <Route
-            path='/calls'
-            element={<Calls />}
-          />
-          <Route
-            path='/calls/:day'
-            element={<Calls />}
-          />
-          <Route
-            path="*"
-            element={<Home />}
-          />
+          path='/calls'
+          element={<Calls />}
+        />
+        <Route
+          path='/calls/:day'
+          element={<Calls />}
+        />
+        <Route
+          path="*"
+          element={<Home />}
+        />
         </Routes>
       </Router>
     </article>

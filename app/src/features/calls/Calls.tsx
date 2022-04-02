@@ -2,8 +2,8 @@ import { ReactElement, useEffect, VFC } from 'react';
 import { useLocation, matchPath } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/store';
-import { getCalls } from './callsSlice';
-import { getCallsUnsorted, getDaysWithCalls } from './callsSelectors';
+import { getCalls } from './store/callsSlice';
+import { getCallsUnsorted, getDaysWithCalls } from './store/callsSelectors';
 
 import Navigation from './components/Navigation';
 import Call from './components/Call';

@@ -1,4 +1,4 @@
-import { Codec } from '../../Calls.types';
+import { Codec } from '../../store/calls.types';
 import type { CodecsStatistics } from '../../hooks/useCallStatistics/useCallStatistics.types';
 import { COLOURS } from './constants';
 

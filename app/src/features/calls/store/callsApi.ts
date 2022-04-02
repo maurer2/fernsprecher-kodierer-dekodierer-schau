@@ -1,6 +1,6 @@
-import callJSON from '../../data/dummy.json';
-import type {Call, CallStringlyTyped} from './Calls.types'
-import {isCodec} from './Calls.types'
+import callJSON from '../../../data/dummy.json';
+import type { Call, CallStringlyTyped } from './calls.types';
+import { isCodec } from './calls.types';
 
 export function getEntry(): Promise<ReturnType<typeof Date['now']>> {
   return new Promise((resolve) => {
