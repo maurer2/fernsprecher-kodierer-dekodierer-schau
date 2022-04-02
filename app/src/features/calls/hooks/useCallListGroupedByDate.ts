@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import type { Call } from '../callsApi';
+import type { Call } from '../Calls.types';
 import { groupBy } from 'lodash-es';
 
 type CallListOrderedByDate = Record<string, Call[]>;
@@ -10,7 +10,7 @@ export default function useCallListGroupedByDate(callList: Call[]): readonly [Ca
     month: '2-digit',
     day: '2-digit',
     year: 'numeric',
-  }),[]);
+  }), []);
 
   const getDateFormattedForSorting = useCallback((dateTime: ReturnType<typeof Date['now']>) => {
     const dateTimeFormatted = formatter.format(dateTime);

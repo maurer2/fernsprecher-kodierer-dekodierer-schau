@@ -1,4 +1,4 @@
-import { Call } from '../../callsApi';
+import { Call } from '../../Calls.types';
 
 export type CallProps = {
   calls: Call[];

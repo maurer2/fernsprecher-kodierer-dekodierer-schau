@@ -1,5 +1,5 @@
 import type { StatisticsAbsolute, CodecsStatistics } from './useCallStatistics.types';
-import { Codec } from '../../callsApi';
+import { Codec } from '../../Calls.types';
 
 export default function useCallStatistics(codecs: Codec[]): readonly [number, CodecsStatistics] {
   const emptyCount: StatisticsAbsolute = {

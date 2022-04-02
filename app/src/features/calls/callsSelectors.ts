@@ -8,21 +8,6 @@ const getReceivingCalls = (state: RootState) => {
   });
 }
 
-const getReceivingCallsWith = (state: RootState) => {
-  return state.calls.callList.flatMap((call) => {
-    const { receive } = call.codecs;
-
-    return receive !== null ? receive : [];
-  });
-}
-
-const getSendingCalls = (state: RootState) =>
-  state.calls.callList.flatMap((call) => {
-    const { send } = call.codecs;
-
-    return send !== null ? send : [];
-  });
-
 const getCallsUnsorted = (state: RootState) => state.calls.callList.map((call) => call);
 
 const getCallsOrderedByDate = (state: RootState) =>
@@ -37,7 +22,7 @@ const getSendCodecs = (state: RootState) => {
 const getSendCodecsQuantities = (state: RootState) => {
   const codecsBag = getReceivingCalls(state);
 
-  const codecsTally = codecsBag.reduce((total, current) => {
+  const codecsTally = codecsBag.reduce((total: Record<string, number>, current) => {
     if (current in total) {
       total[current] += 1;
     } else {
@@ -45,7 +30,7 @@ const getSendCodecsQuantities = (state: RootState) => {
     }
 
     return total;
-  }, {} as Record<string, number>);
+  }, {});
 
   const codecsTotal = Object.entries(codecsTally).reduce((total, current) => total + current[1], 0);
 

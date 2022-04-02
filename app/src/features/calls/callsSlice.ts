@@ -1,6 +1,14 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { getCallList } from './callsApi';
-import type { Call } from './callsApi';
+import type { CallsSliceState } from './Calls.types';
+
+
+const initialState: CallsSliceState = {
+  isLoading: false,
+  calls: [Date.now()],
+  callList: [],
+}
+
 
 export const getCalls = createAsyncThunk(
   'calls/getCalls',
@@ -10,18 +18,6 @@ export const getCalls = createAsyncThunk(
     return calls;
   }
 );
-
-type CallsSliceState = {
-  calls: ReturnType<typeof Date['now']>[];
-  callList: Call[];
-  isLoading: boolean;
-};
-
-const initialState: CallsSliceState = {
-  isLoading: false,
-  calls: [Date.now()],
-  callList: [],
-}
 
 export const callsSlice = createSlice({
   name: 'Calls',
