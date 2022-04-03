@@ -1,4 +1,4 @@
-import React, { VFC, Fragment } from 'react';
+import React, { VFC } from 'react';
 
 import * as Types from './Statistics.types';
 import { colourCodecMap } from '../PieChart/constants';
