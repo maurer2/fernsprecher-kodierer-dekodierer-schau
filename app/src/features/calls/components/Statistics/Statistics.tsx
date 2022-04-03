@@ -4,12 +4,10 @@ import * as Types from './Statistics.types';
 import { colourCodecMap } from '../PieChart/constants';
 
 const Statistics: VFC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) => {
-  const digitsAll = codecStatistics.reduce(
+  const numberOfDigits = codecStatistics.reduce(
     (total, current) => {
       const countDigits = current[2].toString().length;
-
       total['count'] = total['count'].concat(countDigits);
-
       return total;
     },
     {
@@ -17,14 +15,17 @@ const Statistics: VFC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =
       count: [] as number[],
     }
   );
-  const numberOfDigitsForCount = Math.max(...digitsAll.count);
+  const numberOfEntriesTotal = codecStatistics.reduce((total, current) => (total += current[2]), 0);
+
+  const numberOfDigitsForCount = Math.max(...numberOfDigits.count);
+  //const numberOfEntriesTotal = Math.max(...codecStatistics);
 
   if (!codecStatistics.length) {
     return null;
   }
 
   return (
-    <table className="pure-table">
+    <table className="pure-table pure-table-bordered">
       <thead>
         <tr>
           <th>Name</th>
@@ -52,6 +53,13 @@ const Statistics: VFC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =
           </tr>
         ))}
       </tbody>
+      <tfoot>
+        <tr>
+          <td colSpan={2}>Total</td>
+          <td colSpan={1}>{numberOfEntriesTotal}</td>
+          <td></td>
+        </tr>
+      </tfoot>
     </table>
   );
 };

@@ -36,3 +36,16 @@ dl {
   white-space: nowrap;
   width: 1px;
 }
+
+.pure-table tfoot td {
+  border-top: 1px solid #cbcbcb;
+}
+
+.pure-table tfoot td[colspan] {
+  text-align: right;
+  font-weight: bold;
+}
+
+.pure-table tfoot td[colspan] + td[colspan] {
+  text-align: unset;
+}
