@@ -1,4 +1,4 @@
-import React, { VFC, useMemo } from 'react';
+import React, { VFC } from 'react';
 import useCallStatistics from '../../hooks/useCallStatistics';
 
 import PieChart from '../PieChart';
@@ -8,28 +8,47 @@ import Entries from '../Entries';
 import * as Types from './Day.types';
 
 const Day: VFC<Readonly<Types.DayProps>> = ({ callsForCurrentDay }) => {
-  const receiveCodecsForDay = useMemo(
-    () => callsForCurrentDay.map((entry) => entry.codecs.receive),
-    [callsForCurrentDay]
-  );
-  const [numberOfCodecs, codecsStatistics] = useCallStatistics(receiveCodecsForDay);
+  const receiveCodecs = callsForCurrentDay.map((entry) => entry.codecs.receive);
+  const sendCodecs = callsForCurrentDay.map((entry) => entry.codecs.send);
+
+  const [numberOfReceiveCodecs, statisticsReceiveCodecs] = useCallStatistics(receiveCodecs);
+  const [numberOfSendCodecs, statisticsSendCodecs] = useCallStatistics(sendCodecs);
 
   return (
     <div className="container">
-      <section>
-        <h2>Codecs statistics</h2>
-        <Statistics codecStatistics={codecsStatistics} />
+      <section className="pure-g">
+        <h2 className="pure-u-1-1">Codecs statistics</h2>
+        <div className="pure-u-1-2">
+          <h3>Receive</h3>
+          <Statistics codecStatistics={statisticsReceiveCodecs} />
+        </div>
+        <div className="pure-u-1-2">
+          <h3>Send</h3>
+          <Statistics codecStatistics={statisticsSendCodecs} />
+        </div>
       </section>
       <section>
-        <h2>Pie chart</h2>
-        <PieChart
-          numberOfCodecs={numberOfCodecs}
-          codecStatistics={codecsStatistics}
-        />
+        <h2 className="pure-u-1-1">Pie charts</h2>
+        <div className="pure-u-1-2">
+          <h3>Receive</h3>
+          <PieChart
+            numberOfCodecs={numberOfReceiveCodecs}
+            codecStatistics={statisticsReceiveCodecs}
+          />
+        </div>
+        <div className="pure-u-1-2">
+          <h3>Send</h3>
+          <PieChart
+            numberOfCodecs={numberOfSendCodecs}
+            codecStatistics={statisticsSendCodecs}
+          />
+        </div>
       </section>
       <section>
-        <h2>Entries for the day</h2>
-        <Entries entriesForDay={callsForCurrentDay} />
+        <h2 className="pure-u-1-1">Entries</h2>
+        <div className="pure-u-1-1">
+          <Entries entriesForDay={callsForCurrentDay} />
+        </div>
       </section>
     </div>
   );
