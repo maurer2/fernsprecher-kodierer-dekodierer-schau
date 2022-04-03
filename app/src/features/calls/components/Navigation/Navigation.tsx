@@ -1,13 +1,10 @@
 import { ReactElement, VFC } from 'react';
-import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import CSS from 'csstype';
 
 import * as Types from './Navigation.types';
 
-const Navigation: VFC<Readonly<Types.NavigationProps>> = ({ daysWithCalls }): ReactElement => {
-  const { day = '' } = useParams();
-
+const Navigation: VFC<Readonly<Types.NavigationProps>> = ({ daysWithCalls, currentDay }): ReactElement => {
   const activeStyles: CSS.Properties = {
     background: '#00e',
     color: '#fff',
@@ -16,14 +13,14 @@ const Navigation: VFC<Readonly<Types.NavigationProps>> = ({ daysWithCalls }): Re
 
   return (
     <nav className="nav">
-      {daysWithCalls.map((dayEntry) => (
+      {daysWithCalls.map((day) => (
         <NavLink
-          key={dayEntry}
-          to={`/calls/${dayEntry}`}
+          key={day}
+          to={`/calls/${day}`}
           className="nav-link"
-          style={dayEntry === day ? activeStyles : {}}
+          style={day === currentDay ? activeStyles : {}}
         >
-          {dayEntry}
+          {day}
         </NavLink>
       ))}
     </nav>

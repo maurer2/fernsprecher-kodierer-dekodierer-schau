@@ -18,7 +18,14 @@ const Overlay: FC<Readonly<Types.OverlayProps>> = ({ isShowing, children }): Rea
     (domElement.current as any).close(); // https://github.com/microsoft/TypeScript/issues/48267
   }, [isShowing]);
 
-  return <dialog ref={domElement} open>{children}</dialog>;
+  return (
+    <dialog
+      ref={domElement}
+      open
+    >
+      {children}
+    </dialog>
+  );
 };
 
 export default Overlay;

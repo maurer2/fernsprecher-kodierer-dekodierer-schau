@@ -34,7 +34,10 @@ const PieChart: VFC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
 
   return (
     <div className="container">
-      <div className="pie-chart" style={pieChartStyle}>
+      <div
+        className="pie-chart"
+        style={pieChartStyle}
+      >
         <span className="sr-only">Pie chart</span>
       </div>
     </div>

@@ -27,10 +27,10 @@ const Statistics: VFC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =
     <table className="pure-table">
       <thead>
         <tr>
-            <th>Name</th>
-            <th>Percentage</th>
-            <th>Count</th>
-            <th>Color</th>
+          <th>Name</th>
+          <th>Percentage</th>
+          <th>Count</th>
+          <th>Color</th>
         </tr>
       </thead>
       <tbody>

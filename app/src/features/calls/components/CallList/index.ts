@@ -1,1 +1,1 @@
-export {default} from './CallList'
+export { default } from './CallList';

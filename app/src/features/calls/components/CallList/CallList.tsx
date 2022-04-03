@@ -1,29 +1,25 @@
-import { ReactElement, useEffect, VFC, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { ReactElement, VFC, useMemo } from 'react';
 import useCallListGroupedByDate from '../../hooks/useCallListGroupedByDate';
-import Call from '../Call/Call';
+import Day from '../Day';
 
 import * as Types from './CallList.types';
 
-const CallList: VFC<Readonly<Types.CallListProps>> = ({ calls }): ReactElement => {
+const CallList: VFC<Readonly<Types.CallListProps>> = ({ calls, currentDay }): ReactElement => {
   const [groupedCallList] = useCallListGroupedByDate(calls);
-  const { day } = useParams();
-
-  function goPrev(): void {}
-
-  function goNext(): void {}
-
-  const numberOfEntries: number = useMemo(() => {
-    const count = Object.values(groupedCallList)
-      .map((groupEntries) => groupEntries.length)
-      .reduce((total, current) => (total += current), 0);
-
-    return count
-  }, [groupedCallList]);
+  const callsForCurrentDay = useMemo(() => {
+    if (!currentDay) {
+      return [];
+    }
+    return groupedCallList[currentDay] ?? [];
+  }, [groupedCallList, currentDay]);
 
   return (
     <div className="container">
-      <Call calls={calls}/>
+      {currentDay ? (
+        <Day callsForCurrentDay={callsForCurrentDay} />
+      ) : (
+        <span>Please select a date</span>
+      )}
     </div>
   );
 };

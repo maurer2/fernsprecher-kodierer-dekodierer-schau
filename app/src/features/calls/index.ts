@@ -1,1 +1,1 @@
-export {default} from './Calls'
+export { default } from './Calls';
