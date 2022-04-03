@@ -1,5 +1,5 @@
 import React, { VFC, useMemo } from 'react';
-import useCallStatistics from '../../hooks/useCallStatistics/useCallStatistics';
+import useCallStatistics from '../../hooks/useCallStatistics';
 
 import PieChart from '../PieChart';
 import Statistics from '../Statistics';
