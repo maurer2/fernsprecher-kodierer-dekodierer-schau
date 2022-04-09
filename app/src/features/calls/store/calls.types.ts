@@ -38,3 +38,7 @@ export type CallsSliceState = {
   callList: Call[];
   isLoading: boolean;
 };
+
+export type CodecCount = Record<Codec, number>;
+
+export type CodecQuantities = Record<Codec, { count: number; percentage: number }>;

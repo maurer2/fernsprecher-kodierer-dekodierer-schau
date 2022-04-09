@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { getCallList } from './callsApi';
-import type { CallsSliceState, Call } from '../store/calls.types';
+import type { CallsSliceState, Call } from './calls.types';
 
 const initialState: CallsSliceState = {
   isLoading: false,

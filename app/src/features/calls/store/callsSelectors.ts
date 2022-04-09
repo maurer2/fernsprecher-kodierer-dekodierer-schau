@@ -1,28 +1,24 @@
 import { RootState } from '../../../app/store';
+import type { Call, Codec, CodecCount, CodecQuantities } from './calls.types';
 
-const getReceivingCalls = (state: RootState) => {
+const getAllCodecs = (state: RootState): Codec[] => {
   return state.calls.callList.flatMap((call) => {
-    const { receive } = call.codecs;
+    const { receive, send } = call?.codecs;
 
-    return receive !== null ? receive : [];
+    if (!receive && !send) {
+      return [];
+    }
+
+    return [receive, send];
   });
 };
 
-const getCallsUnsorted = (state: RootState) => state.calls.callList.map((call) => call);
+const getCallsUnsorted = (state: RootState): Call[] => state.calls.callList.map((call) => call);
 
-const getCallsOrderedByDate = (state: RootState) =>
-  state.calls.callList.map((call) => {
-    return call;
-  });
+const getCodecsQuantities = (state: RootState) => {
+  const codecsBag: Codec[] = getAllCodecs(state);
 
-const getSendCodecs = (state: RootState) => {
-  return state.calls.callList;
-};
-
-const getSendCodecsQuantities = (state: RootState) => {
-  const codecsBag = getReceivingCalls(state);
-
-  const codecsTally = codecsBag.reduce((total: Record<string, number>, current) => {
+  const codecsTally = codecsBag.reduce((total, current: Codec) => {
     if (current in total) {
       total[current] += 1;
     } else {
@@ -30,7 +26,7 @@ const getSendCodecsQuantities = (state: RootState) => {
     }
 
     return total;
-  }, {});
+  }, {} as CodecCount);
 
   const codecsTotal = Object.entries(codecsTally).reduce((total, current) => total + current[1], 0);
 
@@ -39,7 +35,7 @@ const getSendCodecsQuantities = (state: RootState) => {
     const percentage = codecsTotal === 0 ? 0 : (count * 100) / codecsTotal;
 
     return [
-      [key],
+      key,
       {
         count,
         percentage,
@@ -47,23 +43,16 @@ const getSendCodecsQuantities = (state: RootState) => {
     ];
   });
 
-  const codecs: Record<string, { count: string; percentage: number }> =
-    Object.fromEntries(codecsWithQuantities);
+  const codecs: CodecQuantities = Object.fromEntries(codecsWithQuantities);
 
   return codecs;
 };
 
 const getDaysWithCalls = (state: RootState): string[] => {
-  const daysBag: string[] = state.calls.callList.map(({ dates }) => dates.iso)
+  const daysBag: string[] = state.calls.callList.map(({ dates }) => dates.iso);
   const daysSet: string[] = [...new Set(daysBag)];
 
   return daysSet;
 };
 
-export {
-  getCallsUnsorted,
-  getCallsOrderedByDate,
-  getSendCodecs,
-  getSendCodecsQuantities,
-  getDaysWithCalls,
-};
+export { getCallsUnsorted, getCodecsQuantities, getDaysWithCalls };
