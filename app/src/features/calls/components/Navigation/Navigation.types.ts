@@ -1,4 +1,5 @@
+import type { Call } from "../../store/calls.types";
 export type NavigationProps = {
-  daysWithCalls: string[];
+  daysWithCalls: Call['dates'][];
   currentDay: string | null;
 };

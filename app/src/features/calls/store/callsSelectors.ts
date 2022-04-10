@@ -48,20 +48,31 @@ const getCodecsQuantities = (state: RootState) => {
   return codecs;
 };
 
-const getDaysWithCalls = (state: RootState): string[] => {
-  const daysBag: string[] = state.calls.callList.map(({ dates }) => dates.iso);
-  const daysSet: string[] = [...new Set(daysBag.sort())];
+const getDaysWithCalls = (state: RootState): Call['dates'][] => {
+  const days: Call['dates'][] = state.calls.callList
+    .map(({ dates }) => dates)
+    .filter((dates, index, arr) => {
+      const firstIndex: number = arr.findIndex(datesCurrent => {
+        const isMatchingIso = datesCurrent.iso === dates.iso
+        const isMatchingUser = datesCurrent.user === dates.user
 
-  return daysSet;
+        return isMatchingIso && isMatchingUser;
+      })
+
+      return firstIndex === index;
+    })
+    .sort((a, z) => a.iso.localeCompare(z.iso));
+
+  return days;
 };
 
-const getMostRecentDayWithCall = (state: RootState): string | null => {
+const getMostRecentDayWithCall = (state: RootState): Call['dates'] | null => {
   const days = getDaysWithCalls(state);
-  const lastDay = days.at(-1)
 
-  if (!lastDay) {
+  if (!days || !days.length) {
     return null;
   }
+  const lastDay = days.at(-1)!;
 
   return lastDay;
 };

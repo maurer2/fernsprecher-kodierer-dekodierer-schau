@@ -5,22 +5,27 @@ import CSS from 'csstype';
 import * as Types from './Navigation.types';
 
 const Navigation: VFC<Readonly<Types.NavigationProps>> = ({ daysWithCalls, currentDay }): ReactElement => {
+  const normalStyles: CSS.Properties = {
+    textDecoration: 'none',
+  };
+
   const activeStyles: CSS.Properties = {
     background: '#00e',
     color: '#fff',
     borderColor: '#00e',
+    textDecoration: 'none',
   };
 
   return (
     <nav className="nav">
       {daysWithCalls.map((day) => (
         <NavLink
-          key={day}
-          to={`/calls/${day}`}
+          key={day.iso}
+          to={`/calls/${day.iso}`}
           className="nav-link"
-          style={day === currentDay ? activeStyles : {}}
+          style={day.iso === currentDay ? activeStyles : normalStyles}
         >
-          {day}
+          {day.user}
         </NavLink>
       ))}
     </nav>

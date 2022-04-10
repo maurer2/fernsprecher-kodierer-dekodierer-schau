@@ -1,9 +1,13 @@
-import { ReactElement, useEffect, VFC} from 'react';
+import { ReactElement, useEffect, VFC } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/store';
 import { getCalls, setHasRedirectedToLatestCall } from './store/callsSlice';
-import { getCallsUnsorted, getDaysWithCalls, getMostRecentDayWithCall } from './store/callsSelectors';
+import {
+  getCallsUnsorted,
+  getDaysWithCalls,
+  getMostRecentDayWithCall,
+} from './store/callsSelectors';
 
 import Navigation from './components/Navigation';
 import Overlay from './components/Overlay';
@@ -12,13 +16,13 @@ import CallList from './components/CallList';
 import * as Types from './Calls.types';
 
 const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement => {
-  const {isLoading, hasRedirectedToLatestCall} = useSelector((state: RootState) => state.calls);
+  const { isLoading, hasRedirectedToLatestCall } = useSelector((state: RootState) => state.calls);
   const calls = useSelector(getCallsUnsorted);
   const daysWithCalls = useSelector(getDaysWithCalls);
   const mostRecentDay = useSelector(getMostRecentDayWithCall);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { day = null } = useParams();
 
@@ -28,12 +32,11 @@ const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement => {
 
   useEffect(() => {
     if (hasRedirectedToLatestCall || !mostRecentDay) {
-      return
+      return;
     }
 
-    navigate(`/calls/${mostRecentDay}`);
+    navigate(`/calls/${mostRecentDay.iso}`);
     dispatch(setHasRedirectedToLatestCall(true));
-
   }, [navigate, dispatch, hasRedirectedToLatestCall, mostRecentDay]);
 
   return (
