@@ -50,9 +50,20 @@ const getCodecsQuantities = (state: RootState) => {
 
 const getDaysWithCalls = (state: RootState): string[] => {
   const daysBag: string[] = state.calls.callList.map(({ dates }) => dates.iso);
-  const daysSet: string[] = [...new Set(daysBag)];
+  const daysSet: string[] = [...new Set(daysBag.sort())];
 
   return daysSet;
 };
 
-export { getCallsUnsorted, getCodecsQuantities, getDaysWithCalls };
+const getMostRecentDayWithCall = (state: RootState): string | null => {
+  const days = getDaysWithCalls(state);
+  const lastDay = days.at(-1)
+
+  if (!lastDay) {
+    return null;
+  }
+
+  return lastDay;
+};
+
+export { getCallsUnsorted, getCodecsQuantities, getDaysWithCalls, getMostRecentDayWithCall };

@@ -1,10 +1,9 @@
 import { ReactElement, useEffect, VFC } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/store';
 import { getCalls } from './store/callsSlice';
-import { getCallsUnsorted, getDaysWithCalls } from './store/callsSelectors';
-import { NavLink } from 'react-router-dom';
+import { getCallsUnsorted, getDaysWithCalls, getMostRecentDayWithCall } from './store/callsSelectors';
 
 import Navigation from './components/Navigation';
 import Overlay from './components/Overlay';
@@ -17,11 +16,20 @@ const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement => {
   const calls = useSelector(getCallsUnsorted);
   const daysWithCalls = useSelector(getDaysWithCalls);
   const { day = null } = useParams();
+  const mostRecentDay = useSelector(getMostRecentDayWithCall);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getCallsAction = getCalls();
     dispatch(getCallsAction);
+
+    // if (!mostRecentDay) {
+    //   return
+    // }
+
+    // navigate(`/calls/${mostRecentDay}`);
   }, [dispatch]);
 
   return (
