@@ -5,10 +5,13 @@ import type { CallsSliceState, Call } from './calls.types';
 const initialState: CallsSliceState = {
   isLoading: false,
   callList: [],
+  hasRedirectedToLatestCall: false,
 };
 
 export const getCalls = createAsyncThunk('calls/getCalls', async () => {
   const calls = await getCallList();
+  console.log('calls loaded');
+
   return calls;
 });
 
@@ -18,6 +21,9 @@ export const callsSlice = createSlice({
   reducers: {
     addCall: (state, action: PayloadAction<Call>) => {
       state.callList.push(action.payload);
+    },
+    setHasRedirectedToLatestCall: (state, action: PayloadAction<boolean>) => {
+      state.hasRedirectedToLatestCall = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -32,5 +38,5 @@ export const callsSlice = createSlice({
   },
 });
 
-export const { addCall } = callsSlice.actions;
+export const { addCall, setHasRedirectedToLatestCall } = callsSlice.actions;
 export default callsSlice.reducer;

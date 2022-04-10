@@ -37,6 +37,7 @@ export type Call = {
 export type CallsSliceState = {
   callList: Call[];
   isLoading: boolean;
+  hasRedirectedToLatestCall: boolean;
 };
 
 export type CodecCount = Record<Codec, number>;
