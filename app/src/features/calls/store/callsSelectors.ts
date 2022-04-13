@@ -1,5 +1,5 @@
 import { RootState } from '../../../app/store';
-import type { Call, Codec, CodecCount, CodecQuantities } from './calls.types';
+import type { Call, CallDates, Codec, CodecCount, CodecQuantities } from './calls.types';
 
 const getAllCodecs = (state: RootState): Codec[] => {
   return state.calls.callList.flatMap((call) => {
@@ -48,18 +48,18 @@ const getCodecsQuantities = (state: RootState) => {
   return codecs;
 };
 
-const getDaysWithCalls = (state: RootState): Call['dates'][] => {
-  const days: Call['dates'][] = state.calls.callList
+const getDaysWithCalls = (state: RootState): CallDates[] => {
+  const days: CallDates[] = state.calls.callList
     .map(({ dates }) => dates)
     .filter((dates, index, arr) => {
-      const firstIndex: number = arr.findIndex(datesCurrent => {
-        const isMatchingIso = datesCurrent.iso === dates.iso
-        const isMatchingUser = datesCurrent.user === dates.user
+      const firstOccurrenceIndex = arr.findIndex((datesCurrent) => {
+        const isMatchingIso = datesCurrent.iso === dates.iso;
+        const isMatchingUser = datesCurrent.user === dates.user;
 
         return isMatchingIso && isMatchingUser;
-      })
+      });
 
-      return firstIndex === index;
+      return firstOccurrenceIndex === index;
     })
     .sort((a, z) => a.iso.localeCompare(z.iso));
 

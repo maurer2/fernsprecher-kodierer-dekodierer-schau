@@ -22,12 +22,14 @@ export type CallStringlyTyped = {
   };
 };
 
+export type CallDates = {
+  iso: ISODate | string,
+  user: GBDate | string,
+}
+
 export type Call = {
   dateTime: DateTimeStamp;
-  dates: {
-    iso: ISODate | string,
-    user: GBDate | string,
-  },
+  dates: CallDates,
   codecs: {
     send: Codec;
     receive: Codec;
