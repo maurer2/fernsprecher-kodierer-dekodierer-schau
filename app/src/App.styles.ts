@@ -1,4 +1,4 @@
-import { styled } from '@stitches/react';
+import { styled, theme } from './global.styles';
 
 export const Wrapper = styled('article', {
   display: 'grid',
@@ -7,6 +7,7 @@ export const Wrapper = styled('article', {
   gridTemplateRows: `
     1fr
   `,
+  background: theme.colors.white,
 
   '& > *': {
     gridColumn: 2,
