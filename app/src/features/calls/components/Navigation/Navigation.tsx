@@ -1,32 +1,22 @@
 import { ReactElement, VFC } from 'react';
-import { NavLink } from 'react-router-dom';
-import CSS from 'csstype';
 
 import * as Types from './Navigation.types';
+import * as Styles from './Navigation.styles';
 
 const Navigation: VFC<Readonly<Types.NavigationProps>> = ({ daysWithCalls, currentDay }): ReactElement => {
-  const normalStyles: CSS.Properties = {
-    textDecoration: 'none',
-  };
 
-  const activeStyles: CSS.Properties = {
-    background: '#00e',
-    color: '#fff',
-    borderColor: '#00e',
-    textDecoration: 'none',
-  };
 
   return (
     <nav className="nav">
       {daysWithCalls.map((day) => (
-        <NavLink
+        <Styles.Link
           key={day.iso}
           to={`/calls/${day.iso}`}
           className="nav-link"
-          style={day.iso === currentDay ? activeStyles : normalStyles}
+          status={day.iso === currentDay ? 'active' : 'default'}
         >
           {day.user}
-        </NavLink>
+        </Styles.Link>
       ))}
     </nav>
   );

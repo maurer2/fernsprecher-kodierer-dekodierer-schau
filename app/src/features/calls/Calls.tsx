@@ -14,6 +14,7 @@ import Overlay from './components/Overlay';
 import CallList from './components/CallList';
 
 import * as Types from './Calls.types';
+import * as Styles from './Calls.styles';
 
 const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement => {
   const { isLoading, hasRedirectedToLatestCall } = useSelector((state: RootState) => state.calls);
@@ -40,7 +41,7 @@ const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement => {
   }, [navigate, dispatch, hasRedirectedToLatestCall, mostRecentDay]);
 
   return (
-    <div className="container">
+    <Styles.Calls>
       <h1>
         <NavLink
           to="/calls/"
@@ -62,7 +63,7 @@ const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement => {
           />
         </>
       ) : null}
-    </div>
+    </Styles.Calls>
   );
 };
 
