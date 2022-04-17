@@ -7,7 +7,7 @@ export default function useCallStatistics(codecs: Codec[]): readonly [number, Co
     'G.722': 0,
     'G.726': 0,
     'G.729': 0,
-    'Unknown': 0,
+    Unknown: 0,
   };
 
   const codecsAbsoluteUnsorted = codecs.reduce((total, current) => {
@@ -17,7 +17,7 @@ export default function useCallStatistics(codecs: Codec[]): readonly [number, Co
   }, emptyCount);
 
   const codecsAbsoluteSorted = Object.entries(codecsAbsoluteUnsorted).sort(
-    (codecA, codecB) => codecB[1] - codecA[1]
+    (codecA, codecB) => codecB[1] - codecA[1],
   );
 
   const codecsTotal = codecsAbsoluteSorted.reduce((total, [, count]) => total + count, 0);

@@ -1,4 +1,6 @@
-import { ReactElement, useRef, FC, useEffect } from 'react';
+import {
+  ReactElement, useRef, FC, useEffect,
+} from 'react';
 
 import * as Types from './Overlay.types';
 

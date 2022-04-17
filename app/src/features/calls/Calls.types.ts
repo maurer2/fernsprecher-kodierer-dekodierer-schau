@@ -1,1 +1,1 @@
-export type CallsProps = {};
+export type CallsProps = Record<string, never>;

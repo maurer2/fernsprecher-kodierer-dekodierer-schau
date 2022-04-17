@@ -1,12 +1,12 @@
-import { styled, theme } from '../../../../global.styles';
 import { NavLink } from 'react-router-dom';
+import { styled, theme } from '../../../../global.styles';
 
 export const Nav = styled('nav', {
   display: 'grid',
   margin: '0.5rem',
   gridTemplateColumns: 'repeat( auto-fit, minmax(150px, 1fr))',
   gridGap: '0.5rem',
-})
+});
 
 export const Link = styled(NavLink, {
   padding: '0.5rem 1rem',
@@ -24,7 +24,6 @@ export const Link = styled(NavLink, {
         background: theme.colors.purpleCorallite,
         color: theme.colors.white,
       },
-    }
+    },
   },
 });
-

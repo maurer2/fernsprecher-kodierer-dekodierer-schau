@@ -8,7 +8,6 @@ module.exports = {
     'eslint:recommended',
     'airbnb',
     'airbnb-typescript',
-    'unicorn',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
@@ -19,17 +18,27 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 12,
     sourceType: 'module',
+    project: ['./tsconfig.json'],
   },
-  plugins: [
-    '@typescript-eslint',
-    'lodash',
-  ],
+  plugins: ['@typescript-eslint', 'lodash', 'unicorn'],
   rules: {
-    'import/extensions': 'off',
-    'no-unused-vars': ["warn", { "ignoreRestSiblings": true }],
+    'import/extensions': 'error',
+    'no-unused-vars': ['warn', { ignoreRestSiblings: true }],
+    'import/prefer-default-export': 'off',
+    'no-console': 'off',
     // lodash
     'lodash/import-scope': [2, 'member'],
     'lodash/prefer-lodash-method': 'off',
+    // react
+    'react/react-in-jsx-scope': 'off',
+    // react & redux
+    'no-param-reassign': [
+      'error',
+      {
+        props: true,
+        ignorePropertyModificationsFor: ['state', 'total'],
+      },
+    ],
   },
   settings: {
     'import/resolver': {

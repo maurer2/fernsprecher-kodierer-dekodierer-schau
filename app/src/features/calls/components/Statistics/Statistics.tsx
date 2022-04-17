@@ -7,18 +7,18 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
   const numberOfDigits = codecStatistics.reduce(
     (total, current) => {
       const countDigits = current[2].toString().length;
-      total['count'] = total['count'].concat(countDigits);
+      total.count = total.count.concat(countDigits);
       return total;
     },
     {
       percentage: [] as number[],
       count: [] as number[],
-    }
+    },
   );
   const numberOfEntriesTotal = codecStatistics.reduce((total, current) => (total += current[2]), 0);
 
   const numberOfDigitsForCount = Math.max(...numberOfDigits.count);
-  //const numberOfEntriesTotal = Math.max(...codecStatistics);
+  // const numberOfEntriesTotal = Math.max(...codecStatistics);
 
   if (!codecStatistics.length) {
     return null;
@@ -38,7 +38,10 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
         {codecStatistics.map(([name, percentage, count]) => (
           <tr key={name}>
             <td>{name}</td>
-            <td>{percentage.toFixed(2)}%</td>
+            <td>
+              {percentage.toFixed(2)}
+              %
+            </td>
             <td>{String(count).padStart(numberOfDigitsForCount, '0')}</td>
             <td>
               <span
@@ -57,7 +60,7 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
         <tr>
           <td colSpan={2}>Total</td>
           <td colSpan={1}>{numberOfEntriesTotal}</td>
-          <td></td>
+          <td />
         </tr>
       </tfoot>
     </table>

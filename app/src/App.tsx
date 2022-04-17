@@ -7,7 +7,7 @@ import Home from './features/home/index';
 import './App.css';
 import 'purecss';
 
-import * as Styles from './App.styles'
+import * as Styles from './App.styles';
 
 function App() {
   return (
@@ -15,18 +15,18 @@ function App() {
       <Styles.Main>
         <Router>
           <Routes>
-          <Route
-            path='/calls'
-            element={<Calls />}
-          />
-          <Route
-            path='/calls/:day'
-            element={<Calls />}
-          />
-          <Route
-            path="*"
-            element={<Home />}
-          />
+            <Route
+              path="/calls"
+              element={<Calls />}
+            />
+            <Route
+              path="/calls/:day"
+              element={<Calls />}
+            />
+            <Route
+              path="*"
+              element={<Home />}
+            />
           </Routes>
         </Router>
       </Styles.Main>

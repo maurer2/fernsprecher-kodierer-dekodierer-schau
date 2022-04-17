@@ -9,7 +9,7 @@ const { css, styled, theme } = createStitches({
       fusionRed: '#ff6361',
       cheese: '#ffa600',
       black: '#000',
-      white: '#fff'
+      white: '#fff',
     },
   },
   utils: {
@@ -22,6 +22,5 @@ const { css, styled, theme } = createStitches({
     }),
   },
 });
-
 
 export { css, styled, theme };

@@ -1,5 +1,7 @@
 import callJSON from '../../../data/dummy.json';
-import type { Call, CallStringlyTyped, ISODate, GBDate } from './calls.types';
+import type {
+  Call, CallStringlyTyped, ISODate, GBDate,
+} from './calls.types';
 import { isCodec, codecsValuesDefault } from './calls.types';
 
 export function getCallList(): Promise<Call[]> {
@@ -17,7 +19,7 @@ export function getCallList(): Promise<Call[]> {
       const { send, receive } = codecs;
       const dateTimeParsed = Date.parse(dateTime);
 
-      const {0: day, 2: month, 4: year} = dateFormatter.formatToParts(dateTimeParsed)
+      const { 0: day, 2: month, 4: year } = dateFormatter.formatToParts(dateTimeParsed);
       const isoDate: ISODate | string = `${year.value}-${month.value}-${day.value}`; // todo
       const userDate: GBDate | string = `${day.value}/${month.value}/${year.value}`; // todo
 

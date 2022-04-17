@@ -21,7 +21,7 @@ const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
     {
       startValue: 0,
       sections: [] as string[],
-    }
+    },
   );
 
   const gradientsSectionsString = gradientSections.sections.join(', ');

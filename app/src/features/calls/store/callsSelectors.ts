@@ -1,17 +1,17 @@
 import { RootState } from '../../../app/store';
-import type { Call, CallDates, Codec, CodecCount, CodecQuantities } from './calls.types';
+import type {
+  Call, CallDates, Codec, CodecCount, CodecQuantities,
+} from './calls.types';
 
-const getAllCodecs = (state: RootState): Codec[] => {
-  return state.calls.callList.flatMap((call) => {
-    const { receive, send } = call?.codecs;
+const getAllCodecs = (state: RootState): Codec[] => state.calls.callList.flatMap((call) => {
+  const { receive, send } = call?.codecs;
 
-    if (!receive && !send) {
-      return [];
-    }
+  if (!receive && !send) {
+    return [];
+  }
 
-    return [receive, send];
-  });
-};
+  return [receive, send];
+});
 
 const getCallsUnsorted = (state: RootState): Call[] => state.calls.callList.map((call) => call);
 
@@ -77,4 +77,6 @@ const getMostRecentDayWithCall = (state: RootState): Call['dates'] | null => {
   return lastDay;
 };
 
-export { getCallsUnsorted, getCodecsQuantities, getDaysWithCalls, getMostRecentDayWithCall };
+export {
+  getCallsUnsorted, getCodecsQuantities, getDaysWithCalls, getMostRecentDayWithCall,
+};

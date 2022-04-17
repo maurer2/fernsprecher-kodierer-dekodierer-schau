@@ -3,4 +3,3 @@ import type { CodecsStatistics } from '../../hooks/useCallStatistics/useCallStat
 export type StatisticsProps = {
   codecStatistics: CodecsStatistics;
 };
-

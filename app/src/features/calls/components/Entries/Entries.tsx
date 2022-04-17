@@ -8,7 +8,7 @@ const Entries: FC<Readonly<Types.EntriesProps>> = ({ entriesForDay }): ReactElem
   <div className="syntaxhighlight">
     <SyntaxHighlighter
       language="json"
-      showLineNumbers={true}
+      showLineNumbers
       style={style}
     >
       {JSON.stringify(entriesForDay, null, 4)}

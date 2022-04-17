@@ -25,7 +25,7 @@ export type CallStringlyTyped = {
 export type CallDates = {
   iso: ISODate | string,
   user: GBDate | string,
-}
+};
 
 export type Call = {
   dateTime: DateTimeStamp;
