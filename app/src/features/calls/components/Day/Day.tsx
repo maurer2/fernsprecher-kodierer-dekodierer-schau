@@ -1,4 +1,4 @@
-import React, { VFC } from 'react';
+import React, { FC } from 'react';
 import useCallStatistics from '../../hooks/useCallStatistics';
 
 import PieChart from '../PieChart';
@@ -7,7 +7,7 @@ import Entries from '../Entries';
 
 import * as Types from './Day.types';
 
-const Day: VFC<Readonly<Types.DayProps>> = ({ callsForCurrentDay }) => {
+const Day: FC<Readonly<Types.DayProps>> = ({ callsForCurrentDay }) => {
   const receiveCodecs = callsForCurrentDay.map((entry) => entry.codecs.receive);
   const sendCodecs = callsForCurrentDay.map((entry) => entry.codecs.send);
 

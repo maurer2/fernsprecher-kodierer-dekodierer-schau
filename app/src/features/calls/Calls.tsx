@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, VFC } from 'react';
+import { ReactElement, useEffect, FC } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/store';
@@ -16,7 +16,7 @@ import CallList from './components/CallList';
 import * as Types from './Calls.types';
 import * as Styles from './Calls.styles';
 
-const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement => {
+const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
   const { isLoading, hasRedirectedToLatestCall } = useSelector((state: RootState) => state.calls);
   const calls = useSelector(getCallsUnsorted);
   const daysWithCalls = useSelector(getDaysWithCalls);
@@ -28,7 +28,7 @@ const Calls: VFC<Readonly<Types.CallsProps>> = (): ReactElement => {
   const { day = null } = useParams();
 
   useEffect(() => {
-    dispatch(getCalls());
+    dispatch(getCalls() as any); // todo fix
   }, [dispatch]);
 
   useEffect(() => {

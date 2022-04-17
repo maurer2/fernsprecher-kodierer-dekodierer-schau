@@ -1,9 +1,9 @@
-import { ReactElement, VFC } from 'react';
+import { ReactElement, FC } from 'react';
 
 import * as Types from './Navigation.types';
 import * as Styles from './Navigation.styles';
 
-const Navigation: VFC<Readonly<Types.NavigationProps>> = ({
+const Navigation: FC<Readonly<Types.NavigationProps>> = ({
   daysWithCalls,
   currentDay,
 }): ReactElement => (

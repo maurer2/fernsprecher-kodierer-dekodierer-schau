@@ -1,9 +1,9 @@
-import React, { VFC } from 'react';
+import React, { FC } from 'react';
 
 import * as Types from './Statistics.types';
 import { colourCodecMap } from '../PieChart/constants';
 
-const Statistics: VFC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) => {
+const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) => {
   const numberOfDigits = codecStatistics.reduce(
     (total, current) => {
       const countDigits = current[2].toString().length;

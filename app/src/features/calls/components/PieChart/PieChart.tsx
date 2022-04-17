@@ -1,9 +1,9 @@
-import React, { VFC } from 'react';
+import React, { FC } from 'react';
 
 import * as Types from './PieChart.types';
 import { colourCodecMap } from './constants';
 
-const PieChart: VFC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
+const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
   const gradientSections = codecStatistics.reduce(
     (total, current) => {
       const colour = colourCodecMap[current[0]];

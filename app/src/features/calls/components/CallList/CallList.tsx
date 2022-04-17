@@ -1,10 +1,10 @@
-import { ReactElement, VFC, useMemo } from 'react';
+import { ReactElement, FC, useMemo } from 'react';
 import useCallListGroupedByDate from '../../hooks/useCallListGroupedByDate';
 import Day from '../Day';
 
 import * as Types from './CallList.types';
 
-const CallList: VFC<Readonly<Types.CallListProps>> = ({ calls, currentDay }): ReactElement | null => {
+const CallList: FC<Readonly<Types.CallListProps>> = ({ calls, currentDay }): ReactElement | null => {
   const [groupedCallList] = useCallListGroupedByDate(calls);
   const callsForCurrentDay = useMemo(() => {
     if (!currentDay) {
