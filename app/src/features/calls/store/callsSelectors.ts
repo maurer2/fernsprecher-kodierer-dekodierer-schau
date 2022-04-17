@@ -4,7 +4,8 @@ import type {
 } from './calls.types';
 
 const getAllCodecs = (state: RootState): Codec[] => state.calls.callList.flatMap((call) => {
-  const { receive, send } = call?.codecs;
+  const receive = call?.codecs?.receive;
+  const send = call?.codecs?.send;
 
   if (!receive && !send) {
     return [];

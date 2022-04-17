@@ -7,7 +7,12 @@ import { store } from './app/store';
 
 import './index.css';
 
-const root = createRoot(document.getElementById('root')!);
+const rootDomElement = document.getElementById('root');
+if (!rootDomElement) {
+  throw Error('Root element not found');
+}
+
+const root = createRoot(rootDomElement);
 
 root.render(
   <React.StrictMode>

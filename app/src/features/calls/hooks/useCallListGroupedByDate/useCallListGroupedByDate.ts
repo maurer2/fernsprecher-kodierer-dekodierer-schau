@@ -15,7 +15,7 @@ export default function useCallListGroupedByDate(
       return;
     }
 
-    const callsGroupedByDate = groupBy(callList, (call) => call.dates.iso);
+    const callsGroupedByDate = groupBy(callList, 'dates.iso');
     setCallsOrdered(callsGroupedByDate);
     callListPrev.current = callList;
   }, [callList]);

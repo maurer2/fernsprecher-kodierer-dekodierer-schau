@@ -1,6 +1,7 @@
 import { Codec } from '../../store/calls.types';
 import type { CodecsStatistics } from '../../hooks/useCallStatistics/useCallStatistics.types';
-import { COLOURS } from './constants';
+
+const COLOURS = ['#003f5c', '#58508d', '#bc5090', '#ff6361', '#ffa600'] as const;
 
 export type PieChartProps = {
   numberOfCodecs: number;

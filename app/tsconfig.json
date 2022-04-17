@@ -23,7 +23,4 @@
   "include": [
     "src"
   ],
-  "parserOptions": {
-    "project": ["./tsconfig.json"]
-  },
 }

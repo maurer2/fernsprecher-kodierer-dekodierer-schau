@@ -9,29 +9,27 @@ import 'purecss';
 
 import * as Styles from './App.styles';
 
-function App() {
-  return (
-    <Styles.Wrapper className="App">
-      <Styles.Main>
-        <Router>
-          <Routes>
-            <Route
-              path="/calls"
-              element={<Calls />}
-            />
-            <Route
-              path="/calls/:day"
-              element={<Calls />}
-            />
-            <Route
-              path="*"
-              element={<Home />}
-            />
-          </Routes>
-        </Router>
-      </Styles.Main>
-    </Styles.Wrapper>
-  );
-}
+const App = () => (
+  <Styles.Wrapper className="App">
+    <Styles.Main>
+      <Router>
+        <Routes>
+          <Route
+            path="/calls"
+            element={<Calls />}
+          />
+          <Route
+            path="/calls/:day"
+            element={<Calls />}
+          />
+          <Route
+            path="*"
+            element={<Home />}
+          />
+        </Routes>
+      </Router>
+    </Styles.Main>
+  </Styles.Wrapper>
+);
 
 export default App;

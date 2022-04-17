@@ -15,10 +15,8 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
       count: [] as number[],
     },
   );
-  const numberOfEntriesTotal = codecStatistics.reduce((total, current) => (total += current[2]), 0);
-
+  const numberOfEntriesTotal = codecStatistics.reduce((total, current) => (total + current[2]), 0);
   const numberOfDigitsForCount = Math.max(...numberOfDigits.count);
-  // const numberOfEntriesTotal = Math.max(...codecStatistics);
 
   if (!codecStatistics.length) {
     return null;
