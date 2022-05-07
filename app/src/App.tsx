@@ -4,14 +4,16 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Calls from './features/calls';
 import Home from './features/home/index';
 
-import './App.css';
 import 'purecss';
+import { GlobalStyles } from './global.styles';
 
 import * as Styles from './App.styles';
 
-const App = () => (
-  <Styles.Wrapper className="App">
-    <Styles.Main>
+const App = () => {
+  GlobalStyles();
+
+  return (
+    <Styles.Wrapper className="App">
       <Router>
         <Routes>
           <Route
@@ -28,8 +30,8 @@ const App = () => (
           />
         </Routes>
       </Router>
-    </Styles.Main>
-  </Styles.Wrapper>
-);
+    </Styles.Wrapper>
+  );
+};
 
 export default App;

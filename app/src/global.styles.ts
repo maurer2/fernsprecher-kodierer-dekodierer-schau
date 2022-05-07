@@ -1,4 +1,4 @@
-import { createStitches } from '@stitches/react';
+import { createStitches, globalCss } from '@stitches/react';
 
 const { css, styled, theme } = createStitches({
   theme: {
@@ -23,4 +23,21 @@ const { css, styled, theme } = createStitches({
   },
 });
 
-export { css, styled, theme };
+const GlobalStyles = globalCss({
+  html: {
+    margin: 0,
+    fontFamily: '-apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif',
+  },
+  code: {
+    fontFamily: 'source-code-pro, Menlo, Monaco, Consolas, \'Courier New\', monospace',
+  },
+  dl: {
+    display: 'inline-grid',
+    gridTemplateColumns: 'max-content 1fr min-content min-content',
+    gridGaps: '1rem',
+  },
+});
+
+export {
+  css, styled, theme, GlobalStyles,
+};
