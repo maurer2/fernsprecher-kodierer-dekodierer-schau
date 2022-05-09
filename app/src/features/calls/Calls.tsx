@@ -41,29 +41,33 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
   }, [navigate, dispatch, hasRedirectedToLatestCall, mostRecentDay]);
 
   return (
-    <Styles.Calls>
-      <h1>
-        <NavLink
-          to="/calls/"
-          className="home-link"
-        >
-          Calls
-        </NavLink>
-      </h1>
+    <Styles.View>
+      <Styles.Header>
+        <Styles.Title>
+          <Styles.TitleLink
+            to="/calls/"
+            className="home-link"
+          >
+            Calls
+          </Styles.TitleLink>
+        </Styles.Title>
+      </Styles.Header>
+      <Styles.Content>
+        {!isLoading ? (
+          <>
+            <Navigation
+              daysWithCalls={daysWithCalls}
+              currentDay={day}
+            />
+            <CallList
+              calls={calls}
+              currentDay={day}
+            />
+          </>
+        ) : null}
+      </Styles.Content>
       <Overlay isShowing={isLoading}>Loading calls</Overlay>
-      {!isLoading ? (
-        <>
-          <Navigation
-            daysWithCalls={daysWithCalls}
-            currentDay={day}
-          />
-          <CallList
-            calls={calls}
-            currentDay={day}
-          />
-        </>
-      ) : null}
-    </Styles.Calls>
+    </Styles.View>
   );
 };
 
