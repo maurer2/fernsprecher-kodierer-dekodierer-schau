@@ -3,9 +3,8 @@ import { styled, theme } from '../../../../global.styles';
 
 export const Nav = styled('nav', {
   display: 'grid',
-  margin: '0.5rem',
-  gridTemplateColumns: 'repeat( auto-fit, minmax(150px, 1fr))',
-  gridGap: '0.5rem',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(125px, 1fr))',
+  gridGap: '1rem',
 });
 
 export const Link = styled(NavLink, {
@@ -14,6 +13,7 @@ export const Link = styled(NavLink, {
   borderStyle: 'solid',
   textDecoration: 'none',
   appearance: 'button',
+  textAlign: 'center',
   variants: {
     status: {
       default: {
