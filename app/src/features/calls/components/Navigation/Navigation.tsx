@@ -7,18 +7,21 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
   daysWithCalls,
   currentDay,
 }): ReactElement => (
-  <Styles.Nav>
-    {daysWithCalls.map((day) => (
-      <Styles.Link
-        key={day.iso}
-        to={`/calls/${day.iso}`}
-        className="nav-link"
-        status={day.iso === currentDay ? 'active' : 'default'}
-      >
-        {day.user}
-      </Styles.Link>
-    ))}
-  </Styles.Nav>
+  <>
+    <h2>Days</h2>
+    <Styles.Nav>
+      {daysWithCalls.map((day) => (
+        <Styles.Link
+          key={day.iso}
+          to={`/calls/${day.iso}`}
+          className="nav-link"
+          status={day.iso === currentDay ? 'active' : 'default'}
+        >
+          {day.user}
+        </Styles.Link>
+      ))}
+    </Styles.Nav>
+  </>
 );
 
 export default Navigation;

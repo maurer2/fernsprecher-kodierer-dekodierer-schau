@@ -44,12 +44,7 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
     <Styles.View>
       <Styles.Header>
         <Styles.Title>
-          <Styles.TitleLink
-            to="/calls/"
-            className="home-link"
-          >
-            Calls
-          </Styles.TitleLink>
+          <Styles.TitleLink to="/calls/">Calls</Styles.TitleLink>
         </Styles.Title>
       </Styles.Header>
       <Styles.Content>
