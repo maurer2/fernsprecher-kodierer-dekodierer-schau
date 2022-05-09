@@ -1,17 +1,6 @@
-import { styled, theme } from './global.styles';
+import { styled } from './global.styles';
 
-export const Wrapper = styled('article', {
-  display: 'grid',
+export const Wrapper = styled('div', {
+  display: 'flow-root', // new BFC to contain child margins of headline
   minHeight: '100vh',
-  gridTemplateColumns: '1fr min(75rem, 100%) 1fr',
-  gridTemplateRows: `
-    1fr
-  `,
-  background: theme.colors.white,
-
-  '& > *': {
-    gridColumn: 2,
-  },
 });
-
-export const Main = styled('main', {});

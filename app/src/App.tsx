@@ -13,7 +13,7 @@ const App = () => {
   GlobalStyles();
 
   return (
-    <Styles.Wrapper className="App">
+    <Styles.Wrapper>
       <Router>
         <Routes>
           <Route
