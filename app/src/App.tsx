@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Calls from './features/calls';
 import Home from './features/home/index';
 
-import 'purecss';
+import 'modern-normalize';
+
 import { GlobalStyles } from './global.styles';
 
 import * as Styles from './App.styles';
