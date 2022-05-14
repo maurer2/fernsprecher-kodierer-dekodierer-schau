@@ -1,5 +1,4 @@
-import { NavLink } from 'react-router-dom';
-import { styled, theme } from '../../../../global.styles';
+import { styled } from '../../../../global.styles';
 
 export const Day = styled('div', {
   display: 'block',

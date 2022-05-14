@@ -1,6 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 
 import * as Types from './Statistics.types';
+import * as Styles from './Statistics.styles';
+
 import { colourCodecMap } from '../PieChart/constants';
 
 const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) => {
@@ -23,45 +25,46 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
   }
 
   return (
-    <table className="pure-table pure-table-bordered">
-      <thead>
-        <tr>
+    <Styles.StatisticsTable>
+      <Styles.IgnoredTableElement as="thead">
+        <Styles.IgnoredTableElement as="tr">
           <th>Name</th>
           <th>Percentage</th>
           <th>Count</th>
           <th>Color</th>
-        </tr>
-      </thead>
-      <tbody>
+        </Styles.IgnoredTableElement>
+      </Styles.IgnoredTableElement>
+      <Styles.IgnoredTableElement as="tbody">
         {codecStatistics.map(([name, percentage, count]) => (
-          <tr key={name}>
-            <td>{name}</td>
-            <td>
-              {percentage.toFixed(2)}
-              %
-            </td>
-            <td>{String(count).padStart(numberOfDigitsForCount, '0')}</td>
-            <td>
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: '1ch',
-                  height: '1ch',
-                  background: `${colourCodecMap[name]}`,
-                }}
-              />
-            </td>
-          </tr>
+          <Fragment key={name}>
+            <Styles.IgnoredTableElement as="tr">
+              <td>{name}</td>
+              <td>
+                {percentage.toFixed(2)}
+                %
+              </td>
+              <td>{String(count).padStart(numberOfDigitsForCount, '0')}</td>
+              <td>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    width: '1ch',
+                    height: '1ch',
+                    background: `${colourCodecMap[name]}`,
+                  }}
+                />
+              </td>
+            </Styles.IgnoredTableElement>
+          </Fragment>
         ))}
-      </tbody>
-      <tfoot>
-        <tr>
+      </Styles.IgnoredTableElement>
+      <Styles.IgnoredTableElement as="tfoot">
+        <Styles.IgnoredTableElement as="tr">
           <td colSpan={2}>Total</td>
           <td colSpan={1}>{numberOfEntriesTotal}</td>
-          <td />
-        </tr>
-      </tfoot>
-    </table>
+        </Styles.IgnoredTableElement>
+      </Styles.IgnoredTableElement>
+    </Styles.StatisticsTable>
   );
 };
 
