@@ -17,7 +17,7 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
       count: [] as number[],
     },
   );
-  const numberOfEntriesTotal = codecStatistics.reduce((total, current) => (total + current[2]), 0);
+  const numberOfEntriesTotal = codecStatistics.reduce((total, current) => total + current[2], 0);
   const numberOfDigitsForCount = Math.max(...numberOfDigits.count);
 
   if (!codecStatistics.length) {
@@ -25,46 +25,46 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
   }
 
   return (
-    <Styles.StatisticsTable>
+    <Styles.Table>
       <Styles.IgnoredTableElement as="thead">
         <Styles.IgnoredTableElement as="tr">
-          <th>Name</th>
-          <th>Percentage</th>
-          <th>Count</th>
-          <th>Color</th>
+          <Styles.TableCellHead as="th">Name</Styles.TableCellHead>
+          <Styles.TableCellHead as="th">Percentage</Styles.TableCellHead>
+          <Styles.TableCellHead as="th">Count</Styles.TableCellHead>
+          <Styles.TableCellHead as="th">Colour</Styles.TableCellHead>
         </Styles.IgnoredTableElement>
       </Styles.IgnoredTableElement>
       <Styles.IgnoredTableElement as="tbody">
         {codecStatistics.map(([name, percentage, count]) => (
           <Fragment key={name}>
             <Styles.IgnoredTableElement as="tr">
-              <td>{name}</td>
-              <td>
+              <Styles.TableCell>{name}</Styles.TableCell>
+              <Styles.TableCell>
                 {percentage.toFixed(2)}
                 %
-              </td>
-              <td>{String(count).padStart(numberOfDigitsForCount, '0')}</td>
-              <td>
-                <span
+              </Styles.TableCell>
+              <Styles.TableCell>
+                {String(count).padStart(numberOfDigitsForCount, '0')}
+              </Styles.TableCell>
+              <Styles.TableCell>
+                <Styles.ColourIndicator
                   style={{
-                    display: 'inline-block',
-                    width: '1ch',
-                    height: '1ch',
                     background: `${colourCodecMap[name]}`,
                   }}
                 />
-              </td>
+              </Styles.TableCell>
             </Styles.IgnoredTableElement>
           </Fragment>
         ))}
       </Styles.IgnoredTableElement>
       <Styles.IgnoredTableElement as="tfoot">
         <Styles.IgnoredTableElement as="tr">
-          <td colSpan={2}>Total</td>
-          <td colSpan={1}>{numberOfEntriesTotal}</td>
+          <Styles.TableCellFoot colSpan={2}>Total</Styles.TableCellFoot>
+          <Styles.TableCellFoot>{numberOfEntriesTotal}</Styles.TableCellFoot>
+          <Styles.TableCellFoot />
         </Styles.IgnoredTableElement>
       </Styles.IgnoredTableElement>
-    </Styles.StatisticsTable>
+    </Styles.Table>
   );
 };
 

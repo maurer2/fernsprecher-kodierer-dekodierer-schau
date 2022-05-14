@@ -10,6 +10,7 @@ const { css, styled, theme } = createStitches({
       cheese: '#ffa600',
       black: '#000',
       white: '#fff',
+      gray: '#c3c3c3',
     },
     sizes: {
       contentMaxWidth: '50rem', // temp
