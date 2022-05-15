@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 
 import * as Types from './PieChart.types';
+import * as Styles from './PieChart.styles';
+
 import { colourCodecMap } from './constants';
 
 const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
@@ -25,22 +27,18 @@ const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
   );
 
   const gradientsSectionsString = gradientSections.sections.join(', ');
-  const pieChartStyle = {
-    width: '250px',
-    height: '250px',
+  const gradientBackgroundStyle = {
     background: `conic-gradient(${gradientsSectionsString})`,
-    borderRadius: '50%',
   };
 
   return (
-    <div className="container">
-      <div
-        className="pie-chart"
-        style={pieChartStyle}
+    <Styles.Container>
+      <Styles.PieChart
+        style={gradientBackgroundStyle}
       >
         <span className="visually-hidden">Pie chart</span>
-      </div>
-    </div>
+      </Styles.PieChart>
+    </Styles.Container>
   );
 };
 
