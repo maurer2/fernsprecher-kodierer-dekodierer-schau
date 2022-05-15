@@ -38,7 +38,7 @@ const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
         className="pie-chart"
         style={pieChartStyle}
       >
-        <span className="sr-only">Pie chart</span>
+        <span className="visually-hidden">Pie chart</span>
       </div>
     </div>
   );

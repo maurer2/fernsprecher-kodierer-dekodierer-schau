@@ -1,8 +1,9 @@
 import { styled, theme } from '../../../../global.styles';
+// import { colourCodecMap } from '../PieChart/constants';
 
 export const Table = styled('table', {
   display: 'grid',
-  gridTemplateColumns: '1fr 1fr 1fr 1fr',
+  gridTemplateColumns: '1fr 1fr min-content min-content',
   borderTop: `1px solid ${theme.colors.gray}`,
   borderRight: `1px solid ${theme.colors.gray}`,
 });
@@ -11,18 +12,6 @@ export const Table = styled('table', {
 export const IgnoredTableElement = styled('div', {
   display: 'contents',
 });
-
-// export const StatisticsTableHead = styled(IgnoredTableElement, {});
-// StatisticsTableHead.defaultProps = { as: 'thead' }; // TS error
-
-// export const StatisticsTableBody = styled(IgnoredTableElement, {});
-// StatisticsTableBody.defaultProps = { as: 'tbody' }; // TS error
-
-// export const StatisticsTableFoot = styled(IgnoredTableElement, {});
-// StatisticsTableFoot.defaultProps = { as: 'tfoot' }; // TS error
-
-// export const StatisticsTableRow = styled(IgnoredTableElement, {});
-// StatisticsTableRow.defaultProps = { as: 'tr' }; // TS error
 
 export const TableCell = styled('td', {
   padding: '0.5rem',
@@ -46,6 +35,7 @@ export const TableCell = styled('td', {
 export const TableCellHead = styled(TableCell, {
   background: theme.colors.purpleCorallite,
   color: theme.colors.white,
+  textAlign: 'left',
 });
 
 export const TableCellFoot = styled(TableCell, {
@@ -54,7 +44,31 @@ export const TableCellFoot = styled(TableCell, {
 });
 
 export const ColourIndicator = styled('span', {
-  display: 'inline-block',
-  width: '1ch',
-  height: '1ch',
+  display: 'block',
+  width: 'min-content',
+  margin: 'auto',
+
+  '&:before': {
+    content: '\u25A0', // rectangle https://en.wikipedia.org/wiki/Geometric_Shapes_(Unicode_block)
+  },
+
+  // variants: {
+  //   codec: {
+  //     'G.711': {
+  //       color: colourCodecMap['G.711'],
+  //     },
+  //     'G.722': {
+  //       color: colourCodecMap['G.722'],
+  //     },
+  //     'G.726': {
+  //       color: colourCodecMap['G.726'],
+  //     },
+  //     'G.729': {
+  //       color: colourCodecMap['G.729'],
+  //     },
+  //     Unknown: {
+  //       color: colourCodecMap.Unknown,
+  //     },
+  //   },
+  // },
 });

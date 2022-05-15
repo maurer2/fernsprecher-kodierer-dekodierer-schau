@@ -6,15 +6,16 @@ import * as Styles from './Statistics.styles';
 import { colourCodecMap } from '../PieChart/constants';
 
 const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) => {
-  const numberOfDigits = codecStatistics.reduce(
+  const numberOfDigits: Types.DigitsCounts = codecStatistics.reduce(
     (total, current) => {
       const countDigits = current[2].toString().length;
       total.count = total.count.concat(countDigits);
+
       return total;
     },
     {
-      percentage: [] as number[],
-      count: [] as number[],
+      percentage: [] as Types.DigitsCounts['percentage'],
+      count: [] as Types.DigitsCounts['count'],
     },
   );
   const numberOfEntriesTotal = codecStatistics.reduce((total, current) => total + current[2], 0);
@@ -47,11 +48,12 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
                 {String(count).padStart(numberOfDigitsForCount, '0')}
               </Styles.TableCell>
               <Styles.TableCell>
-                <Styles.ColourIndicator
-                  style={{
-                    background: `${colourCodecMap[name]}`,
-                  }}
-                />
+                <Styles.ColourIndicator /* codec={name} */ style={{
+                  color: `${colourCodecMap[name]}`,
+                }}
+                >
+                  <span className="visually-hidden">{name}</span>
+                </Styles.ColourIndicator>
               </Styles.TableCell>
             </Styles.IgnoredTableElement>
           </Fragment>
