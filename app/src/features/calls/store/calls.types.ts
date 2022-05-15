@@ -1,13 +1,24 @@
-export const codecsValues = ['G.711', 'G.722', 'G.726', 'G.729', 'Unknown'] as const;
-export const codecsValuesDefault = codecsValues[4];
-export type Codec = typeof codecsValues[number];
+export const codecsValues = {
+  'G.711': 'G711',
+  'G.722': 'G722',
+  'G.726': 'G726',
+  'G.729': 'G729',
+  Unknown: 'Unknown',
+} as const;
+export const codecsValuesDefault = (
+  Object.keys(codecsValues) as Array<keyof typeof codecsValues>
+)[4];
+
+export type Codec = keyof typeof codecsValues;
 
 // Codec type guard
 export function isCodec(codecString: string | null): codecString is Codec {
   if (!codecString) {
     return false;
   }
-  return codecsValues.includes(codecString as Codec);
+  const codecNames = Object.keys(codecsValues) as Array<keyof typeof codecsValues>;
+
+  return codecNames.includes(codecString as Codec);
 }
 
 type DateTimeStamp = ReturnType<typeof Date['now']>;
@@ -23,13 +34,13 @@ export type CallStringlyTyped = {
 };
 
 export type CallDates = {
-  iso: ISODate | string,
-  user: GBDate | string,
+  iso: ISODate | string;
+  user: GBDate | string;
 };
 
 export type Call = {
   dateTime: DateTimeStamp;
-  dates: CallDates,
+  dates: CallDates;
   codecs: {
     send: Codec;
     receive: Codec;

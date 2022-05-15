@@ -1,5 +1,5 @@
 import { styled, theme } from '../../../../global.styles';
-// import { colourCodecMap } from '../PieChart/constants';
+import { colourCodecMap } from '../PieChart/constants';
 
 export const Table = styled('table', {
   display: 'grid',
@@ -52,23 +52,23 @@ export const ColourIndicator = styled('span', {
     content: '\u25A0', // rectangle https://en.wikipedia.org/wiki/Geometric_Shapes_(Unicode_block)
   },
 
-  // variants: {
-  //   codec: {
-  //     'G.711': {
-  //       color: colourCodecMap['G.711'],
-  //     },
-  //     'G.722': {
-  //       color: colourCodecMap['G.722'],
-  //     },
-  //     'G.726': {
-  //       color: colourCodecMap['G.726'],
-  //     },
-  //     'G.729': {
-  //       color: colourCodecMap['G.729'],
-  //     },
-  //     Unknown: {
-  //       color: colourCodecMap.Unknown,
-  //     },
-  //   },
-  // },
+  variants: {
+    codec: {
+      G711: {
+        color: colourCodecMap['G.711'],
+      },
+      G722: {
+        color: colourCodecMap['G.722'],
+      },
+      G726: {
+        color: colourCodecMap['G.726'],
+      },
+      G729: {
+        color: colourCodecMap['G.729'],
+      },
+      Unknown: {
+        color: colourCodecMap.Unknown,
+      },
+    },
+  },
 });

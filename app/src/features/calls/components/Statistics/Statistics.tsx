@@ -1,9 +1,8 @@
 import React, { FC, Fragment } from 'react';
+import { codecsValues } from '../../store/calls.types';
 
 import * as Types from './Statistics.types';
 import * as Styles from './Statistics.styles';
-
-import { colourCodecMap } from '../PieChart/constants';
 
 const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) => {
   const numberOfDigits: Types.DigitsCounts = codecStatistics.reduce(
@@ -48,10 +47,7 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
                 {String(count).padStart(numberOfDigitsForCount, '0')}
               </Styles.TableCell>
               <Styles.TableCell>
-                <Styles.ColourIndicator /* codec={name} */ style={{
-                  color: `${colourCodecMap[name]}`,
-                }}
-                >
+                <Styles.ColourIndicator codec={codecsValues[name]}>
                   <span className="visually-hidden">{name}</span>
                 </Styles.ColourIndicator>
               </Styles.TableCell>
