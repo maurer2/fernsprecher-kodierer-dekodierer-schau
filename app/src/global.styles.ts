@@ -35,6 +35,7 @@ const GlobalStyles = globalCss({
   },
   body: {
     background: theme.colors.white,
+    scrollbarGutter: 'stable both-edges',
   },
   code: {
     fontFamily: 'source-code-pro, Menlo, Monaco, Consolas, \'Courier New\', monospace',
@@ -43,6 +44,15 @@ const GlobalStyles = globalCss({
     display: 'inline-grid',
     gridTemplateColumns: 'max-content 1fr min-content min-content',
     gridGaps: '1rem',
+  },
+  '.visually-hidden:not(:focus):not(:active)': {
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: '1px',
+    overflow: 'hidden',
+    position: 'absolute',
+    whiteSpace: 'nowrap',
+    width: '1px',
   },
 });
 

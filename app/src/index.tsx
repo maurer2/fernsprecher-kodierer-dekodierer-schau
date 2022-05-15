@@ -5,8 +5,6 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { store } from './app/store';
 
-import './index.css';
-
 const rootDomElement = document.getElementById('root');
 if (!rootDomElement) {
   throw Error('Root element not found');
