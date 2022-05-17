@@ -13,7 +13,7 @@ const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
         const colour = colourCodecMap[current[0]];
         const endValue = total.startValue + current[1];
 
-        const section = `${colour} ${total.startValue.toFixed(5)}% ${endValue.toFixed(5)}%`;
+        const section: Types.ColourGradientSection = `${colour} ${total.startValue.toFixed(5)}% ${endValue.toFixed(5)}%`;
 
         const newTotal = {
           startValue: total.startValue + current[1],
@@ -24,7 +24,7 @@ const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
       },
       {
         startValue: 0,
-        sections: [] as string[],
+        sections: [] as Types.ColourGradientSection[],
       },
     );
 

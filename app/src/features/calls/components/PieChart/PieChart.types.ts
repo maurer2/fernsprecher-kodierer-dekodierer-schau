@@ -11,3 +11,5 @@ export type PieChartProps = {
 export type Colour = typeof COLOURS[number];
 
 export type ColourCodec = Record<Codec, Colour>;
+
+export type ColourGradientSection = `#${string} ${string}% ${string}%` | `rgb(${number}, ${number}, ${number}) ${string}% ${string}%`;
