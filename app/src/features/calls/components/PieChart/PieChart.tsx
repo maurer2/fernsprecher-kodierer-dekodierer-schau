@@ -9,9 +9,10 @@ const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
   const gradientSections = codecStatistics
     .filter(([, percentage]) => percentage !== 0)
     .reduce(
-      (total, current) => {
+      (total, current, _, arr) => {
+        const isLastSection = current === arr.at(-1);
         const colour = colourCodecMap[current[0]];
-        const endValue = total.startValue + current[1];
+        const endValue = isLastSection ? 100 : total.startValue + current[1];
 
         const section: Types.ColourGradientSection = `${colour} ${total.startValue.toFixed(5)}% ${endValue.toFixed(5)}%`;
 
