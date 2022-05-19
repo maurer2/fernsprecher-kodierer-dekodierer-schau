@@ -41,12 +41,13 @@ const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
             css={{
               background: `conic-gradient(${gradientsSectionsString})`,
             }}
+            data-testid="pie-chart"
           >
             <span className="visually-hidden">Pie chart</span>
           </Styles.PieChart>
         )
         : (
-          <Styles.Alert>
+          <Styles.Alert data-testid="pie-chart-fallback">
             <p>Chart can not be shown.</p>
           </Styles.Alert>
         )
