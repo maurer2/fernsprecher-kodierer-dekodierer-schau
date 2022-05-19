@@ -30,16 +30,27 @@ const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
     );
 
   const gradientsSectionsString = gradientSections.sections.join(', ');
+  const showPieChart = Boolean(codecStatistics.length);
 
   return (
     <Styles.Container>
-      <Styles.PieChart
-        css={{
-          background: `conic-gradient(${gradientsSectionsString})`,
-        }}
-      >
-        <span className="visually-hidden">Pie chart</span>
-      </Styles.PieChart>
+      {
+      showPieChart
+        ? (
+          <Styles.PieChart
+            css={{
+              background: `conic-gradient(${gradientsSectionsString})`,
+            }}
+          >
+            <span className="visually-hidden">Pie chart</span>
+          </Styles.PieChart>
+        )
+        : (
+          <Styles.Alert>
+            <p>Chart can not be shown.</p>
+          </Styles.Alert>
+        )
+      }
     </Styles.Container>
   );
 };

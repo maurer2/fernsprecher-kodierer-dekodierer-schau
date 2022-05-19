@@ -8,3 +8,14 @@ export const PieChart = styled('div', {
   margin: 'auto',
   borderRadius: '50%',
 });
+
+export const Alert = styled('aside', {
+  marginBottom: '1rem',
+  padding: '1rem',
+  border: `1px solid ${theme.colors.gray}`,
+  textAlign: 'center',
+
+  '> p': {
+    margin: 0,
+  },
+});
