@@ -10,7 +10,6 @@ const initialState: CallsSliceState = {
 
 export const getCalls = createAsyncThunk('calls/getCalls', async () => {
   const calls = await getCallList();
-  console.log('calls loaded');
 
   return calls;
 });

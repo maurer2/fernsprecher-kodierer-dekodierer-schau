@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import * as Types from './PieChart.types';
 import * as Styles from './PieChart.styles';
 
-import { colourCodecMap } from './constants';
+import { codecColourMap, theme } from '../../../../global.styles';
 
 const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
   const gradientSections = codecStatistics
@@ -11,7 +11,7 @@ const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
     .reduce(
       (total, current, _, arr) => {
         const isLastSection = current === arr.at(-1);
-        const colour = colourCodecMap[current[0]];
+        const colour = theme.colors[codecColourMap[current[0]]];
         const endValue = isLastSection ? 100 : total.startValue + current[1];
 
         const section: Types.ColourGradientSection = `${colour} ${total.startValue.toFixed(5)}% ${endValue.toFixed(5)}%`;

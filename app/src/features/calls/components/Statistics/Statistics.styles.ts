@@ -1,5 +1,4 @@
-import { styled, theme } from '../../../../global.styles';
-import { colourCodecMap } from '../PieChart/constants';
+import { styled, theme, codecColourMap } from '../../../../global.styles';
 
 export const Table = styled('table', {
   display: 'grid',
@@ -55,19 +54,19 @@ export const ColourIndicator = styled('span', {
   variants: {
     codec: {
       G711: {
-        color: colourCodecMap['G.711'],
+        color: theme.colors[codecColourMap['G.711']],
       },
       G722: {
-        color: colourCodecMap['G.722'],
+        color: theme.colors[codecColourMap['G.722']],
       },
       G726: {
-        color: colourCodecMap['G.726'],
+        color: theme.colors[codecColourMap['G.726']],
       },
       G729: {
-        color: colourCodecMap['G.729'],
+        color: theme.colors[codecColourMap['G.729']],
       },
       Unknown: {
-        color: colourCodecMap.Unknown,
+        color: theme.colors[codecColourMap.Unknown],
       },
     },
   },

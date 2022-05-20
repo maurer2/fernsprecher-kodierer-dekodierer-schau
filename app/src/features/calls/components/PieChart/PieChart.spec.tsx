@@ -7,7 +7,7 @@ import * as Types from './PieChart.types';
 
 describe('PieChart', () => {
   const propsDefault: Types.PieChartProps = {
-    numberOfCodecs: 5,
+    numberOfCodecs: 10,
     codecStatistics: [
       ['G.729', 40, 4],
       ['G.711', 20, 2],
@@ -17,7 +17,7 @@ describe('PieChart', () => {
     ],
   };
 
-  const setup: ReturnType<typeof render> = (props?: Types.PieChartProps) => render(
+  const setup = (props?: Types.PieChartProps) => render(
     <Component
       {...propsDefault}
       {...props}
