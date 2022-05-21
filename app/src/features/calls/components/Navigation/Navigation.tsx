@@ -15,9 +15,8 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
     <Styles.Navigation>
       <Styles.LinkList>
         {daysWithCalls.map((day) => (
-          <Styles.LinkListEntry>
+          <Styles.LinkListEntry key={day.iso}>
             <Styles.Link
-              key={day.iso}
               to={`/calls/${day.iso}`}
               className="nav-link"
               status={day.iso === currentDay ? 'active' : 'default'}
