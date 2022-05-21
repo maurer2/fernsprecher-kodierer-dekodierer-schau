@@ -1,10 +1,28 @@
 import { NavLink } from 'react-router-dom';
 import { styled, theme } from '../../../../global.styles';
 
-export const Nav = styled('nav', {
+export const Navigation = styled('nav', {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(125px, 1fr))',
-  gridGap: '1rem',
+  gridTemplateColumns: '1fr min-content min-content',
+  // gridGap: '0 1rem',
+  overflow: 'hidden',
+});
+
+export const LinkList = styled('ul', {
+  display: 'flex',
+  padding: 0,
+  margin: 0,
+  overflow: 'scroll',
+  overflowY: 'scroll',
+  listStyle: 'none',
+  background: theme.colors.cheese,
+  overscrollBehaviourX: 'contain', // doesn't work
+  'overscroll-behavior-x': 'contain',
+
+});
+
+export const LinkListEntry = styled('li', {
+  display: 'contents',
 });
 
 export const Link = styled(NavLink, {
@@ -27,3 +45,5 @@ export const Link = styled(NavLink, {
     },
   },
 });
+
+export const NavButton = styled('button', {});

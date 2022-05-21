@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, FC } from 'react';
-import { useParams, NavLink, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/store';
 import { getCalls, setHasRedirectedToLatestCall } from './store/callsSlice';

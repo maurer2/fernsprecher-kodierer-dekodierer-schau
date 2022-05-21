@@ -18,9 +18,9 @@ const CallList: FC<Readonly<Types.CallListProps>> = ({
   }, [groupedCallList, currentDay]);
 
   return (
-    <Styles.CallListWrapper>
+    <Styles.CallList>
       {currentDay ? <Day callsForCurrentDay={callsForCurrentDay} /> : <h3>Please select a date</h3>}
-    </Styles.CallListWrapper>
+    </Styles.CallList>
   );
 };
 
