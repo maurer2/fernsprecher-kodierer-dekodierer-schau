@@ -1,7 +1,6 @@
 import React, {
   ReactElement,
   FC,
-  MouseEvent,
   useEffect,
   useMemo,
   RefObject,
@@ -22,9 +21,14 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
     [daysWithCalls],
   );
 
-  function gotoPrevDay(event: MouseEvent<HTMLButtonElement>): void {}
+  const goToNewDate = (newDate: Types.DateNavigation) => () => {
+    if (newDate === 'next-date') {
+      console.log('next-date');
+      return;
+    }
 
-  function gotoNextDay(event: MouseEvent<HTMLButtonElement>): void {}
+    console.log('previous-date');
+  };
 
   const scrollToActiveLinkElement = useCallback(() => {
     const activeLinkElement = linkElements.find((element) => element.current?.classList.contains('active'));
@@ -60,7 +64,6 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
     if (!currentDay) {
       return;
     }
-
     scrollToActiveLinkElement();
   }, [currentDay, scrollToActiveLinkElement]);
 
@@ -81,17 +84,17 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
       </Styles.LinkList>
       <Styles.NavButton
         type="button"
-        onClick={(event: MouseEvent<HTMLButtonElement>) => gotoPrevDay(event)}
+        onClick={goToNewDate('previous-date')}
         disabled
       >
-        Previous day
+        Previous date
       </Styles.NavButton>
       <Styles.NavButton
         type="button"
-        onClick={(event: MouseEvent<HTMLButtonElement>) => gotoNextDay(event)}
+        onClick={goToNewDate('next-date')}
         disabled
       >
-        Next day
+        Next date
       </Styles.NavButton>
     </Styles.Navigation>
   );
