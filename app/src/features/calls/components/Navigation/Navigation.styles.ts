@@ -2,10 +2,12 @@ import { NavLink } from 'react-router-dom';
 import { styled, theme } from '../../../../global.styles';
 
 export const Navigation = styled('nav', {
+  position: 'sticky',
+  top: 0,
   display: 'grid',
   gridTemplateColumns: '1fr repeat(2, minmax(max-content, 125px))',
-  // gridGap: '0 1rem',
   overflow: 'hidden',
+  background: theme.colors.maniacMansion,
 });
 
 export const LinkList = styled('ul', {
@@ -17,7 +19,6 @@ export const LinkList = styled('ul', {
   listStyle: 'none',
   overscrollBehaviourX: 'contain', // doesn't work
   'overscroll-behavior-x': 'contain',
-
 });
 
 export const LinkListEntry = styled('li', {
@@ -26,9 +27,8 @@ export const LinkListEntry = styled('li', {
 
 export const Link = styled(NavLink, {
   padding: '0.5rem 1rem',
-  borderTop: '0',
-  borderBottom: '0',
-  // borderRight: '1px solid currentColor',
+  borderTop: 0,
+  borderBottom: 0,
   textDecoration: 'none',
   textAlign: 'center',
 
