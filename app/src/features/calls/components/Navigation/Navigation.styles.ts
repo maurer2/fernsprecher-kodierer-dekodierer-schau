@@ -15,10 +15,28 @@ export const LinkList = styled('ul', {
   padding: 0,
   margin: 0,
   overflow: 'scroll',
-  overflowY: 'scroll',
+  overflowY: 'hidden',
   listStyle: 'none',
-  overscrollBehaviourX: 'contain', // doesn't work
+  // overscrollBehaviourX: 'contain', // doesn't work
   'overscroll-behavior-x': 'contain',
+  scrollbarGutter: 'auto',
+  '-webkit-overflow-scrolling': 'touch',
+
+  // scrollbar styling
+  scrollbarColor: `${theme.colors.maniacMansion} ${theme.colors.white}`,
+  scrollbarWidth: 'thin',
+
+  '&::-webkit-scrollbar': {
+    height: '0.5rem',
+  },
+  // rectangle
+  '&::-webkit-scrollbar-thumb': {
+    background: theme.colors.maniacMansion,
+  },
+  // bg
+  '&::-webkit-scrollbar-track': {
+    background: theme.colors.white,
+  },
 });
 
 export const LinkListEntry = styled('li', {

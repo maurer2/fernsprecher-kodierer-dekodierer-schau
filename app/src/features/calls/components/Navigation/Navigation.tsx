@@ -1,11 +1,5 @@
 import React, {
-  ReactElement,
-  FC,
-  useEffect,
-  useMemo,
-  RefObject,
-  useCallback,
-  useRef,
+  ReactElement, FC, useEffect, useMemo, RefObject, useCallback, useRef,
 } from 'react';
 
 import * as Types from './Navigation.types';
@@ -21,7 +15,7 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
     [daysWithCalls],
   );
 
-  const goToNewDate = (newDate: Types.DateNavigation) => () => {
+  const goToNewDate = (newDate: Types.DateNavigation) => (): void => {
     if (newDate === 'next-date') {
       console.log('next-date');
       return;
