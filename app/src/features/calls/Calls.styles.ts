@@ -9,7 +9,6 @@ export const View = styled('article', {
     auto
     1fr
   `,
-  gridGap: '1rem 0',
 });
 
 export const Header = styled('header', {
@@ -18,7 +17,7 @@ export const Header = styled('header', {
 });
 
 export const Content = styled('main', {
-  gridColumn: 2,
+  gridColumn: '1/-1',
 });
 
 export const Title = styled('h1', {

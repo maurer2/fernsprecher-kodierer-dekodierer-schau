@@ -1,9 +1,5 @@
 import { styled } from '../../../../global.styles';
 
-export const Day = styled('div', {
-  display: 'block',
-});
-
 export const DaySection = styled('section', {
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',

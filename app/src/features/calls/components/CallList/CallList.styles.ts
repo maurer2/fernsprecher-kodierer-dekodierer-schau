@@ -1,3 +1,6 @@
-import { styled } from '../../../../global.styles';
+import { styled, theme } from '../../../../global.styles';
 
-export const CallListWrapper = styled('div', {});
+export const CallList = styled('div', {
+  margin: '1rem auto',
+  maxWidth: theme.sizes.contentMaxWidth,
+});

@@ -16,7 +16,7 @@ const Day: FC<Readonly<Types.DayProps>> = ({ callsForCurrentDay }) => {
   const [numberOfSendCodecs, statisticsSendCodecs] = useCallStatistics(sendCodecs);
 
   return (
-    <Styles.Day>
+    <>
       <Styles.DaySectionTitle>Codecs statistics</Styles.DaySectionTitle>
       <Styles.DaySection>
         <Styles.DaySectionColumn>
@@ -50,7 +50,7 @@ const Day: FC<Readonly<Types.DayProps>> = ({ callsForCurrentDay }) => {
         </Styles.DaySectionColumn>
       </Styles.DaySection>
       <Entries entriesForDay={callsForCurrentDay} />
-    </Styles.Day>
+    </>
   );
 };
 
