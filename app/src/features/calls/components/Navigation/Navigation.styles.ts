@@ -75,5 +75,7 @@ export const Link = styled(NavLink, {
 });
 
 export const NavButton = styled('button', {
-  cursor: 'pointer',
+  '&:not([disabled])': {
+    cursor: 'pointer',
+  },
 });

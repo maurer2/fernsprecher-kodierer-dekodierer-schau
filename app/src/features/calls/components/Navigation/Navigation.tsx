@@ -1,5 +1,11 @@
 import React, {
-  ReactElement, FC, useEffect, useMemo, RefObject, useCallback, useRef,
+  ReactElement,
+  FC,
+  useEffect,
+  useMemo,
+  RefObject,
+  useCallback,
+  useRef,
 } from 'react';
 
 import * as Types from './Navigation.types';
@@ -9,11 +15,21 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
   daysWithCalls,
   currentDay,
 }): ReactElement => {
-  const NavigationElement = useRef<HTMLElement | null>(null);
+  const navigationElement = useRef<HTMLElement | null>(null);
   const linkElements = useMemo<RefObject<HTMLAnchorElement>[]>(
     () => Array.from({ length: daysWithCalls.length }, () => React.createRef()),
     [daysWithCalls],
   );
+
+  const [previousDate, nextDate] = useMemo(() => {
+    const currentDayIndex = daysWithCalls.findIndex((day) => day.iso === currentDay);
+    const previous: string | null = (currentDayIndex !== -1
+      && daysWithCalls?.[currentDayIndex - 1]?.iso) || null;
+    const next: string | null = (currentDayIndex !== -1
+      && daysWithCalls?.[currentDayIndex + 1]?.iso) || null;
+
+    return [previous, next];
+  }, [daysWithCalls, currentDay]);
 
   const goToNewDate = (newDate: Types.DateNavigation) => (): void => {
     if (newDate === 'next-date') {
@@ -41,9 +57,9 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
       scrollToActiveLinkElement();
     });
 
-    if (NavigationElement.current) {
-      NavigationElementResizeObserver.observe(NavigationElement.current);
-      linkListRef = NavigationElement.current;
+    if (navigationElement.current) {
+      NavigationElementResizeObserver.observe(navigationElement.current);
+      linkListRef = navigationElement.current;
     }
 
     return () => {
@@ -62,7 +78,7 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
   }, [currentDay, scrollToActiveLinkElement]);
 
   return (
-    <Styles.Navigation ref={NavigationElement}>
+    <Styles.Navigation ref={navigationElement}>
       <Styles.LinkList>
         {daysWithCalls.map((day, index) => (
           <Styles.LinkListEntry key={day.iso}>
@@ -79,14 +95,14 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
       <Styles.NavButton
         type="button"
         onClick={goToNewDate('previous-date')}
-        disabled
+        disabled={!previousDate}
       >
         Previous date
       </Styles.NavButton>
       <Styles.NavButton
         type="button"
         onClick={goToNewDate('next-date')}
-        disabled
+        disabled={!nextDate}
       >
         Next date
       </Styles.NavButton>
