@@ -7,6 +7,7 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import * as Types from './Navigation.types';
 import * as Styles from './Navigation.styles';
@@ -15,12 +16,12 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
   daysWithCalls,
   currentDay,
 }): ReactElement => {
+  const navigate = useNavigate();
   const navigationElement = useRef<HTMLElement | null>(null);
   const linkElements = useMemo<RefObject<HTMLAnchorElement>[]>(
     () => Array.from({ length: daysWithCalls.length }, () => React.createRef()),
     [daysWithCalls],
   );
-
   const [previousDate, nextDate] = useMemo(() => {
     const currentDayIndex = daysWithCalls.findIndex((day) => day.iso === currentDay);
     const previous: string | null = (currentDayIndex !== -1
@@ -31,13 +32,15 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
     return [previous, next];
   }, [daysWithCalls, currentDay]);
 
-  const goToNewDate = (newDate: Types.DateNavigation) => (): void => {
-    if (newDate === 'next-date') {
-      console.log('next-date');
+  const goToNewDate = (newDate: Types.DateNavigationValues) => (): void => {
+    if (newDate === Types.dateNavigation.nextDate && nextDate) {
+      navigate(`/calls/${nextDate}`);
       return;
     }
 
-    console.log('previous-date');
+    if (newDate === Types.dateNavigation.previousDate && previousDate) {
+      navigate(`/calls/${previousDate}`);
+    }
   };
 
   const scrollToActiveLinkElement = useCallback(() => {
@@ -94,14 +97,14 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
       </Styles.LinkList>
       <Styles.NavButton
         type="button"
-        onClick={goToNewDate('previous-date')}
+        onClick={goToNewDate(Types.dateNavigation.previousDate)}
         disabled={!previousDate}
       >
         Previous date
       </Styles.NavButton>
       <Styles.NavButton
         type="button"
-        onClick={goToNewDate('next-date')}
+        onClick={goToNewDate(Types.dateNavigation.nextDate)}
         disabled={!nextDate}
       >
         Next date
