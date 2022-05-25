@@ -100,14 +100,16 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
         onClick={goToNewDate(Types.dateNavigation.previousDate)}
         disabled={!previousDate}
       >
-        Previous date
+        &lsaquo;
+        <span className="visually-hidden">Previous date</span>
       </Styles.NavButton>
       <Styles.NavButton
         type="button"
         onClick={goToNewDate(Types.dateNavigation.nextDate)}
         disabled={!nextDate}
       >
-        Next date
+        &rsaquo;
+        <span className="visually-hidden">Previous date</span>
       </Styles.NavButton>
     </Styles.Navigation>
   );

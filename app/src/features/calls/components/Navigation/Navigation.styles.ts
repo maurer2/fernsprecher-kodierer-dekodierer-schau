@@ -5,7 +5,7 @@ export const Navigation = styled('nav', {
   position: 'sticky',
   top: 0,
   display: 'grid',
-  gridTemplateColumns: '1fr repeat(2, minmax(max-content, 125px))',
+  gridTemplateColumns: '1fr repeat(2, minmax(max-content, 100px))',
   overflow: 'hidden',
   background: theme.colors.maniacMansion,
 });
@@ -75,7 +75,34 @@ export const Link = styled(NavLink, {
 });
 
 export const NavButton = styled('button', {
-  '&:not([disabled])': {
-    cursor: 'pointer',
+  display: 'flex',
+  padding: 0,
+  justifyContent: 'center',
+  alignItems: 'baseline',
+  border: 0,
+  fontSize: '2rem',
+  cursor: 'pointer',
+  background: theme.colors.berryBoost,
+  color: theme.colors.white,
+
+  '&:not([disabled]):hover': {
+    background: theme.colors.white,
+    color: theme.colors.berryBoost,
   },
+
+  '&[disabled]': {
+    cursor: 'auto',
+    background: theme.colors.berryBoost,
+    filter: 'brightness(0.5)',
+  },
+
+  // https://github.com/modulz/stitches/issues/447
+  // variants: {
+  //   disabled: {
+  //     true: {
+  //       background: theme.colors.berryBoost,
+  //       cursor: 'auto',
+  //     },
+  //   },
+  // },
 });
