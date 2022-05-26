@@ -40,6 +40,12 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
     dispatch(setHasRedirectedToLatestCall(true));
   }, [navigate, dispatch, hasRedirectedToLatestCall, mostRecentDay]);
 
+  useEffect(() => {
+    if (!day) {
+      dispatch(setHasRedirectedToLatestCall(false));
+    }
+  }, [day, dispatch]);
+
   return (
     <Styles.View>
       <Styles.Header>
