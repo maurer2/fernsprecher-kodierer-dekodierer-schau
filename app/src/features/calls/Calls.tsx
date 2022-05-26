@@ -44,7 +44,7 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
     <Styles.View>
       <Styles.Header>
         <Styles.Title>
-          <Styles.TitleLink to="/calls/">Calls</Styles.TitleLink>
+          <Styles.TitleLink to="/calls">Calls</Styles.TitleLink>
         </Styles.Title>
       </Styles.Header>
       <Styles.Content>
@@ -54,10 +54,16 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
               daysWithCalls={daysWithCalls}
               currentDay={day}
             />
-            <CallList
-              calls={calls}
-              currentDay={day}
-            />
+            {
+            day
+              ? (
+                <CallList
+                  calls={calls}
+                  currentDay={day}
+                />
+              )
+              : null
+            }
           </>
         ) : null}
       </Styles.Content>

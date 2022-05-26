@@ -45,6 +45,7 @@ const GlobalStyles = globalCss({
     margin: 0,
     fontFamily: '-apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif',
     background: theme.colors.white,
+    overflowY: 'scroll',
   },
   body: {
     background: theme.colors.white,
