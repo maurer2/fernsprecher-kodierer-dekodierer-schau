@@ -17,7 +17,6 @@ export const LinkList = styled('ul', {
   overflow: 'scroll',
   overflowY: 'hidden',
   listStyle: 'none',
-  // overscrollBehaviourX: 'contain', // doesn't work
   'overscroll-behavior-x': 'contain',
   scrollbarGutter: 'auto',
   '-webkit-overflow-scrolling': 'touch',
@@ -35,7 +34,7 @@ export const LinkList = styled('ul', {
   },
   // bg
   '&::-webkit-scrollbar-track': {
-    background: theme.colors.white,
+    background: theme.colors.berryBoost,
   },
 });
 

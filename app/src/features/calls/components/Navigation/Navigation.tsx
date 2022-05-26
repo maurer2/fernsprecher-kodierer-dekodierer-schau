@@ -35,7 +35,6 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
   const goToNewDate = (newDate: Types.DateNavigationValues) => (): void => {
     if (newDate === Types.dateNavigation.nextDate && nextDate) {
       navigate(`/calls/${nextDate}`);
-      return;
     }
 
     if (newDate === Types.dateNavigation.previousDate && previousDate) {
@@ -109,7 +108,7 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
         disabled={!nextDate}
       >
         &rsaquo;
-        <span className="visually-hidden">Previous date</span>
+        <span className="visually-hidden">Next date</span>
       </Styles.NavButton>
     </Styles.Navigation>
   );

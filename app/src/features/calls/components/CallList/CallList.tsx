@@ -19,7 +19,7 @@ const CallList: FC<Readonly<Types.CallListProps>> = ({
 
   return (
     <Styles.CallList>
-      {currentDay ? <Day callsForCurrentDay={callsForCurrentDay} /> : <h3>Please select a date</h3>}
+      {currentDay ? <Day callsForCurrentDay={callsForCurrentDay} /> : null}
     </Styles.CallList>
   );
 };
