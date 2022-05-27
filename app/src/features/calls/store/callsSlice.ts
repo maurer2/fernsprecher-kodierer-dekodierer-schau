@@ -25,6 +25,14 @@ export const callsSlice = createSlice({
     setHasRedirectedToLatestCall: (state, action: PayloadAction<boolean>) => {
       state.hasRedirectedToLatestCall = action.payload;
     },
+    setCurrentDate: (state, action: PayloadAction<string | null>) => {
+      if (!state.callList || !action.payload) {
+        state.currentDate = null;
+      }
+
+      const currentDate = state.callList.find((call) => call.dates.iso === action.payload) ?? null;
+      state.currentDate = currentDate?.dates ?? null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -38,5 +46,5 @@ export const callsSlice = createSlice({
   },
 });
 
-export const { addCall, setHasRedirectedToLatestCall } = callsSlice.actions;
+export const { addCall, setHasRedirectedToLatestCall, setCurrentDate } = callsSlice.actions;
 export default callsSlice.reducer;

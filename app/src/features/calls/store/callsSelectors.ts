@@ -46,10 +46,10 @@ const getNavDates = (state: RootState): [CallDates | null, CallDates | null, Cal
     return [null, null, null];
   }
 
-  const nextElement = uniqueDates?.[indexOfCurrentDate + 1] ?? null;
-  const prevElement = uniqueDates?.[indexOfCurrentDate + -1] ?? null;
+  const prevDate = uniqueDates?.[indexOfCurrentDate + -1] ?? null;
+  const nextDate = uniqueDates?.[indexOfCurrentDate + 1] ?? null;
 
-  return [currentDate, nextElement, prevElement];
+  return [prevDate, currentDate, nextDate];
 };
 
 // const getAllCodecs = (state: RootState): Codec[] => state.calls.callList.flatMap((call) => {
