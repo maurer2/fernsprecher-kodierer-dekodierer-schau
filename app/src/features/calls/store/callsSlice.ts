@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { getCallList } from './callsApi';
-import type { CallsSliceState, Call } from './calls.types';
+import type { CallsSliceState, Call, CallDates } from './calls.types';
 
 const initialState: CallsSliceState = {
   isLoading: false,
   callList: [],
   hasRedirectedToLatestCall: false,
+  currentDate: null,
 };
 
 export const getCalls = createAsyncThunk('calls/getCalls', async () => {

@@ -27,6 +27,7 @@ module.exports = {
     'no-unused-vars': ['warn', { ignoreRestSiblings: true }],
     'import/prefer-default-export': 'off',
     'no-console': 'off',
+    'no-debugger': 'off',
     'no-restricted-exports': 'off', // https://github.com/airbnb/javascript/issues/2500
     'no-param-reassign': [
       'error',

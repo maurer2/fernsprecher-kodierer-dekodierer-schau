@@ -5,8 +5,9 @@ import { RootState, Dispatch } from '../../app/store';
 import { getCalls, setHasRedirectedToLatestCall } from './store/callsSlice';
 import {
   getCallsUnsorted,
-  getDaysWithCalls,
-  getMostRecentDayWithCall,
+  getUniqueDatesOfDaysWithCalls,
+  getMostRecentDate,
+  getNavDates,
 } from './store/callsSelectors';
 
 import Navigation from './components/Navigation';
@@ -19,8 +20,8 @@ import * as Styles from './Calls.styles';
 const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
   const { isLoading, hasRedirectedToLatestCall } = useSelector((state: RootState) => state.calls);
   const calls = useSelector(getCallsUnsorted);
-  const daysWithCalls = useSelector(getDaysWithCalls);
-  const mostRecentDay = useSelector(getMostRecentDayWithCall);
+  const daysWithCalls = useSelector(getUniqueDatesOfDaysWithCalls);
+  const mostRecentDay = useSelector(getMostRecentDate);
 
   // https://github.com/reduxjs/redux-toolkit/issues/587#issuecomment-1049488808
   const dispatch = useDispatch<Dispatch>();

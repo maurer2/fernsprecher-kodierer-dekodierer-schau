@@ -22,8 +22,6 @@ export function isCodec(codecString: string | null): codecString is Codec {
 }
 
 type DateTimeStamp = ReturnType<typeof Date['now']>;
-export type ISODate = `${number}${number}${number}${number}-${number}${number}-${number}${number}`;
-export type GBDate = `${number}${number}/${number}${number}/${number}${number}${number}${number}`;
 
 export type CallStringlyTyped = {
   dateTime: string;
@@ -34,8 +32,8 @@ export type CallStringlyTyped = {
 };
 
 export type CallDates = {
-  iso: ISODate | string;
-  user: GBDate | string;
+  iso: string;
+  user: string;
 };
 
 export type Call = {
@@ -51,6 +49,7 @@ export type CallsSliceState = {
   callList: Call[];
   isLoading: boolean;
   hasRedirectedToLatestCall: boolean;
+  currentDate: CallDates | null;
 };
 
 export type CodecCount = Record<Codec, number>;
