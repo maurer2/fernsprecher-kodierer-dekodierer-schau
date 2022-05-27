@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, FC } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../app/store';
+import { RootState, Dispatch } from '../../app/store';
 import { getCalls, setHasRedirectedToLatestCall } from './store/callsSlice';
 import {
   getCallsUnsorted,
@@ -22,13 +22,14 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
   const daysWithCalls = useSelector(getDaysWithCalls);
   const mostRecentDay = useSelector(getMostRecentDayWithCall);
 
-  const dispatch = useDispatch();
+  // https://github.com/reduxjs/redux-toolkit/issues/587#issuecomment-1049488808
+  const dispatch = useDispatch<Dispatch>();
   const navigate = useNavigate();
 
   const { day = null } = useParams();
 
   useEffect(() => {
-    dispatch(getCalls() as any); // todo fix
+    dispatch(getCalls());
   }, [dispatch]);
 
   useEffect(() => {
