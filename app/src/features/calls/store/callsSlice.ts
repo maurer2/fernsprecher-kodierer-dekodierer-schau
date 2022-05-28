@@ -1,10 +1,15 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice, PayloadAction, createAsyncThunk, current,
+} from '@reduxjs/toolkit';
 import { getCallList } from './callsApi';
-import type { CallsSliceState, Call, CallDates } from './calls.types';
+import type {
+  CallsSliceState, Call, CallDates, CallMap,
+} from './calls.types';
 
 const initialState: CallsSliceState = {
   isLoading: false,
   callList: [],
+  callList2: {},
   hasRedirectedToLatestCall: false,
   currentDate: null,
 };
@@ -40,7 +45,18 @@ export const callsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getCalls.fulfilled, (state, action) => {
+        console.log(current(state));
+
+        const callList2: CallMap = Object.fromEntries(
+          action.payload.map((call, index) => [index.toString(), call]),
+        );
+
         state.callList = state.callList.concat(action.payload);
+        state.callList2 = callList2;
+        state.isLoading = false;
+      })
+      .addCase(getCalls.rejected, (state) => {
+        state.callList = [];
         state.isLoading = false;
       });
   },
