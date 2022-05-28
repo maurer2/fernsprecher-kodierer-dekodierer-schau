@@ -1,5 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter as Router, Route, Routes, Navigate,
+} from 'react-router-dom';
 
 import Calls from './features/calls';
 
@@ -19,6 +21,10 @@ const App = () => {
           <Route
             path="/calls/:day"
             element={<Calls />}
+          />
+          <Route
+            path="/"
+            element={<Navigate replace to="/calls" />}
           />
           <Route
             path="*"
