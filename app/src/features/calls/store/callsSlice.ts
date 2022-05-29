@@ -2,9 +2,7 @@ import {
   createSlice, PayloadAction, createAsyncThunk, current,
 } from '@reduxjs/toolkit';
 import { getCallList } from './callsApi';
-import type {
-  CallsSliceState, Call, CallDates, CallMap,
-} from './calls.types';
+import type { CallsSliceState, Call, CallMap } from './calls.types';
 
 const initialState: CallsSliceState = {
   isLoading: false,
@@ -47,7 +45,7 @@ export const callsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getCalls.fulfilled, (state, action) => {
-        console.log(current(state));
+        // console.log(current(state));
 
         const daysSorted = [...action.payload].sort((a, z) => a.dateTime - z.dateTime);
         const callList2: CallMap = Object.fromEntries(
@@ -62,12 +60,12 @@ export const callsSlice = createSlice({
       })
       .addCase(getCalls.rejected, (state) => {
         state.callList = [];
+        state.callList2 = null;
+        state.mostRecentDay = null;
         state.isLoading = false;
       });
   },
 });
 
-export const {
-  addCall, setHasRedirectedToLatestCall, setCurrentDate,
-} = callsSlice.actions;
+export const { addCall, setHasRedirectedToLatestCall, setCurrentDate } = callsSlice.actions;
 export default callsSlice.reducer;

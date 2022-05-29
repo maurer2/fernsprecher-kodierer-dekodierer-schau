@@ -18,43 +18,36 @@ import * as Types from './Calls.types';
 import * as Styles from './Calls.styles';
 
 const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
-  const { isLoading, hasRedirectedToLatestCall } = useSelector((state: RootState) => state.calls);
-  const calls = useSelector(getCallsUnsorted);
+  const { isLoading, callList, callList2 } = useSelector((state: RootState) => state.calls);
   const daysWithCalls = useSelector(getUniqueDatesOfDaysWithCalls);
-  const mostRecentDay = useSelector(getMostRecentDate);
-  const [prevDate, currentDate, nextDate] = useSelector(getNavigationDates);
-
-  console.log(prevDate, currentDate, nextDate);
+  // const mostRecentDay = useSelector(getMostRecentDate);
 
   // https://github.com/reduxjs/redux-toolkit/issues/587#issuecomment-1049488808
   const dispatch = useDispatch<Dispatch>();
   const navigate = useNavigate();
-
   const { day = null } = useParams();
 
+  // fetch calls
   useEffect(() => {
     dispatch(getCalls());
   }, [dispatch]);
 
   // temp
-  useEffect(() => {
-    dispatch(setCurrentDate(day));
-  }, [dispatch, day]);
-
   // useEffect(() => {
-  //   if (!mostRecentDay) {
-  //     return;
-  //   }
+  //   dispatch(setCurrentDate(day));
+  // }, [dispatch, day]);
 
   //   // navigate(`/calls/${mostRecentDay.iso}`);
   //   // dispatch(setHasRedirectedToLatestCall(true));
   // }, [navigate, dispatch, hasRedirectedToLatestCall, mostRecentDay]);
 
-  useEffect(() => {
-    if (!day) {
-      dispatch(setHasRedirectedToLatestCall(false));
-    }
-  }, [day, dispatch]);
+  // useEffect(() => {
+  //   if (!day) {
+  //     dispatch(setHasRedirectedToLatestCall(false));
+  //   }
+  // }, [day, dispatch]);
+
+  console.log(day);
 
   return (
     <Styles.View>
@@ -66,19 +59,21 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
       <Styles.Content>
         {!isLoading ? (
           <>
-            <Navigation
-              daysWithCalls={daysWithCalls}
-              currentDay={day}
-            />
+            {Boolean(daysWithCalls?.length) && (
+              <Navigation
+                daysWithCalls={daysWithCalls}
+                currentDay={day}
+              />
+            )}
             {
-            day
-              ? (
+            !day || !callList2
+              ? (<div />) // todo
+              : (
                 <CallList
-                  calls={calls}
+                  calls={callList2}
                   currentDay={day}
                 />
               )
-              : null
             }
           </>
         ) : null}
