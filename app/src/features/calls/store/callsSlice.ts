@@ -9,14 +9,16 @@ import type {
 const initialState: CallsSliceState = {
   isLoading: false,
   callList: [],
-  callList2: {},
+  callList2: null,
+  mostRecentDay: null,
   hasRedirectedToLatestCall: false,
   currentDate: null,
 };
 
-export const getCalls = createAsyncThunk('calls/getCalls', async () => {
+export const getCalls = createAsyncThunk('calls/getCalls', async (_, { dispatch }) => {
   const calls = await getCallList();
 
+  // dispatch({ type: 'Calls/setCurrentDate2', payload: { calls } });
   return calls;
 });
 
@@ -47,12 +49,15 @@ export const callsSlice = createSlice({
       .addCase(getCalls.fulfilled, (state, action) => {
         console.log(current(state));
 
+        const daysSorted = [...action.payload].sort((a, z) => a.dateTime - z.dateTime);
         const callList2: CallMap = Object.fromEntries(
-          action.payload.map((call, index) => [index.toString(), call]),
+          daysSorted.map((call) => [call.dateTime.toString(), call]),
         );
+        const mostRecentDay = daysSorted?.at(-1)?.dates ?? null;
 
         state.callList = state.callList.concat(action.payload);
         state.callList2 = callList2;
+        state.mostRecentDay = mostRecentDay;
         state.isLoading = false;
       })
       .addCase(getCalls.rejected, (state) => {
@@ -62,5 +67,7 @@ export const callsSlice = createSlice({
   },
 });
 
-export const { addCall, setHasRedirectedToLatestCall, setCurrentDate } = callsSlice.actions;
+export const {
+  addCall, setHasRedirectedToLatestCall, setCurrentDate,
+} = callsSlice.actions;
 export default callsSlice.reducer;

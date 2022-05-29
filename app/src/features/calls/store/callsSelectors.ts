@@ -32,7 +32,7 @@ const getMostRecentDate = (state: RootState): CallDates | null => {
   return lastDay;
 };
 
-const getNavDates = (state: RootState): [CallDates | null, CallDates | null, CallDates | null] => {
+const getNavigationDates = (state: RootState): (CallDates | null)[] => {
   const { currentDate } = state.calls;
   const uniqueDates: CallDates[] | null = getUniqueDatesOfDaysWithCalls(state);
 
@@ -102,5 +102,5 @@ export {
   // getCodecsQuantities,
   getUniqueDatesOfDaysWithCalls,
   getMostRecentDate,
-  getNavDates,
+  getNavigationDates,
 };

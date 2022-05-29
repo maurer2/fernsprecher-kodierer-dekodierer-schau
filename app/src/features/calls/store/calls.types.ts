@@ -49,7 +49,8 @@ export type CallMap = Record<string, Call>;
 
 export type CallsSliceState = {
   callList: Call[];
-  callList2: CallMap;
+  callList2: CallMap | null;
+  mostRecentDay: CallDates | null;
   isLoading: boolean;
   hasRedirectedToLatestCall: boolean;
   currentDate: CallDates | null;

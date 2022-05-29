@@ -7,7 +7,7 @@ import {
   getCallsUnsorted,
   getUniqueDatesOfDaysWithCalls,
   getMostRecentDate,
-  getNavDates,
+  getNavigationDates,
 } from './store/callsSelectors';
 
 import Navigation from './components/Navigation';
@@ -22,8 +22,7 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
   const calls = useSelector(getCallsUnsorted);
   const daysWithCalls = useSelector(getUniqueDatesOfDaysWithCalls);
   const mostRecentDay = useSelector(getMostRecentDate);
-
-  const [prevDate, currentDate, nextDate] = useSelector(getNavDates);
+  const [prevDate, currentDate, nextDate] = useSelector(getNavigationDates);
 
   console.log(prevDate, currentDate, nextDate);
 
@@ -42,14 +41,14 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
     dispatch(setCurrentDate(day));
   }, [dispatch, day]);
 
-  useEffect(() => {
-    if (hasRedirectedToLatestCall || !mostRecentDay) {
-      return;
-    }
+  // useEffect(() => {
+  //   if (!mostRecentDay) {
+  //     return;
+  //   }
 
-    navigate(`/calls/${mostRecentDay.iso}`);
-    dispatch(setHasRedirectedToLatestCall(true));
-  }, [navigate, dispatch, hasRedirectedToLatestCall, mostRecentDay]);
+  //   // navigate(`/calls/${mostRecentDay.iso}`);
+  //   // dispatch(setHasRedirectedToLatestCall(true));
+  // }, [navigate, dispatch, hasRedirectedToLatestCall, mostRecentDay]);
 
   useEffect(() => {
     if (!day) {
