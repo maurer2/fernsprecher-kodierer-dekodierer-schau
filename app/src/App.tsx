@@ -6,7 +6,6 @@ import {
 import Calls from './features/calls';
 
 import 'modern-normalize';
-
 import { GlobalStyles } from './global.styles';
 
 import * as Styles from './App.styles';

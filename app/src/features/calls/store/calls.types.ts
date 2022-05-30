@@ -21,8 +21,6 @@ export function isCodec(codecString: string | null): codecString is Codec {
   return codecNames.includes(codecString as Codec);
 }
 
-type DateTimeStamp = ReturnType<typeof Date['now']>;
-
 export type CallStringlyTyped = {
   dateTime: string;
   codecs: {
@@ -31,31 +29,39 @@ export type CallStringlyTyped = {
   };
 };
 
-export type CallDates = {
+export type DateTimeStamp = ReturnType<typeof Date['now']>;
+
+export type CallDate = {
   iso: string;
   user: string;
 };
 
 export type Call = {
   dateTime: DateTimeStamp;
-  dates: CallDates;
+  dates: CallDate;
   codecs: {
     send: Codec;
     receive: Codec;
   };
 };
 
-export type CallMap = Record<string, Call>;
+export type Day = Call['dates']['iso'];
+
+export type CallMap = Record<Day, {
+  dayDates: CallDate, // todo remove individual iso and user date from entries
+  entries: Call[],
+}>;
 
 export type CallsSliceState = {
-  callList: Call[];
-  callList2: CallMap | null;
-  mostRecentDay: CallDates | null;
   isLoading: boolean;
-  hasRedirectedToLatestCall: boolean;
-  currentDate: CallDates | null;
+  callList: CallMap | null;
+  mostRecentDay: CallDate | null;
+  currentDate: CallDate | null;
 };
 
 export type CodecCount = Record<Codec, number>;
 
-export type CodecQuantities = Record<Codec, { count: number; percentage: number }>;
+export type CodecQuantities = Record<Codec, {
+  count: number;
+  percentage: number
+}>;

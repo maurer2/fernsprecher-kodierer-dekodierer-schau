@@ -1,15 +1,14 @@
 import {
   createSlice, PayloadAction, createAsyncThunk, current,
 } from '@reduxjs/toolkit';
+import { groupBy } from 'lodash-es';
 import { getCallList } from './callsApi';
 import type { CallsSliceState, Call, CallMap } from './calls.types';
 
 const initialState: CallsSliceState = {
   isLoading: false,
-  callList: [],
-  callList2: null,
+  callList: null,
   mostRecentDay: null,
-  hasRedirectedToLatestCall: false,
   currentDate: null,
 };
 
@@ -24,20 +23,21 @@ export const callsSlice = createSlice({
   name: 'Calls',
   initialState,
   reducers: {
-    addCall: (state, action: PayloadAction<Call>) => {
-      state.callList.push(action.payload);
-    },
-    setHasRedirectedToLatestCall: (state, action: PayloadAction<boolean>) => {
-      state.hasRedirectedToLatestCall = action.payload;
-    },
-    setCurrentDate: (state, action: PayloadAction<string | null>) => {
-      if (!state.callList || !action.payload) {
-        state.currentDate = null;
-      }
+    // addCall: (state, action: PayloadAction<Call>) => {
+    //   state.callList.push(action.payload);
+    // },
+    // setHasRedirectedToLatestCall: (state, action: PayloadAction<boolean>) => {
+    //   state.hasRedirectedToLatestCall = action.payload;
+    // },
+    // setCurrentDate: (state, action: PayloadAction<string | null>) => {
+    //   if (!state.callList || !action.payload) {
+    //     state.currentDate = null;
+    //   }
 
-      const currentDate = state.callList.find((call) => call.dates.iso === action.payload) ?? null;
-      state.currentDate = currentDate?.dates ?? null;
-    },
+    //   const currentDate = state.callList.find((call) => call.dates.iso === action.payload)
+    // ?? null;
+    //   state.currentDate = currentDate?.dates ?? null;
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -45,27 +45,32 @@ export const callsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getCalls.fulfilled, (state, action) => {
-        // console.log(current(state));
+        const callsSorted = [...action.payload].sort((a, z) => a.dateTime - z.dateTime);
+        const callsGroupedByDayPrev = groupBy(callsSorted, 'dates.iso');
+        const callsGroupedByDay: CallMap = Object.fromEntries(
+          Object.entries(callsGroupedByDayPrev)
+            .map(([day, entries]) => {
+              const entriesFormatted: CallMap[number] = {
+                dayDates: entries[0].dates,
+                entries,
+              }; // todo remove complexity
 
-        const daysSorted = [...action.payload].sort((a, z) => a.dateTime - z.dateTime);
-        const callList2: CallMap = Object.fromEntries(
-          daysSorted.map((call) => [call.dateTime.toString(), call]),
+              return [day, entriesFormatted];
+            }),
         );
-        const mostRecentDay = daysSorted?.at(-1)?.dates ?? null;
+        const mostRecentDay = callsSorted?.at(-1)?.dates ?? null;
 
-        state.callList = state.callList.concat(action.payload);
-        state.callList2 = callList2;
-        state.mostRecentDay = mostRecentDay;
         state.isLoading = false;
+        state.callList = callsGroupedByDay;
+        state.mostRecentDay = mostRecentDay;
       })
       .addCase(getCalls.rejected, (state) => {
-        state.callList = [];
-        state.callList2 = null;
-        state.mostRecentDay = null;
         state.isLoading = false;
+        state.callList = null;
+        state.mostRecentDay = null;
       });
   },
 });
 
-export const { addCall, setHasRedirectedToLatestCall, setCurrentDate } = callsSlice.actions;
+// export const { addCall, setCurrentDate } = callsSlice.actions;
 export default callsSlice.reducer;

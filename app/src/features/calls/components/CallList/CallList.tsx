@@ -1,21 +1,33 @@
-import { ReactElement, FC, useMemo } from 'react';
-import useCallListGroupedByDate from '../../hooks/useCallListGroupedByDate';
+import {
+  ReactElement, FC, useEffect, useState,
+} from 'react';
+// import useGetCallsForDay from '../../hooks/useCallsForDay';
+import { Call } from '../../store/calls.types';
 import Day from '../Day';
 
 import * as Types from './CallList.types';
 import * as Styles from './CallList.styles';
 
 const CallList: FC<Readonly<Types.CallListProps>> = ({
-  calls,
+  callList,
   currentDay,
 }): ReactElement | null => {
-  const [groupedCallList] = useCallListGroupedByDate(calls);
-  const callsForCurrentDay = useMemo(() => {
+  /* Workaround eslint */
+  const [callsForCurrentDay, setCallsForCurrentDay] = useState<Call[]>([]);
+
+  useEffect(() => {
+    // only update callsOrdered if entries of callList have changed
     if (!currentDay) {
-      return [];
+      setCallsForCurrentDay([]);
+      return;
     }
-    return groupedCallList[currentDay] ?? [];
-  }, [groupedCallList, currentDay]);
+
+    const newCallsForDay = callList?.[currentDay]?.entries ?? [];
+    setCallsForCurrentDay(newCallsForDay);
+    // callListPrev.current = calls;
+  }, [callList, currentDay]);
+
+  // const [callsForCurrentDay] = useGetCallsForDay(calls, currentDay);
 
   return (
     <Styles.CallList>

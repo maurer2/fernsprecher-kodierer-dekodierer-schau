@@ -2,12 +2,11 @@ import { ReactElement, useEffect, FC } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, Dispatch } from '../../app/store';
-import { getCalls, setHasRedirectedToLatestCall, setCurrentDate } from './store/callsSlice';
+import { getCalls } from './store/callsSlice';
 import {
-  getCallsUnsorted,
   getUniqueDatesOfDaysWithCalls,
-  getMostRecentDate,
-  getNavigationDates,
+// getMostRecentDate,
+// getNavigationDates,
 } from './store/callsSelectors';
 
 import Navigation from './components/Navigation';
@@ -18,7 +17,7 @@ import * as Types from './Calls.types';
 import * as Styles from './Calls.styles';
 
 const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
-  const { isLoading, callList, callList2 } = useSelector((state: RootState) => state.calls);
+  const { isLoading, callList } = useSelector((state: RootState) => state.calls);
   const daysWithCalls = useSelector(getUniqueDatesOfDaysWithCalls);
   // const mostRecentDay = useSelector(getMostRecentDate);
 
@@ -47,8 +46,6 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
   //   }
   // }, [day, dispatch]);
 
-  console.log(day);
-
   return (
     <Styles.View>
       <Styles.Header>
@@ -66,15 +63,16 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
               />
             )}
             {
-            !day || !callList2
-              ? (<div />) // todo
+            !day || !callList
+              ? (<div>Todo</div>)
               : (
                 <CallList
-                  calls={callList2}
+                  callList={callList}
                   currentDay={day}
                 />
               )
             }
+
           </>
         ) : null}
       </Styles.Content>
