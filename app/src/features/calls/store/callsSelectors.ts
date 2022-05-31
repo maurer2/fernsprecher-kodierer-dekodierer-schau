@@ -10,6 +10,15 @@ const getUniqueDatesOfDaysWithCalls = (state: RootState): CallDate[] => {
   return days;
 };
 
+const getCallsForDate = (selectedDate: CallDate['iso'] | null) => (state: RootState): Call[] => {
+  if (!selectedDate || !state.calls.callList) {
+    return [];
+  }
+  const callsForDay = state.calls.callList?.[selectedDate]?.entries ?? [];
+
+  return callsForDay;
+};
+
 // const getNavigationDates = (state: RootState): (CallDate | null)[] => {
 //   const { currentDate } = state.calls;
 //   const uniqueDates: CallDate[] | null = getUniqueDatesOfDaysWithCalls(state);
@@ -77,5 +86,6 @@ const getUniqueDatesOfDaysWithCalls = (state: RootState): CallDate[] => {
 
 export {
   getUniqueDatesOfDaysWithCalls,
+  getCallsForDate,
   //   getNavigationDates,
 };

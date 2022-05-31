@@ -1,6 +1,6 @@
-import { CallMap } from '../../store/calls.types';
+import { Call } from '../../store/calls.types';
 
 export type CallListProps = {
-  callList: CallMap;
+  callList: Call[];
   currentDay: string | null;
 };
