@@ -10,17 +10,6 @@ const getUniqueDatesOfDaysWithCalls = (state: RootState): CallDate[] => {
   return days;
 };
 
-// const getMostRecentDate = (state: RootState): CallDate | null => {
-//   const dates = getUniqueDatesOfDaysWithCalls(state);
-
-//   if (!dates || !dates.length) {
-//     return null;
-//   }
-//   const lastDay = dates.at(-1) ?? null;
-
-//   return lastDay;
-// };
-
 // const getNavigationDates = (state: RootState): (CallDate | null)[] => {
 //   const { currentDate } = state.calls;
 //   const uniqueDates: CallDate[] | null = getUniqueDatesOfDaysWithCalls(state);
@@ -41,53 +30,52 @@ const getUniqueDatesOfDaysWithCalls = (state: RootState): CallDate[] => {
 //   return [prevDate, currentDate, nextDate];
 // };
 
-// // const getAllCodecs = (state: RootState): Codec[] => state.calls.callList.flatMap((call) => {
-// //   const receive = call?.codecs?.receive;
-// //   const send = call?.codecs?.send;
+// const getAllCodecs = (state: RootState): Codec[] => state.calls.callList.flatMap((call) => {
+//   const receive = call?.codecs?.receive;
+//   const send = call?.codecs?.send;
 
-// //   if (!receive && !send) {
-// //     return [];
-// //   }
+//   if (!receive && !send) {
+//     return [];
+//   }
 
-// //   return [receive, send];
-// // });
+//   return [receive, send];
+// });
 
-// // const getCodecsQuantities = (state: RootState) => {
-// //   const codecsBag: Codec[] = getAllCodecs(state);
+// const getCodecsQuantities = (state: RootState) => {
+//   const codecsBag: Codec[] = getAllCodecs(state);
 
-// //   const codecsTally = codecsBag.reduce((total, current: Codec) => {
-// //     if (current in total) {
-// //       total[current] += 1;
-// //     } else {
-// //       total[current] = 0;
-// //     }
+//   const codecsTally = codecsBag.reduce((total, current: Codec) => {
+//     if (current in total) {
+//       total[current] += 1;
+//     } else {
+//       total[current] = 0;
+//     }
 
-// //     return total;
-// //   }, {} as CodecCount);
+//     return total;
+//   }, {} as CodecCount);
 
-// //   const codecsTotal = Object.entries(codecsTally).reduce((total, current) =>
-// //    total + current[1], 0);
+//   const codecsTotal = Object.entries(codecsTally).reduce((total, current) =>
+//    total + current[1], 0);
 
-// //   const codecsWithQuantities = Object.entries(codecsTally).map((codec) => {
-// //     const [key, count] = codec;
-// //     const percentage = codecsTotal === 0 ? 0 : (count * 100) / codecsTotal;
+//   const codecsWithQuantities = Object.entries(codecsTally).map((codec) => {
+//     const [key, count] = codec;
+//     const percentage = codecsTotal === 0 ? 0 : (count * 100) / codecsTotal;
 
-// //     return [
-// //       key,
-// //       {
-// //         count,
-// //         percentage,
-// //       },
-// //     ];
-// //   });
+//     return [
+//       key,
+//       {
+//         count,
+//         percentage,
+//       },
+//     ];
+//   });
 
-// //   const codecs: CodecQuantities = Object.fromEntries(codecsWithQuantities);
+//   const codecs: CodecQuantities = Object.fromEntries(codecsWithQuantities);
 
-// //   return codecs;
-// // };
+//   return codecs;
+// };
 
 export {
   getUniqueDatesOfDaysWithCalls,
-  //   getMostRecentDate,
   //   getNavigationDates,
 };

@@ -11,7 +11,6 @@ export default function useCallsForDay({
   // const callListPrev = useRef<CallMap | null>(null);
 
   useEffect(() => {
-    // only update callsOrdered if entries of callList have changed
     if (!currentDay) {
       setCallsForDay([]);
       return;

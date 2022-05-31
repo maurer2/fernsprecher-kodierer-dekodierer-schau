@@ -5,8 +5,7 @@ import { RootState, Dispatch } from '../../app/store';
 import { getCalls } from './store/callsSlice';
 import {
   getUniqueDatesOfDaysWithCalls,
-// getMostRecentDate,
-// getNavigationDates,
+  // getNavigationDates,
 } from './store/callsSelectors';
 
 import Navigation from './components/Navigation';
@@ -17,9 +16,10 @@ import * as Types from './Calls.types';
 import * as Styles from './Calls.styles';
 
 const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
-  const { isLoading, callList } = useSelector((state: RootState) => state.calls);
+  const isLoading = useSelector((state: RootState) => state.calls.isLoading);
+  const callList = useSelector((state: RootState) => state.calls.callList);
+  const mostRecentDay = useSelector((state: RootState) => state.calls.mostRecentDay);
   const daysWithCalls = useSelector(getUniqueDatesOfDaysWithCalls);
-  // const mostRecentDay = useSelector(getMostRecentDate);
 
   // https://github.com/reduxjs/redux-toolkit/issues/587#issuecomment-1049488808
   const dispatch = useDispatch<Dispatch>();
@@ -31,20 +31,14 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
     dispatch(getCalls());
   }, [dispatch]);
 
-  // temp
-  // useEffect(() => {
-  //   dispatch(setCurrentDate(day));
-  // }, [dispatch, day]);
-
-  //   // navigate(`/calls/${mostRecentDay.iso}`);
-  //   // dispatch(setHasRedirectedToLatestCall(true));
-  // }, [navigate, dispatch, hasRedirectedToLatestCall, mostRecentDay]);
-
-  // useEffect(() => {
-  //   if (!day) {
-  //     dispatch(setHasRedirectedToLatestCall(false));
-  //   }
-  // }, [day, dispatch]);
+  // navigate to most recent day
+  useEffect(() => {
+    if (!mostRecentDay || Boolean(day)) {
+      return;
+    }
+    // only navigate if dat param is empty
+    navigate(`/calls/${mostRecentDay.iso}`);
+  }, [navigate, day, mostRecentDay]);
 
   return (
     <Styles.View>
