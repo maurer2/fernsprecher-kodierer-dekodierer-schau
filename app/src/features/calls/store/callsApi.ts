@@ -1,10 +1,10 @@
 import callJSON from '../../../data/dummy.json';
 import type {
-  Call, CallStringlyTyped,
+  Call, CallStringlyTyped, CallWithDates,
 } from './calls.types';
 import { isCodec, codecsValuesDefault } from './calls.types';
 
-export function getCallList(): Promise<Call[]> {
+export function getCallList(): Promise<CallWithDates[]> {
   const dateFormatter = new Intl.DateTimeFormat('en-GB', {
     month: '2-digit',
     day: '2-digit',
@@ -14,7 +14,7 @@ export function getCallList(): Promise<Call[]> {
   return new Promise((resolve) => {
     const callListRaw: CallStringlyTyped[] = callJSON;
 
-    const callList: Call[] = callListRaw.map((call) => {
+    const callList: CallWithDates[] = callListRaw.map((call) => {
       const { dateTime, codecs } = call;
       const { send, receive } = codecs;
       const dateTimeParsed = Date.parse(dateTime);
@@ -36,6 +36,6 @@ export function getCallList(): Promise<Call[]> {
       };
     });
 
-    setTimeout(() => resolve(callList), 2000);
+    setTimeout(() => resolve(callList), 1000);
   });
 }

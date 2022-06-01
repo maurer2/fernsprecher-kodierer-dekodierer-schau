@@ -1,14 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
-import type { CallMap, Call } from '../../store/calls.types';
+import { useState, useEffect } from 'react';
+import type { Call } from '../../store/calls.types';
 
 import * as Types from './useGetCallsForDay.types';
 
 export default function useCallsForDay({
-  calls,
+  callList,
   currentDay,
 }: Types.PropsUseGetCallsForDay): [Call[]] {
   const [callsForDay, setCallsForDay] = useState<Call[]>([]);
-  // const callListPrev = useRef<CallMap | null>(null);
 
   useEffect(() => {
     if (!currentDay) {
@@ -16,10 +15,9 @@ export default function useCallsForDay({
       return;
     }
 
-    const newCallsForDay = calls?.[currentDay]?.entries ?? [];
+    const newCallsForDay = callList?.[currentDay]?.entries ?? [];
     setCallsForDay(newCallsForDay);
-    // callListPrev.current = calls;
-  }, [calls, currentDay]);
+  }, [callList, currentDay]);
 
   return [callsForDay];
 }

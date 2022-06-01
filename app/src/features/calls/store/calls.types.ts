@@ -36,21 +36,27 @@ export type CallDate = {
   user: string;
 };
 
+export type Day = CallDate['iso'];
+
 export type Call = {
   dateTime: DateTimeStamp;
-  dates: CallDate;
   codecs: {
     send: Codec;
     receive: Codec;
   };
 };
 
-export type Day = Call['dates']['iso'];
+export type CallWithDates = Call & {
+  dates: CallDate;
+};
 
-export type CallMap = Record<Day, {
-  dayDates: CallDate, // todo remove individual iso and user date from entries
-  entries: Call[],
+export type CallMapGeneric<T> = Record<Day, {
+  dayDates: CallDate,
+  entries: T[],
 }>;
+
+export type CallMap = CallMapGeneric<Call>;
+export type CallWithDatesMap = CallMapGeneric<CallWithDates>;
 
 export type CallsSliceState = {
   isLoading: boolean;

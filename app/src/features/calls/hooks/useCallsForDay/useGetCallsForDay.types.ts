@@ -1,6 +1,6 @@
 import { Call, CallMap } from '../../store/calls.types';
 
 export type PropsUseGetCallsForDay = {
-  calls: CallMap,
+  callList: CallMap,
   currentDay?: string | null,
 };
