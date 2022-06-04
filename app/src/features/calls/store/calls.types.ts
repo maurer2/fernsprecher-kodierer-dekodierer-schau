@@ -30,12 +30,10 @@ export type CallStringlyTyped = {
 };
 
 export type DateTimeStamp = ReturnType<typeof Date['now']>;
-
 export type CallDate = {
   iso: string;
   user: string;
 };
-
 export type Day = CallDate['iso'];
 
 export type Call = {
@@ -45,7 +43,6 @@ export type Call = {
     receive: Codec;
   };
 };
-
 export type CallWithDates = Call & {
   dates: CallDate;
 };
@@ -54,7 +51,6 @@ export type CallMapGeneric<T> = Record<Day, {
   dayDates: CallDate,
   entries: T[],
 }>;
-
 export type CallMap = CallMapGeneric<Call>;
 export type CallWithDatesMap = CallMapGeneric<CallWithDates>;
 

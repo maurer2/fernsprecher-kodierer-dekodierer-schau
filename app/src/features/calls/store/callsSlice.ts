@@ -14,7 +14,7 @@ const initialState: CallsSliceState = {
   currentDate: null,
 };
 
-export const getCalls = createAsyncThunk('calls/getCalls', async () => {
+const getCalls = createAsyncThunk('calls/getCalls', async () => {
   const calls: CallWithDates[] = await getCallList();
 
   return calls;
@@ -24,9 +24,9 @@ export const callsSlice = createSlice({
   name: 'Calls',
   initialState,
   reducers: {
-    // addCall: (state, action: PayloadAction<Call>) => {
-    //   state.callList.push(action.payload);
-    // },
+    addCall: (state) => {
+      state.isLoading = true;
+    },
     // setHasRedirectedToLatestCall: (state, action: PayloadAction<boolean>) => {
     //   state.hasRedirectedToLatestCall = action.payload;
     // },
@@ -83,5 +83,6 @@ export const callsSlice = createSlice({
   },
 });
 
-// export const { addCall, setCurrentDate } = callsSlice.actions;
+export const { addCall } = callsSlice.actions;
+export { getCalls };
 export default callsSlice.reducer;
