@@ -1,10 +1,6 @@
-import {
-  createSlice, PayloadAction, createAsyncThunk, current, createAction, Action,
-} from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
 import reducer, { getCalls } from '../callsSlice';
-import type {
-  CallsSliceState, CallWithDates, CallMap, Day,
-} from '../calls.types';
+import type { CallsSliceState, CallWithDates } from '../calls.types';
 
 describe('getCalls', () => {
   const initialState: CallsSliceState = {
@@ -30,7 +26,6 @@ describe('getCalls', () => {
 
     it('Extra reducers - fulfilled', () => {
       const testDates: CallWithDates[] = [
-        // 0 - Third
         {
           dateTime: 1643700243000,
           dates: {
@@ -42,7 +37,6 @@ describe('getCalls', () => {
             receive: 'Unknown',
           },
         },
-        // 1 - First
         {
           dateTime: 1641260492000,
           dates: {
@@ -54,7 +48,6 @@ describe('getCalls', () => {
             receive: 'G.726',
           },
         },
-        // 2 - Fifth
         {
           dateTime: 1647603901000,
           dates: {
@@ -66,19 +59,17 @@ describe('getCalls', () => {
             receive: 'G.722',
           },
         },
-        // 3 - Fourth
         {
-          dateTime: 1645170055000,
+          dateTime: 1643695823000,
           dates: {
-            iso: '2022-02-18',
-            user: '18/02/2022',
+            iso: '2022-02-01',
+            user: '01/02/2022',
           },
           codecs: {
-            send: 'G.726',
+            send: 'G.722',
             receive: 'G.722',
           },
         },
-        // 4 - Second
         {
           dateTime: 1641375569000,
           dates: {
@@ -104,15 +95,24 @@ describe('getCalls', () => {
 
       // entries sorted correctly
       expect(Object.keys(state?.callList ?? {})).toEqual([
-        testDates[1].dates.iso,
-        testDates[4].dates.iso,
-        testDates[0].dates.iso,
-        testDates[3].dates.iso,
-        testDates[2].dates.iso,
+        '2022-01-04',
+        '2022-01-05',
+        '2022-02-01',
+        '2022-03-18',
       ]);
 
       // grouped correctly
-      // expect(Object.values(state?.callList ?? {})).toBe(true);
+      const entries = Object.values(state?.callList ?? {});
+      expect(entries.every((entry) => Boolean(entry?.entries?.length))).toBe(true);
+
+      const entriesWithSingleEntries = [...entries];
+      entriesWithSingleEntries.splice(2, 1);
+      expect(entriesWithSingleEntries.every((entry) => Boolean(entry?.entries?.length === 1))).toBe(
+        true,
+      );
+
+      const entriesWithMultipleEntries = [...entries];
+      expect(entriesWithMultipleEntries[2].entries.length).toBe(2);
     });
   });
 });
