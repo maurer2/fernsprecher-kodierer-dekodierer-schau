@@ -4,7 +4,7 @@ import {
 import { groupBy } from 'lodash-es';
 import { getCallList } from './callsApi';
 import type {
-  CallsSliceState, CallWithDates, CallMap, CallWithDatesMap, Day,
+  CallsSliceState, CallWithDates, CallMap, Day,
 } from './calls.types';
 
 const initialState: CallsSliceState = {
@@ -44,10 +44,9 @@ export const callsSlice = createSlice({
       .addCase(getCalls.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getCalls.fulfilled, (state, action) => {
-        const callsSorted: CallWithDates[] = [...action.payload].sort(
-          (a, z) => a.dateTime - z.dateTime,
-        );
+      .addCase(getCalls.fulfilled, (state, action: PayloadAction<CallWithDates[]>) => {
+        const { payload } = action;
+        const callsSorted: CallWithDates[] = [...payload].sort((a, z) => a.dateTime - z.dateTime);
 
         // grouping
         const callsGroupedByIsoDate: Record<Day, CallWithDates[]> = groupBy(
