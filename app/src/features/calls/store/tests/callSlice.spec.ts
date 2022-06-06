@@ -87,26 +87,24 @@ describe('getCalls', () => {
 
       const state = reducer({ ...initialState }, action);
 
-      // entries sorted correctly
-      expect(Object.keys(state?.callList ?? {})).toEqual([
-        '2022-01-04',
-        '2022-01-05',
-        '2022-02-01',
-        '2022-03-18',
-      ]);
+      // entries keys combined correctly
+      expect(Object.keys(state?.callList ?? {})).toContain('2022-01-04');
+      expect(Object.keys(state?.callList ?? {})).toContain('2022-01-05');
+      expect(Object.keys(state?.callList ?? {})).toContain('2022-02-01');
+      expect(Object.keys(state?.callList ?? {})).toContain('2022-03-18');
 
       // grouped correctly
       const entries = Object.values(state?.callList ?? {});
       expect(entries.every((entry) => Boolean(entry?.entries?.length))).toBe(true);
 
       const entriesWithSingleEntries = [...entries];
-      entriesWithSingleEntries.splice(2, 1);
+      entriesWithSingleEntries.shift();
       expect(entriesWithSingleEntries.every((entry) => Boolean(entry?.entries?.length === 1))).toBe(
         true,
       );
 
       const entriesWithMultipleEntries = [...entries];
-      expect(entriesWithMultipleEntries[2].entries.length).toBe(2);
+      expect(entriesWithMultipleEntries[0].entries.length).toBe(2);
 
       // isLoading
       expect(state).toEqual(

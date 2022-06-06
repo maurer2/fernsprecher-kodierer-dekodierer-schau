@@ -44,9 +44,7 @@ export const callsSlice = createSlice({
       .addCase(
         getCalls.fulfilled,
         (state, { payload }: PayloadAction<ReadonlyArray<CallWithDates>>) => {
-          const callsSorted: CallWithDates[] = [...payload].sort((a, z) => a.dateTime - z.dateTime);
-
-          const callsGroupedByIsoDate: Record<Day, CallWithDates[]> = callsSorted.reduce(
+          const callsGroupedByIsoDate: Record<Day, CallWithDates[]> = payload.reduce(
             (total, current) => {
               if (!(current.dates.iso in total)) {
                 total[current.dates.iso] = [];

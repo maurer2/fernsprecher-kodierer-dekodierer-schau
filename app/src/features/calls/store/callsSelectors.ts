@@ -5,7 +5,10 @@ const getUniqueDatesOfDaysWithCalls = (state: RootState): CallDate[] => {
   if (!state.calls.callList) {
     return [];
   }
-  const days: CallDate[] = Object.values(state.calls.callList).map((dates) => dates.dayDates);
+
+  const days: CallDate[] = Object.values(state.calls.callList)
+    .map((dates) => dates.dayDates)
+    .sort((a, z) => a.iso.localeCompare(z.iso));
 
   return days;
 };
