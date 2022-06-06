@@ -87,12 +87,6 @@ describe('getCalls', () => {
 
       const state = reducer({ ...initialState }, action);
 
-      expect(state).toEqual(
-        expect.objectContaining({
-          isLoading: false,
-        }),
-      );
-
       // entries sorted correctly
       expect(Object.keys(state?.callList ?? {})).toEqual([
         '2022-01-04',
@@ -113,6 +107,17 @@ describe('getCalls', () => {
 
       const entriesWithMultipleEntries = [...entries];
       expect(entriesWithMultipleEntries[2].entries.length).toBe(2);
+
+      // isLoading
+      expect(state).toEqual(
+        expect.objectContaining({
+          isLoading: false,
+        }),
+      );
+
+      // mostRecentDay
+      expect(state.mostRecentDay?.iso).toBeDefined();
+      expect(state.mostRecentDay?.iso).toBe('2022-03-18');
     });
   });
 });
