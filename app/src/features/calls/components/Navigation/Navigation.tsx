@@ -80,14 +80,15 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
   }, [currentDay, scrollToActiveLinkElement]);
 
   return (
-    <Styles.Navigation ref={navigationElement}>
-      <Styles.LinkList>
+    <Styles.Navigation ref={navigationElement} data-testid="navigation">
+      <Styles.LinkList data-testid="navigation-list">
         {daysWithCalls.map((day, index) => (
           <Styles.LinkListEntry key={day.iso}>
             <Styles.Link
               to={`/calls/${day.iso}`}
               status={day.iso === currentDay ? 'active' : 'default'}
               ref={linkElements[index]}
+              data-testid="navigation-list-link"
             >
               {day.user}
             </Styles.Link>
@@ -98,6 +99,7 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
         type="button"
         onClick={goToNewDate(Types.dateNavigation.previousDate)}
         disabled={!previousDate}
+        data-testid="navigation-nav-button"
       >
         &lsaquo;
         <span className="visually-hidden">Previous date</span>
@@ -106,6 +108,7 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
         type="button"
         onClick={goToNewDate(Types.dateNavigation.nextDate)}
         disabled={!nextDate}
+        data-testid="navigation-nav-button"
       >
         &rsaquo;
         <span className="visually-hidden">Next date</span>

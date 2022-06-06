@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { getCallList } from './callsApi';
 import type {
-  CallsSliceState, CallWithDates, CallMap, Day, CallDate,
+  CallsSliceState, CallWithDates, CallMap, Day,
 } from './calls.types';
 
 const initialState: CallsSliceState = {
