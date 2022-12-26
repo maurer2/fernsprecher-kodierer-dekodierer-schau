@@ -1,7 +1,7 @@
 import { promises as fs2 } from 'node:fs';
 import type { ScrapedValuesStringified } from '../types/scraper';
 import { chromium } from 'playwright';
-import type { Browser as Browser } from 'playwright';
+import type { Browser } from 'playwright';
 
 const screenshotsPath = 'dist/screenshots';
 
@@ -94,9 +94,8 @@ export default async function scrapePage(
   });
 
   // step 6 - cleanup
+  await page.close();
   await browser.close();
 
   return callListTableRowContent;
 }
-
-// await page2.close();
