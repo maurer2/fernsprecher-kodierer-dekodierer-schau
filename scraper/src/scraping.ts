@@ -1,6 +1,7 @@
-import puppeteer, { Page, Browser } from 'puppeteer';
 import { promises as fs2 } from 'node:fs';
 import type { ScrapedValuesStringified } from '../types/scraper';
+import { chromium } from 'playwright';
+import type { Browser as Browser } from 'playwright';
 
 const screenshotsPath = 'dist/screenshots';
 
@@ -8,20 +9,15 @@ export default async function scrapePage(
   url: string,
   password: string
 ): Promise<ScrapedValuesStringified[] | Error> {
-  const browser: Browser = await puppeteer.launch();
-  const page: Page = await browser.newPage();
-
   // step 1 - setup
-  await page.setViewport({ width: 1200, height: 720, deviceScaleFactor: 1 });
+  const browser: Browser = await chromium.launch();
+  const browserContext = await browser.newContext();
+  const page = await browserContext.newPage();
   await fs2.mkdir(screenshotsPath, { recursive: true });
-  // pass thru console messages inside page.evaluate
-  page.on('console', (message) => console.log(message.text()));
 
   // step 2 - navigate to page
   try {
-    await page.goto(url, { timeout: 5000 });
-    // const mainTitle = await page.$eval('#dialogTitle', (element) => element.textContent)
-    await page.waitForTimeout(1000);
+    await page.goto(url);
     await page.screenshot({ path: `${screenshotsPath}/login-page.png` });
   } catch (error) {
     if (error instanceof Error) {
@@ -31,11 +27,10 @@ export default async function scrapePage(
 
   // step 3 - fill in/out login-form
   try {
-    await page.type('#uiPass', password);
-    await page.click('#submitLoginBtn');
+    await page.getByLabel('FRITZ!Box-Kennwort').fill(password);
+    await page.getByRole('button', { name: 'Anmelden' }).click();
 
-    await page.waitForNavigation();
-    await page.waitForTimeout(1000);
+    await page.getByRole('navigation');
     await page.screenshot({ path: `${screenshotsPath}/after-login.png` });
   } catch (error) {
     if (error instanceof Error) {
@@ -45,21 +40,17 @@ export default async function scrapePage(
 
   // step 4 - open telephone menu, go to my-numbers and open quality tab
   try {
-    await page.click('#tel');
-
-    await page.waitForTimeout(1000);
+    await page.getByRole('link', { name: 'Telefonie' }).click();
+    await page.waitForSelector('#telsub');
     await page.screenshot({ path: `${screenshotsPath}/tel-open.png` });
 
-    await page.click('#myNum');
-
-    await page.waitForFunction(() => document.body.classList.contains('mainBtn'), {});
-    await page.waitForTimeout(1000);
+    await page.getByRole('link', { name: 'Eigene Rufnummern' }).click();
+    await page.waitForSelector('#uiViewFonNumTable');
     await page.screenshot({ path: `${screenshotsPath}/my-numbers.png` });
 
+    // await page.getByRole('link', { name: 'Sprachübertragung' }).click(); // Umlaut breaks getByRole
     await page.click('#sipQual');
-
-    await page.waitForFunction(() => document.body.classList.contains('mainBtn'), {});
-    await page.waitForTimeout(1000);
+    await page.waitForSelector('#uiOldCalls');
     await page.screenshot({ path: `${screenshotsPath}/quality-list.png` });
   } catch (error) {
     if (error instanceof Error) {
@@ -76,7 +67,7 @@ export default async function scrapePage(
         return [];
       }
 
-      const {0: dateTimeElement, 2: codecsElement} = row.children;
+      const { 0: dateTimeElement, 2: codecsElement } = row.children;
       const codecs = Array.from(codecsElement.children).filter((element) =>
         element.classList.contains('LedDesc')
       );
@@ -107,3 +98,5 @@ export default async function scrapePage(
 
   return callListTableRowContent;
 }
+
+// await page2.close();

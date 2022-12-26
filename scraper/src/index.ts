@@ -9,7 +9,7 @@ dotenv.config();
   const password = process.env.PASSWORD;
   const url = process.env.URL;
 
-  if (password === undefined || url === undefined) {
+  if (!password || !url) {
     process.exit(1);
   }
 
