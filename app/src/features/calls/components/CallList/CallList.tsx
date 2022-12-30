@@ -2,17 +2,17 @@ import { ReactElement, FC } from 'react';
 import Day from '../Day';
 
 import * as Types from './CallList.types';
-import * as Styles from './CallList.styles';
+import * as Styles from './CallList.css';
 
 const CallList: FC<Readonly<Types.CallListProps>> = ({
   callList,
   currentDay,
 }): ReactElement | null => (
-  <Styles.CallList>
+  <div className={Styles.callList}>
     {currentDay
       ? <Day callsForCurrentDay={callList} />
       : null}
-  </Styles.CallList>
+  </div>
 );
 
 export default CallList;

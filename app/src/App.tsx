@@ -9,6 +9,7 @@ import 'modern-normalize';
 
 import { wrapper } from './App.css';
 import './global.css';
+import './theme.css';
 
 const App = () => (
   <div className={wrapper}>

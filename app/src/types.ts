@@ -1,4 +1,3 @@
-import { createStitches, globalCss } from '@stitches/react';
 import { Codec } from './features/calls/store/calls.types';
 
 const COLOURS = {
@@ -20,26 +19,4 @@ export const codecColourMap: CodecColourMapping = {
   'G.726': 'cheese',
   'G.729': 'maniacMansion',
   Unknown: 'purpleCorallite',
-};
-
-const { css, styled, theme } = createStitches({
-  theme: {
-    colors: COLOURS,
-    sizes: {
-      contentMaxWidth: '50rem', // temp
-    },
-  },
-  utils: {
-    noBleed: () => ({
-      gridColumn: 2,
-    }),
-    fullBleed: () => ({
-      width: '100%',
-      gridColumn: '1 / -1',
-    }),
-  },
-});
-
-export {
-  css, styled, theme,
 };
