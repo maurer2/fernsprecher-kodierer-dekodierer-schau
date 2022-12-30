@@ -17,38 +17,34 @@ export const TableCellBase = style({
   padding: '0.5rem',
   borderLeft: `1px solid ${vars.colour.gray}`,
   borderBottom: `1px solid ${vars.colour.gray}`,
-
-  // ':where(tr:nth-child(odd)) td': {
-  // background: theme.colors.gray,
-  // },
 });
-export const TableCellVariants = styleVariants({
-  colSpan: {
-    gridColumn: 'span 2',
-    textAlign: 'right',
+export const TableCellWithColSpan = styleVariants({
+  ColSpan2: [
+    TableCellBase,
+    {
+      gridColumn: 'span 2',
+      textAlign: 'right',
+    },
+  ],
+});
+
+export const TableCellHead = style([
+  TableCellBase,
+  {
+    background: vars.colour.purpleCorallite,
+    color: vars.colour.white,
+    textAlign: 'left',
   },
-});
+]);
 
-export const TableCellHead = style({
-  // todo inheritance
-  padding: '0.5rem',
-  borderLeft: `1px solid ${vars.colour.gray}`,
-  borderBottom: `1px solid ${vars.colour.gray}`,
+export const TableCellBody = style([TableCellBase, {}]);
 
-  background: vars.colour.purpleCorallite,
-  color: vars.colour.white,
-  textAlign: 'left',
-});
-
-export const TableCellFoot = style({
-  // todo inheritance
-  padding: '0.5rem',
-  borderLeft: `1px solid ${vars.colour.gray}`,
-  borderBottom: `1px solid ${vars.colour.gray}`,
-
-  borderTop: `1px solid ${vars.colour.gray}`,
-  fontWeight: 'bold',
-});
+export const TableCellFoot = style([
+  TableCellWithColSpan.ColSpan2,
+  {
+    fontWeight: 'bold',
+  },
+]);
 
 export const ColourIndicatorBase = style({
   display: 'block',
@@ -59,22 +55,35 @@ export const ColourIndicatorBase = style({
     content: '\u25A0', // rectangle https://en.wikipedia.org/wiki/Geometric_Shapes_(Unicode_block)
   },
 });
-
-export const ColourIndicatorVariants = styleVariants({
-  // codec: {
-  G711: {
-    color: COLOURS[codecColourMap['G.711']],
-  },
-  G722: {
-    color: COLOURS[codecColourMap['G.722']],
-  },
-  G726: {
-    color: COLOURS[codecColourMap['G.726']],
-  },
-  G729: {
-    color: COLOURS[codecColourMap['G.729']],
-  },
-  Unknown: {
-    color: COLOURS[codecColourMap.Unknown],
-  },
+export const ColourIndicator = styleVariants({
+  G711: [
+    ColourIndicatorBase,
+    {
+      color: COLOURS[codecColourMap['G.711']],
+    },
+  ],
+  G722: [
+    ColourIndicatorBase,
+    {
+      color: COLOURS[codecColourMap['G.722']],
+    },
+  ],
+  G726: [
+    ColourIndicatorBase,
+    {
+      color: COLOURS[codecColourMap['G.726']],
+    },
+  ],
+  G729: [
+    ColourIndicatorBase,
+    {
+      color: COLOURS[codecColourMap['G.729']],
+    },
+  ],
+  Unknown: [
+    ColourIndicatorBase,
+    {
+      color: COLOURS[codecColourMap.Unknown],
+    },
+  ],
 });

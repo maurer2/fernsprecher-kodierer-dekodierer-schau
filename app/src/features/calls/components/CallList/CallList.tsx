@@ -8,7 +8,7 @@ const CallList: FC<Readonly<Types.CallListProps>> = ({
   callList,
   currentDay,
 }): ReactElement | null => (
-  <div className={Styles.callList}>
+  <div className={Styles.CallList}>
     {currentDay
       ? <Day callsForCurrentDay={callList} />
       : null}

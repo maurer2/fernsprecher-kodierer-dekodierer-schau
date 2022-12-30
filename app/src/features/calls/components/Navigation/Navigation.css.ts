@@ -56,21 +56,27 @@ export const LinkBase = style({
 
   selectors: {
     // no left border for first child
-    '& + &': {
+    '& + &': { // todo
       borderLeft: '1px solid currentColor',
+      background: 'red',
     },
   },
 });
-export const LinkBaseVariants = styleVariants({
-  // status
-  default: {
-    background: vars.colour.purpleCorallite,
-    color: vars.colour.white,
-  },
-  active: {
-    background: vars.colour.maniacMansion,
-    color: vars.colour.white,
-  },
+export const Link = styleVariants({
+  LinkDefault: [
+    LinkBase,
+    {
+      background: vars.colour.purpleCorallite,
+      color: vars.colour.white,
+    },
+  ],
+  LinkActive: [
+    LinkBase,
+    {
+      background: vars.colour.maniacMansion,
+      color: vars.colour.white,
+    },
+  ],
 });
 
 export const NavButton = style({

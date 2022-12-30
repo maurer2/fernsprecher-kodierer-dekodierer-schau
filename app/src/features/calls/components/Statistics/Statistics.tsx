@@ -38,19 +38,16 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
         {codecStatistics.map(([name, percentage, count]) => (
           <Fragment key={name}>
             <tr className={Styles.IgnoredTableElement}>
-              <td className={Styles.TableCellBase}>{name}</td>
-              <td className={Styles.TableCellBase}>
+              <td className={Styles.TableCellBody}>{name}</td>
+              <td className={Styles.TableCellBody}>
                 {percentage.toFixed(2)}
                 %
               </td>
-              <td className={Styles.TableCellBase}>
+              <td className={Styles.TableCellBody}>
                 {String(count).padStart(numberOfDigitsForCount, '0')}
               </td>
-              <td className={Styles.TableCellBase}>
-                <span
-                  className={Styles.ColourIndicatorBase}
-                  // codec={codecsValues[name]}
-                >
+              <td className={Styles.TableCellBody}>
+                <span className={Styles.ColourIndicator[codecsValues[name]]}>
                   <span className="visually-hidden">{name}</span>
                 </span>
               </td>
@@ -60,7 +57,12 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
       </tbody>
       <tfoot className={Styles.IgnoredTableElement}>
         <tr className={Styles.IgnoredTableElement}>
-          <td className={Styles.TableCellFoot} colSpan={2}>Total</td>
+          <td
+            className={Styles.TableCellFoot}
+            colSpan={2}
+          >
+            Total
+          </td>
           <td className={Styles.TableCellFoot}>{numberOfEntriesTotal}</td>
         </tr>
       </tfoot>

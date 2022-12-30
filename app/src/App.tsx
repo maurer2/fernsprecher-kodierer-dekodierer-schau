@@ -1,18 +1,16 @@
-import React from 'react';
 import {
   BrowserRouter as Router, Route, Routes, Navigate,
 } from 'react-router-dom';
+import 'modern-normalize';
 
 import Calls from './features/calls';
 
-import 'modern-normalize';
-
-import { wrapper } from './App.css';
+import * as Styles from './App.css';
 import './global.css';
 import './theme.css';
 
 const App = () => (
-  <div className={wrapper}>
+  <div className={Styles.Wrapper}>
     <Router>
       <Routes>
         <Route
@@ -21,7 +19,12 @@ const App = () => (
         />
         <Route
           path="/"
-          element={<Navigate replace to="/calls" />}
+          element={(
+            <Navigate
+              replace
+              to="/calls"
+            />
+          )}
         />
         <Route
           path="*"

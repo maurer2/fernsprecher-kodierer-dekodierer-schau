@@ -17,35 +17,35 @@ const Day: FC<Readonly<Types.DayProps>> = ({ callsForCurrentDay }) => {
 
   return (
     <>
-      <h3 className={Styles.daySectionColumn}>Codecs statistics</h3>
+      <h3 className={Styles.DaySectionColumn}>Codecs statistics</h3>
 
-      <section className={Styles.daySection}>
-        <div className={Styles.daySectionColumn}>
-          <h4 className={Styles.daySectionSubtitle}>Receive</h4>
+      <section className={Styles.DaySection}>
+        <div className={Styles.DaySectionColumn}>
+          <h4 className={Styles.DaySectionSubtitle}>Receive</h4>
         </div>
-        <div className={Styles.daySectionColumn}>
-          <h4 className={Styles.daySectionSubtitle}>Send</h4>
+        <div className={Styles.DaySectionColumn}>
+          <h4 className={Styles.DaySectionSubtitle}>Send</h4>
         </div>
       </section>
 
-      <section className={Styles.daySection}>
-        <div className={Styles.daySectionColumn}>
+      <section className={Styles.DaySection}>
+        <div className={Styles.DaySectionColumn}>
           <Statistics codecStatistics={statisticsReceiveCodecs} />
         </div>
-        <div className={Styles.daySectionColumn}>
+        <div className={Styles.DaySectionColumn}>
           <Statistics codecStatistics={statisticsSendCodecs} />
         </div>
       </section>
 
-      <h3 className={Styles.daySectionTitle}>Pie chart</h3>
-      <section className={Styles.daySection}>
-        <div className={Styles.daySectionColumn}>
+      <h3 className={Styles.DaySectionTitle}>Pie chart</h3>
+      <section className={Styles.DaySection}>
+        <div className={Styles.DaySectionColumn}>
           <PieChart
             numberOfCodecs={numberOfReceiveCodecs}
             codecStatistics={statisticsReceiveCodecs}
           />
         </div>
-        <div className={Styles.daySectionColumn}>
+        <div className={Styles.DaySectionColumn}>
           <PieChart
             numberOfCodecs={numberOfSendCodecs}
             codecStatistics={statisticsSendCodecs}
