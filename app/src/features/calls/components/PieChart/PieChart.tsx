@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
 import * as Types from './PieChart.types';
-import * as Styles from './PieChart.styles';
+import * as Styles from './PieChart.css';
 
-import { codecColourMap, theme } from '../../../../global.styles';
+import { codecColourMap, COLOURS } from '../../../../types';
 
 const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
   const gradientSections = codecStatistics
@@ -11,7 +11,7 @@ const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
     .reduce(
       (total, current, _, arr) => {
         const isLastSection = current === arr.at(-1);
-        const colour = theme.colors[codecColourMap[current[0]]];
+        const colour = COLOURS[codecColourMap[current[0]]];
         const endValue = isLastSection ? 100 : total.startValue + current[1];
 
         const section: Types.ColourGradientSection = `${colour} ${total.startValue.toFixed(5)}% ${endValue.toFixed(5)}%`;
@@ -33,26 +33,27 @@ const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
   const showPieChart = Boolean(codecStatistics.length);
 
   return (
-    <Styles.Container>
+    <div className={Styles.Container}>
       {
       showPieChart
         ? (
-          <Styles.PieChart
-            css={{
+          <div
+            className={Styles.PieChart}
+            style={{
               background: `conic-gradient(${gradientsSectionsString})`,
             }}
             data-testid="pie-chart"
           >
             <span className="visually-hidden">Pie chart</span>
-          </Styles.PieChart>
+          </div>
         )
         : (
-          <Styles.Alert data-testid="pie-chart-fallback">
-            <p>Chart can not be shown.</p>
-          </Styles.Alert>
+          <aside className={Styles.Alert} data-testid="pie-chart-fallback">
+            <p>Chart cannot be shown.</p>
+          </aside>
         )
       }
-    </Styles.Container>
+    </div>
   );
 };
 

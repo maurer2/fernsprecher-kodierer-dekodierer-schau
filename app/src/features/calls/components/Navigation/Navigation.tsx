@@ -7,10 +7,10 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 import * as Types from './Navigation.types';
-import * as Styles from './Navigation.styles';
+import * as Styles from './Navigation.css';
 
 const Navigation: FC<Readonly<Types.NavigationProps>> = ({
   daysWithCalls,
@@ -80,22 +80,24 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
   }, [currentDay, scrollToActiveLinkElement]);
 
   return (
-    <Styles.Navigation ref={navigationElement} data-testid="navigation">
-      <Styles.LinkList data-testid="navigation-list">
+    <nav className={Styles.Navigation} ref={navigationElement} data-testid="navigation">
+      <ul className={Styles.LinkList} data-testid="navigation-list">
         {daysWithCalls.map((day, index) => (
-          <Styles.LinkListEntry key={day.iso}>
-            <Styles.Link
+          <li className={Styles.LinkListEntry} key={day.iso}>
+            <NavLink
+              className={Styles.LinkBase}
               to={`/calls/${day.iso}`}
-              status={day.iso === currentDay ? 'active' : 'default'}
+              // status={day.iso === currentDay ? 'active' : 'default'}
               ref={linkElements[index]}
               data-testid="navigation-list-link"
             >
               {day.user}
-            </Styles.Link>
-          </Styles.LinkListEntry>
+            </NavLink>
+          </li>
         ))}
-      </Styles.LinkList>
-      <Styles.NavButton
+      </ul>
+      <button
+        className={Styles.NavButton}
         type="button"
         onClick={goToNewDate(Types.dateNavigation.previousDate)}
         disabled={!previousDate}
@@ -103,8 +105,9 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
       >
         &lsaquo;
         <span className="visually-hidden">Previous date</span>
-      </Styles.NavButton>
-      <Styles.NavButton
+      </button>
+      <button
+        className={Styles.NavButton}
         type="button"
         onClick={goToNewDate(Types.dateNavigation.nextDate)}
         disabled={!nextDate}
@@ -112,8 +115,8 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
       >
         &rsaquo;
         <span className="visually-hidden">Next date</span>
-      </Styles.NavButton>
-    </Styles.Navigation>
+      </button>
+    </nav>
   );
 };
 

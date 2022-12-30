@@ -1,5 +1,7 @@
 import { ReactElement, useEffect, FC } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import {
+  useParams, useNavigate, NavLink,
+} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, Dispatch } from '../../app/store';
 import { getCalls } from './store/callsSlice';
@@ -14,8 +16,7 @@ import Overlay from './components/Overlay';
 import CallList from './components/CallList';
 
 import * as Types from './Calls.types';
-import * as Styles from './Calls.styles';
-import { test } from './Calls.css';
+import * as Styles from './Calls.css';
 
 const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
   const { day = null } = useParams();
@@ -44,15 +45,15 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
   }, [navigate, day, mostRecentDay]);
 
   return (
-    <Styles.View>
-      <Styles.Header>
-        <Styles.Title>
-          <Styles.TitleLink to="/calls">
-            <span className={test}>Calls</span>
-          </Styles.TitleLink>
-        </Styles.Title>
-      </Styles.Header>
-      <Styles.Content>
+    <article className={Styles.View}>
+      <header className={Styles.Header}>
+        <h1 className={Styles.Title}>
+          <NavLink className={Styles.TitleLink} to="/calls">
+            Calls
+          </NavLink>
+        </h1>
+      </header>
+      <main className={Styles.Content}>
         {!isLoading ? (
           <>
             {Boolean(daysWithCalls?.length) && (
@@ -73,9 +74,9 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
             }
           </>
         ) : null}
-      </Styles.Content>
+      </main>
       <Overlay isShowing={isLoading}>Loading calls</Overlay>
-    </Styles.View>
+    </article>
   );
 };
 
