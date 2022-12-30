@@ -10,7 +10,7 @@ const COLOURS = {
   black: '#000',
   white: '#fff',
   gray: '#c3c3c3',
-} as const;
+} as const satisfies Record<string, string>;
 type Colour = keyof typeof COLOURS;
 
 export type CodecColourMapping = Record<Codec, Colour>;
@@ -40,36 +40,6 @@ const { css, styled, theme } = createStitches({
   },
 });
 
-const GlobalStyles = globalCss({
-  html: {
-    margin: 0,
-    fontFamily: '-apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif',
-    background: theme.colors.white,
-    overflowY: 'scroll',
-  },
-  body: {
-    background: theme.colors.white,
-    scrollbarGutter: 'stable both-edges',
-  },
-  code: {
-    fontFamily: 'source-code-pro, Menlo, Monaco, Consolas, \'Courier New\', monospace',
-  },
-  dl: {
-    display: 'inline-grid',
-    gridTemplateColumns: 'max-content 1fr min-content min-content',
-    gridGaps: '1rem',
-  },
-  '.visually-hidden:not(:focus):not(:active)': {
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: '1px',
-    overflow: 'hidden',
-    position: 'absolute',
-    whiteSpace: 'nowrap',
-    width: '1px',
-  },
-});
-
 export {
-  css, styled, theme, GlobalStyles,
+  css, styled, theme,
 };

@@ -6,33 +6,29 @@ import {
 import Calls from './features/calls';
 
 import 'modern-normalize';
-import { GlobalStyles } from './global.styles';
 
-import * as Styles from './App.styles';
+import { wrapper } from './App.css';
+import './global.css';
 
-const App = () => {
-  GlobalStyles();
-
-  return (
-    <Styles.Wrapper>
-      <Router>
-        <Routes>
-          <Route
-            path="/calls/:day"
-            element={<Calls />}
-          />
-          <Route
-            path="/"
-            element={<Navigate replace to="/calls" />}
-          />
-          <Route
-            path="*"
-            element={<Calls />}
-          />
-        </Routes>
-      </Router>
-    </Styles.Wrapper>
-  );
-};
+const App = () => (
+  <div className={wrapper}>
+    <Router>
+      <Routes>
+        <Route
+          path="/calls/:day"
+          element={<Calls />}
+        />
+        <Route
+          path="/"
+          element={<Navigate replace to="/calls" />}
+        />
+        <Route
+          path="*"
+          element={<Calls />}
+        />
+      </Routes>
+    </Router>
+  </div>
+);
 
 export default App;

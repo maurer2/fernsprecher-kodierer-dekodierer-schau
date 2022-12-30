@@ -15,6 +15,7 @@ import CallList from './components/CallList';
 
 import * as Types from './Calls.types';
 import * as Styles from './Calls.styles';
+import { test } from './Calls.css';
 
 const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
   const { day = null } = useParams();
@@ -46,7 +47,9 @@ const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {
     <Styles.View>
       <Styles.Header>
         <Styles.Title>
-          <Styles.TitleLink to="/calls">Calls</Styles.TitleLink>
+          <Styles.TitleLink to="/calls">
+            <span className={test}>Calls</span>
+          </Styles.TitleLink>
         </Styles.Title>
       </Styles.Header>
       <Styles.Content>
