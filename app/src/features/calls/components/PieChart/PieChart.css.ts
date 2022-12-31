@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, globalStyle } from '@vanilla-extract/css';
 import { vars } from '../../../../theme.css';
 
 export const Container = style({});
@@ -15,10 +15,8 @@ export const Alert = style({
   padding: '1rem',
   border: `1px solid ${vars.colour.gray}`,
   textAlign: 'center',
+});
 
-  // selectors: {
-  //   '& > p': {
-  //     margin: 0,
-  //   },
-  // },
+globalStyle(`${Alert} > p`, {
+  margin: 0,
 });

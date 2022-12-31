@@ -55,10 +55,9 @@ export const LinkBase = style({
   },
 
   selectors: {
-    // no left border for first child
-    '& + &': { // todo
+    // no left border for first element
+    [`${LinkListEntry} + ${LinkListEntry} &`]: {
       borderLeft: '1px solid currentColor',
-      background: 'red',
     },
   },
 });
