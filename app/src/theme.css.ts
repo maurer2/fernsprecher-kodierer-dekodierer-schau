@@ -1,6 +1,6 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
 
-const COLOURS = {
+export const COLOURS = {
   maniacMansion: '#003f5c',
   purpleCorallite: '#58508d',
   berryBoost: '#bc5090',

@@ -5,9 +5,9 @@ import 'modern-normalize';
 
 import Calls from './features/calls';
 
-import * as Styles from './App.css';
 import './global.css';
 import './theme.css';
+import * as Styles from './App.css';
 
 const App = () => (
   <div className={Styles.Wrapper}>

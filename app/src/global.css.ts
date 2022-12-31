@@ -1,15 +1,16 @@
 import { globalStyle } from '@vanilla-extract/css';
+import { vars } from './theme.css';
 
 globalStyle('html', {
   margin: 0,
   fontFamily: '-apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif',
-  background: 'fff',
+  background: vars.colour.white,
   overflowY: 'scroll',
 });
 
 globalStyle('body', {
   scrollbarGutter: 'stable both-edges',
-  background: 'fff',
+  background: vars.colour.white,
 });
 
 globalStyle('code', {

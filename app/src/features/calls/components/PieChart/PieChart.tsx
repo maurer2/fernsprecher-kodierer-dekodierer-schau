@@ -3,7 +3,8 @@ import React, { FC } from 'react';
 import * as Types from './PieChart.types';
 import * as Styles from './PieChart.css';
 
-import { codecColourMap, COLOURS } from '../../../../types';
+import { codecColourMap } from '../../../../types';
+import { COLOURS } from '../../../../theme.css';
 
 const PieChart: FC<Readonly<Types.PieChartProps>> = ({ codecStatistics }) => {
   const gradientSections = codecStatistics

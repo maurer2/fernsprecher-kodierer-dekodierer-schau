@@ -1,6 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { vars } from '../../../../theme.css';
-import { codecColourMap, COLOURS } from '../../../../types';
+import { vars, COLOURS } from '../../../../theme.css';
+import { codecColourMap } from '../../../../types';
 
 export const Table = style({
   display: 'grid',
