@@ -36,6 +36,13 @@ module.exports = {
         ignorePropertyModificationsFor: ['state', 'total', 'acc'],
       },
     ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['./vite.config.ts', './src/setupTests.ts'],
+        optionalDependencies: false,
+      },
+    ],
     // lodash
     'lodash/import-scope': [2, 'member'],
     'lodash/prefer-lodash-method': 'off',

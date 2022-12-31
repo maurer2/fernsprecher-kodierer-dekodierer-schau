@@ -6,7 +6,7 @@ import Statistics from '../Statistics';
 import Entries from '../Entries';
 
 import * as Types from './Day.types';
-import * as Styles from './Day.styles';
+import * as Styles from './Day.css';
 
 const Day: FC<Readonly<Types.DayProps>> = ({ callsForCurrentDay }) => {
   const receiveCodecs = callsForCurrentDay.map((entry) => entry.codecs.receive);
@@ -17,38 +17,42 @@ const Day: FC<Readonly<Types.DayProps>> = ({ callsForCurrentDay }) => {
 
   return (
     <>
-      <Styles.DaySectionTitle>Codecs statistics</Styles.DaySectionTitle>
-      <Styles.DaySection>
-        <Styles.DaySectionColumn>
-          <Styles.DaySectionSubtitle>Receive</Styles.DaySectionSubtitle>
-        </Styles.DaySectionColumn>
-        <Styles.DaySectionColumn>
-          <Styles.DaySectionSubtitle>Send</Styles.DaySectionSubtitle>
-        </Styles.DaySectionColumn>
-      </Styles.DaySection>
-      <Styles.DaySection>
-        <Styles.DaySectionColumn>
+      <h3 className={Styles.DaySectionColumn}>Codecs statistics</h3>
+
+      <section className={Styles.DaySection}>
+        <div className={Styles.DaySectionColumn}>
+          <h4 className={Styles.DaySectionSubtitle}>Receive</h4>
+        </div>
+        <div className={Styles.DaySectionColumn}>
+          <h4 className={Styles.DaySectionSubtitle}>Send</h4>
+        </div>
+      </section>
+
+      <section className={Styles.DaySection}>
+        <div className={Styles.DaySectionColumn}>
           <Statistics codecStatistics={statisticsReceiveCodecs} />
-        </Styles.DaySectionColumn>
-        <Styles.DaySectionColumn>
+        </div>
+        <div className={Styles.DaySectionColumn}>
           <Statistics codecStatistics={statisticsSendCodecs} />
-        </Styles.DaySectionColumn>
-      </Styles.DaySection>
-      <Styles.DaySectionTitle>Pie chart</Styles.DaySectionTitle>
-      <Styles.DaySection>
-        <Styles.DaySectionColumn>
+        </div>
+      </section>
+
+      <h3 className={Styles.DaySectionTitle}>Pie chart</h3>
+      <section className={Styles.DaySection}>
+        <div className={Styles.DaySectionColumn}>
           <PieChart
             numberOfCodecs={numberOfReceiveCodecs}
             codecStatistics={statisticsReceiveCodecs}
           />
-        </Styles.DaySectionColumn>
-        <Styles.DaySectionColumn>
+        </div>
+        <div className={Styles.DaySectionColumn}>
           <PieChart
             numberOfCodecs={numberOfSendCodecs}
             codecStatistics={statisticsSendCodecs}
           />
-        </Styles.DaySectionColumn>
-      </Styles.DaySection>
+        </div>
+      </section>
+
       <Entries entriesForDay={callsForCurrentDay} />
     </>
   );
