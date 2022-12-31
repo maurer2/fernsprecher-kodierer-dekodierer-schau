@@ -1,8 +1,7 @@
-import {
-  ReactElement, useRef, FC, useEffect,
-} from 'react';
+import type { ReactElement, FC } from 'react';
+import { useRef, useEffect } from 'react';
 
-import * as Types from './Overlay.types';
+import type * as Types from './Overlay.types';
 
 const Overlay: FC<Readonly<Types.OverlayProps>> = ({ isShowing, children }): ReactElement => {
   const domElement = useRef<HTMLDialogElement>(null);

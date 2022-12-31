@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
 
-import * as Types from './PieChart.types';
+import type * as Types from './PieChart.types';
 import * as Styles from './PieChart.css';
 
 import { codecColourMap } from '../../../../types';

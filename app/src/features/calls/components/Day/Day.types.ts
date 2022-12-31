@@ -1,4 +1,4 @@
-import { Call } from '../../store/calls.types';
+import type { Call } from '../../store/calls.types';
 
 export type DayProps = {
   callsForCurrentDay: Call[];

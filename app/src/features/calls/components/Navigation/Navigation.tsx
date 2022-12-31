@@ -1,5 +1,6 @@
-import React, {
-  ReactElement, FC, useEffect, useMemo, RefObject, useCallback, useRef,
+import type { ReactElement, FC, RefObject } from 'react';
+import {
+  useEffect, useMemo, useCallback, useRef, createRef,
 } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 
@@ -13,7 +14,7 @@ const Navigation: FC<Readonly<Types.NavigationProps>> = ({
   const navigate = useNavigate();
   const navigationElement = useRef<HTMLElement | null>(null);
   const linkElements = useMemo<RefObject<HTMLAnchorElement>[]>(
-    () => Array.from({ length: daysWithCalls.length }, () => React.createRef()),
+    () => Array.from({ length: daysWithCalls.length }, () => createRef()),
     [daysWithCalls],
   );
   const [previousDate, nextDate] = useMemo(() => {

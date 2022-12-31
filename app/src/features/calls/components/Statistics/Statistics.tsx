@@ -1,7 +1,8 @@
-import React, { FC, Fragment } from 'react';
+import type { FC } from 'react';
+import { Fragment } from 'react';
 import { codecsValues } from '../../store/calls.types';
 
-import * as Types from './Statistics.types';
+import type * as Types from './Statistics.types';
 import * as Styles from './Statistics.css';
 
 const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) => {

@@ -55,6 +55,8 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
+    // typescript
+    '@typescript-eslint/consistent-type-imports': 'warn',
   },
   settings: {
     'import/resolver': {

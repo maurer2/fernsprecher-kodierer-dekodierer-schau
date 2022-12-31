@@ -1,9 +1,10 @@
-import { ReactElement, useEffect, FC } from 'react';
+import type { ReactElement, FC } from 'react';
+import { useEffect } from 'react';
 import {
   useParams, useNavigate, NavLink,
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, Dispatch } from '../../app/store';
+import type { RootState, Dispatch } from '../../app/store';
 import { getCalls } from './store/callsSlice';
 import {
   getUniqueDatesOfDaysWithCalls,
@@ -15,7 +16,7 @@ import Navigation from './components/Navigation';
 import Overlay from './components/Overlay';
 import CallList from './components/CallList';
 
-import * as Types from './Calls.types';
+import type * as Types from './Calls.types';
 import * as Styles from './Calls.css';
 
 const Calls: FC<Readonly<Types.CallsProps>> = (): ReactElement => {

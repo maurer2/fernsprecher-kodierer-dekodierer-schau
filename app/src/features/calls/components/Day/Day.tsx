@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
 import useCallStatistics from '../../hooks/useCallStatistics';
 
 import PieChart from '../PieChart';
 import Statistics from '../Statistics';
 import Entries from '../Entries';
 
-import * as Types from './Day.types';
+import type * as Types from './Day.types';
 import * as Styles from './Day.css';
 
 const Day: FC<Readonly<Types.DayProps>> = ({ callsForCurrentDay }) => {

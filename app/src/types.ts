@@ -1,5 +1,5 @@
-import { Codec } from './features/calls/store/calls.types';
-import { COLOURS } from './theme.css';
+import type { Codec } from './features/calls/store/calls.types';
+import type { COLOURS } from './theme.css';
 
 export type Colour = keyof typeof COLOURS;
 

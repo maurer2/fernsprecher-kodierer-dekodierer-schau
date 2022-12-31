@@ -1,7 +1,7 @@
-import { ReactElement, FC } from 'react';
+import type { ReactElement, FC } from 'react';
 import Day from '../Day';
 
-import * as Types from './CallList.types';
+import type * as Types from './CallList.types';
 import * as Styles from './CallList.css';
 
 const CallList: FC<Readonly<Types.CallListProps>> = ({

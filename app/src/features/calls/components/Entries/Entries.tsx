@@ -1,8 +1,8 @@
-import { ReactElement, FC } from 'react';
+import type { ReactElement, FC } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import style from 'react-syntax-highlighter/dist/esm/styles/prism/dracula';
 
-import * as Types from './Entries.types';
+import type * as Types from './Entries.types';
 
 const Entries: FC<Readonly<Types.EntriesProps>> = ({ entriesForDay }): ReactElement => (
   <div className="syntaxhighlight">
