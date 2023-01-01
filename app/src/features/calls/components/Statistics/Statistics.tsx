@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { Fragment } from 'react';
-import { codecsValues } from '../../store/calls.types';
+import { codecs } from '../../store/calls.types';
 
 import type * as Types from './Statistics.types';
 import * as Styles from './Statistics.css';
@@ -48,7 +48,7 @@ const Statistics: FC<Readonly<Types.StatisticsProps>> = ({ codecStatistics }) =>
                 {String(count).padStart(numberOfDigitsForCount, '0')}
               </td>
               <td className={Styles.TableCellBody}>
-                <span className={Styles.ColourIndicator[codecsValues[name]]}>
+                <span className={Styles.ColourIndicator[codecs[name]]}>
                   <span className="visually-hidden">{name}</span>
                 </span>
               </td>

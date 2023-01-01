@@ -1,8 +1,8 @@
 import callJSON from '../../../data/dummy.json';
 import type {
-  Call, CallStringlyTyped, CallWithDates,
+  CallStringlyTyped, CallWithDates,
 } from './calls.types';
-import { isCodec, codecsValuesDefault } from './calls.types';
+import { isCodec, codecDefault } from './calls.types';
 
 export function getCallList(): Promise<CallWithDates[]> {
   const dateFormatter = new Intl.DateTimeFormat('en-GB', {
@@ -30,8 +30,8 @@ export function getCallList(): Promise<CallWithDates[]> {
           user: userDate,
         },
         codecs: {
-          send: isCodec(send) ? send : codecsValuesDefault,
-          receive: isCodec(receive) ? receive : codecsValuesDefault,
+          send: isCodec(send) ? send : codecDefault,
+          receive: isCodec(receive) ? receive : codecDefault,
         },
       };
     });

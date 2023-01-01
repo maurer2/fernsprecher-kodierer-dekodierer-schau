@@ -1,22 +1,19 @@
-export const codecsValues = {
+export const codecs = {
   'G.711': 'G711',
   'G.722': 'G722',
   'G.726': 'G726',
   'G.729': 'G729',
   Unknown: 'Unknown',
 } as const;
-export const codecsValuesDefault = (
-  Object.keys(codecsValues) as Array<keyof typeof codecsValues>
-)[4];
-
-export type Codec = keyof typeof codecsValues;
+export type Codec = keyof typeof codecs;
+export const codecDefault: Codec = codecs.Unknown;
 
 // Codec type guard
 export function isCodec(codecString: string | null): codecString is Codec {
   if (!codecString) {
     return false;
   }
-  const codecNames = Object.keys(codecsValues) as Array<keyof typeof codecsValues>;
+  const codecNames = Object.keys(codecs) as Array<Codec>;
 
   return codecNames.includes(codecString as Codec);
 }
