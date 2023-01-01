@@ -59,31 +59,31 @@ export const ColourIndicator = styleVariants({
   G711: [
     ColourIndicatorBase,
     {
-      color: COLOURS[codecColourMap['G.711']],
+      color: codecColourMap['G.711'],
     },
   ],
   G722: [
     ColourIndicatorBase,
     {
-      color: COLOURS[codecColourMap['G.722']],
+      color: codecColourMap['G.722'],
     },
   ],
   G726: [
     ColourIndicatorBase,
     {
-      color: COLOURS[codecColourMap['G.726']],
+      color: codecColourMap['G.726'],
     },
   ],
   G729: [
     ColourIndicatorBase,
     {
-      color: COLOURS[codecColourMap['G.729']],
+      color: codecColourMap['G.729'],
     },
   ],
   Unknown: [
     ColourIndicatorBase,
     {
-      color: COLOURS[codecColourMap.Unknown],
+      color: codecColourMap.Unknown,
     },
   ],
 });
