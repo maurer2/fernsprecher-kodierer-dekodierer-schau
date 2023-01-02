@@ -1,6 +1,5 @@
 import { promises as fs2 } from 'node:fs';
 
-import type { ScrapedValuesStringified } from '../types/scraper';
 import { isScrapedValuesStringifiedArray } from '../types/scraper';
 
 const filePath = 'dist/json';
@@ -14,11 +13,11 @@ export default async function dumpJSON(
   }
 
   try {
-    await fs2.mkdir(filePath, { recursive: true });
-
     let payloadStringified = JSON.stringify(payload, null, 4);
 
+    await fs2.mkdir(filePath, { recursive: true });
     await fs2.writeFile(`${filePath}/${fileName}`, payloadStringified, { flag: 'w' });
+    console.log(`${payload.length} entries written to ${fileName}`);
 
     return payloadStringified;
   } catch (error) {

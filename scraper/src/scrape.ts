@@ -76,12 +76,16 @@ export default async function scrapePage(
         throw new Error('codecTextElements length mismatch');
       }
 
-      const dateTimeText = dateTimeElement.textContent?.replaceAll(/\u00A0/g, ' ');
       const [codecSend, codecReceive] = codecs;
+      const dateTimeTextWithoutCallDuration = dateTimeElement.textContent
+        ?.split('.')
+        ?.join('/')
+        ?.split(/\u00A0/g)[0]
+      ?? null;
 
       return [
         {
-          dateTime: dateTimeText !== undefined ? dateTimeText : null,
+          dateTime: dateTimeTextWithoutCallDuration,
           codecs: {
             send: codecSend.textContent,
             receive: codecReceive.textContent,
