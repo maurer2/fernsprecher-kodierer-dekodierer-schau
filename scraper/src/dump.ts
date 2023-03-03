@@ -3,7 +3,6 @@ import { promises as fs2 } from 'node:fs';
 import { callListSchema } from '../schema/callList';
 import { CallListSchema } from '../types/scraper';
 
-
 const filePath = 'dist/json';
 
 export default async function dumpJSON(
@@ -11,6 +10,7 @@ export default async function dumpJSON(
   fileName: string
 ): Promise<string | Error> {
   if (!callListSchema.safeParse(payload).success) {
+    console.log(callListSchema.safeParse(payload));
     throw new Error('invalid format for scraped values');
   }
   console.log('payload validation successful');

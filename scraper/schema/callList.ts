@@ -7,11 +7,23 @@ export const callSchema = z
     // codecs
     codecs: z
       .object({
-        send: z.string().nullable(), // todo tuple of codecs "G.711", etc
-        receive: z.string().nullable(), // todo tuple of codecs "G.711", etc
+        send: z.union([
+          z.literal(''), // todo remove
+          z.literal('G.711'),
+          z.literal('G.722-HD'),
+          z.literal('G.726'),
+          z.literal('G.729'),
+        ]).nullable(),
+        receive: z.union([
+          z.literal(''), // todo remove
+          z.literal('G.711'),
+          z.literal('G.722-HD'),
+          z.literal('G.726'),
+          z.literal('G.729'),
+        ]).nullable(),
       })
       .strict(),
   })
   .strict(); // todo TS type for easier checks
 
-export const callListSchema = z.array(callSchema);// .nonempty();
+export const callListSchema = z.array(callSchema);

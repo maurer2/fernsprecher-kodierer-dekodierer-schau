@@ -62,6 +62,7 @@ export default async function scrapePage(
   // step 5 - extract codec and dateTime values
   const callListTableRowContent: CallListSchema = await page.evaluate(() => {
     const rows = Array.from(document.querySelectorAll('#uiListOfAllCalls tr'));
+    const supportedCodecs = ['G.711', 'G.722-HD', 'G.726', 'G.729'] as const satisfies readonly string[];
 
     const dateTimeCodecsList: CallListSchema = rows.flatMap((row) => {
       if (row.firstElementChild === null || row.firstElementChild.hasAttribute('colspan')) {
@@ -88,8 +89,14 @@ export default async function scrapePage(
         {
           dateTime: dateTimeTextWithoutCallDuration,
           codecs: {
-            send: codecSend.textContent,
-            receive: codecReceive.textContent,
+            // typescript expects narrower type as parameter for includes
+            send: (codecSend.textContent !== null) && (supportedCodecs as ReadonlyArray<string>).includes(codecSend.textContent)
+              ? codecSend.textContent as typeof supportedCodecs[number]
+              : null,
+            // typescript expects narrower type as parameter for includes
+            receive: ((codecSend.textContent !== null) && (supportedCodecs as ReadonlyArray<string>).includes(codecSend.textContent))
+            ? codecReceive.textContent as typeof supportedCodecs[number]
+            : null,
           },
         },
       ];
