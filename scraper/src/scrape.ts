@@ -85,18 +85,23 @@ export default async function scrapePage(
         ?.split(/\u00A0/g)[0]
       ?? null;
 
+      // typescript expects same or narrower type as parameter for includes, not the wider
+      const codecSendClean = (codecSend?.textContent !== null) && Boolean(codecSend?.textContent.length)
+        && (supportedCodecs as ReadonlyArray<string>).includes(codecSend.textContent)
+        ? codecSend.textContent as typeof supportedCodecs[number]
+        : null;
+      // typescript expects same or narrower type as parameter for includes, not the wider
+      const codecReceiveClean = (codecReceive.textContent !== null) && Boolean(codecReceive?.textContent.length)
+        && (supportedCodecs as ReadonlyArray<string>).includes(codecReceive.textContent)
+        ? codecReceive.textContent as typeof supportedCodecs[number]
+        : null;
+
       return [
         {
           dateTime: dateTimeTextWithoutCallDuration,
           codecs: {
-            // typescript expects narrower type as parameter for includes
-            send: (codecSend.textContent !== null) && (supportedCodecs as ReadonlyArray<string>).includes(codecSend.textContent)
-              ? codecSend.textContent as typeof supportedCodecs[number]
-              : null,
-            // typescript expects narrower type as parameter for includes
-            receive: ((codecSend.textContent !== null) && (supportedCodecs as ReadonlyArray<string>).includes(codecSend.textContent))
-            ? codecReceive.textContent as typeof supportedCodecs[number]
-            : null,
+            send: codecSendClean,
+            receive: codecReceiveClean,
           },
         },
       ];

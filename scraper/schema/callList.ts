@@ -8,14 +8,12 @@ export const callSchema = z
     codecs: z
       .object({
         send: z.union([
-          z.literal(''), // todo remove
           z.literal('G.711'),
           z.literal('G.722-HD'),
           z.literal('G.726'),
           z.literal('G.729'),
         ]).nullable(),
         receive: z.union([
-          z.literal(''), // todo remove
           z.literal('G.711'),
           z.literal('G.722-HD'),
           z.literal('G.726'),
