@@ -1,14 +1,15 @@
 import { promises as fs2 } from 'node:fs';
-import type { ScrapedValuesStringified } from '../types/scraper';
+
 import { chromium } from 'playwright';
 import type { Browser } from 'playwright';
+import { CallListSchema } from '../types/scraper';
 
 const screenshotsPath = 'dist/screenshots';
 
 export default async function scrapePage(
   url: string,
   password: string
-): Promise<ScrapedValuesStringified[] | Error> {
+): Promise<CallListSchema | Error> {
   // step 1 - setup
   const browser: Browser = await chromium.launch();
   const browserContext = await browser.newContext();
@@ -59,10 +60,10 @@ export default async function scrapePage(
   }
 
   // step 5 - extract codec and dateTime values
-  const callListTableRowContent: ScrapedValuesStringified[] = await page.evaluate(() => {
+  const callListTableRowContent: CallListSchema = await page.evaluate(() => {
     const rows = Array.from(document.querySelectorAll('#uiListOfAllCalls tr'));
 
-    const dateTimeCodecsList: ScrapedValuesStringified[] = rows.flatMap((row) => {
+    const dateTimeCodecsList: CallListSchema = rows.flatMap((row) => {
       if (row.firstElementChild === null || row.firstElementChild.hasAttribute('colspan')) {
         return [];
       }

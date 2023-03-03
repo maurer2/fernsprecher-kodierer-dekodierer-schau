@@ -1,3 +1,6 @@
+import { z } from 'zod';
+import { callListSchema } from '../schema/callList';
+
 export type ScrapedValuesStringified = {
   dateTime: string | null;
   codecs: {
@@ -6,9 +9,4 @@ export type ScrapedValuesStringified = {
   };
 };
 
-// type guard for array of ScrapedValuesStringified
-export function isScrapedValuesStringifiedArray(
-  values: unknown
-): values is ScrapedValuesStringified[] {
-  return Array.isArray(values) && values.every((value) => typeof value === 'object'); // false positive for array of arrays
-}
+export type CallListSchema = z.infer<typeof callListSchema>;

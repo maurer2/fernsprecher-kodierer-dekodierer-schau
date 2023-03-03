@@ -1,16 +1,19 @@
 import { promises as fs2 } from 'node:fs';
 
-import { isScrapedValuesStringifiedArray } from '../types/scraper';
+import { callListSchema } from '../schema/callList';
+import { CallListSchema } from '../types/scraper';
+
 
 const filePath = 'dist/json';
 
 export default async function dumpJSON(
-  payload: unknown,
+  payload: CallListSchema,
   fileName: string
 ): Promise<string | Error> {
-  if (!isScrapedValuesStringifiedArray(payload)) {
-    throw new Error('Payload not array of ScrapedValuesStringified objects');
+  if (!callListSchema.safeParse(payload).success) {
+    throw new Error('invalid format for scraped values');
   }
+  console.log('payload validation successful');
 
   try {
     let payloadStringified = JSON.stringify(payload, null, 4);

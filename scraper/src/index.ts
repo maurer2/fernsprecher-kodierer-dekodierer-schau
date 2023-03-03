@@ -15,6 +15,11 @@ dotenv.config();
 
   try {
     const values = await scrapePage(url, password);
+
+    if (values instanceof Error) {
+      throw new Error(values.message);
+    }
+
     const dumpedJSON = await dumpJSON(values, 'scraped-entries.json');
 
     if (dumpedJSON instanceof Error) {
