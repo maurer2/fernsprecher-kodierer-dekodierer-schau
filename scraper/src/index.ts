@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 
 import scrapePage from './scrape';
+import parsePageData from './parse';
 import dumpJSON from './dump';
 
 dotenv.config();
@@ -14,14 +15,17 @@ dotenv.config();
   }
 
   try {
-    const values = await scrapePage(url, password);
-
-    if (values instanceof Error) {
-      throw new Error(values.message);
+    const pageDataStringified = await scrapePage(url, password);
+    if (pageDataStringified instanceof Error) {
+      throw new Error(pageDataStringified.message);
     }
 
-    const dumpedJSON = await dumpJSON(values, 'scraped-entries.json');
+    const parsedValues = await parsePageData(pageDataStringified);
+    if (parsedValues instanceof Error) {
+      throw new Error(parsedValues.message);
+    }
 
+    const dumpedJSON = await dumpJSON(parsedValues, 'scraped-entries.json');
     if (dumpedJSON instanceof Error) {
       throw new Error(dumpedJSON.message);
     }

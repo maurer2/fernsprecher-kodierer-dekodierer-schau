@@ -2,14 +2,14 @@ import { promises as fs2 } from 'node:fs';
 
 import { chromium } from 'playwright';
 import type { Browser } from 'playwright';
-import { CallListSchema } from '../types/scraper';
+import { CallListSchemaStringified } from '../types/scraper';
 
 const screenshotsPath = 'dist/screenshots';
 
 export default async function scrapePage(
   url: string,
   password: string
-): Promise<CallListSchema | Error> {
+): Promise<CallListSchemaStringified | Error> {
   // step 1 - setup
   const browser: Browser = await chromium.launch();
   const browserContext = await browser.newContext();
@@ -59,12 +59,11 @@ export default async function scrapePage(
     }
   }
 
-  // step 5 - extract codec and dateTime values
-  const callListTableRowContent: CallListSchema = await page.evaluate(() => {
+  // step 5 - extract values as strings
+  const callListTableRowContent: CallListSchemaStringified = await page.evaluate(() => {
     const rows = Array.from(document.querySelectorAll('#uiListOfAllCalls tr'));
-    const supportedCodecs = ['G.711', 'G.722-HD', 'G.726', 'G.729'] as const satisfies readonly string[];
 
-    const dateTimeCodecsList: CallListSchema = rows.flatMap((row) => {
+    const dateTimeCodecsList = rows.flatMap((row) => {
       if (row.firstElementChild === null || row.firstElementChild.hasAttribute('colspan')) {
         return [];
       }
@@ -78,30 +77,15 @@ export default async function scrapePage(
         throw new Error('codecTextElements length mismatch');
       }
 
+      const dateTimeTextWithoutCallDuration = dateTimeElement.textContent;
       const [codecSend, codecReceive] = codecs;
-      const dateTimeTextWithoutCallDuration = dateTimeElement.textContent
-        ?.split('.')
-        ?.join('/')
-        ?.split(/\u00A0/g)[0]
-      ?? null;
-
-      // typescript expects same or narrower type as parameter for includes, not the wider
-      const codecSendClean = (codecSend?.textContent !== null) && Boolean(codecSend?.textContent.length)
-        && (supportedCodecs as ReadonlyArray<string>).includes(codecSend.textContent)
-        ? codecSend.textContent as typeof supportedCodecs[number]
-        : null;
-      // typescript expects same or narrower type as parameter for includes, not the wider
-      const codecReceiveClean = (codecReceive.textContent !== null) && Boolean(codecReceive?.textContent.length)
-        && (supportedCodecs as ReadonlyArray<string>).includes(codecReceive.textContent)
-        ? codecReceive.textContent as typeof supportedCodecs[number]
-        : null;
 
       return [
         {
           dateTime: dateTimeTextWithoutCallDuration,
           codecs: {
-            send: codecSendClean,
-            receive: codecReceiveClean,
+            send: codecSend?.textContent,
+            receive: codecReceive?.textContent,
           },
         },
       ];
