@@ -4,8 +4,8 @@ import { callListSchema } from '../schema/callList';
 export type CallListSchemaStringified = {
   dateTime: string | null;
   codecs: {
-      send: string | null;
-      receive: string | null;
+    send: string | null;
+    receive: string | null;
   };
 }[]
 

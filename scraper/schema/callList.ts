@@ -12,16 +12,16 @@ export const callSchema = z
           z.literal('G.722-HD'),
           z.literal('G.726'),
           z.literal('G.729'),
-        ]).nullable(),
+        ]).array().nullable(),
         receive: z.union([
           z.literal('G.711'),
           z.literal('G.722-HD'),
           z.literal('G.726'),
           z.literal('G.729'),
-        ]).nullable(),
+        ]).array().nullable(),
       })
       .strict(),
   })
-  .strict(); // todo TS type for easier checks
+  .strict();
 
 export const callListSchema = z.array(callSchema);

@@ -28,14 +28,14 @@ export default async function parseScrapedData(
       send !== null &&
       Boolean(send.length) &&
       (supportedCodecs as ReadonlyArray<string>).includes(send)
-        ? (send as typeof supportedCodecs[number])
+        ? (send?.split(', ') as Array<typeof supportedCodecs[number]> ?? null)
         : null;
     // typescript expects same or narrower type as parameter for includes, not the wider
     const codecReceive =
       receive !== null &&
       Boolean(receive.length) &&
       (supportedCodecs as ReadonlyArray<string>).includes(receive)
-        ? (send as typeof supportedCodecs[number])
+        ? (send?.split(', ') as Array<typeof supportedCodecs[number]> ?? null)
         : null;
 
     return [
