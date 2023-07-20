@@ -1,6 +1,9 @@
-import { promises as fs2 } from 'node:fs';
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import { CallListSchemaStringified, CallListSchema } from '../types/scraper';
+
+dayjs.extend(customParseFormat);
 
 export default async function parseScrapedData(
   pageData: CallListSchemaStringified
@@ -16,12 +19,10 @@ export default async function parseScrapedData(
     const { dateTime, codecs } = entry;
     const { send, receive } = codecs;
 
-    const dateTimeTextWithoutCallDuration =
-      dateTime
-        ?.split('.')
-        ?.join('/')
-        ?.split(/\u00A0/g)[0]
-        .trim() ?? null;
+    const parsedDateTimeTextWithoutCallDuration = dayjs(dateTime, 'DD.MM.YYYY H:mm');
+    const dateTimeTextWithoutCallDuration = parsedDateTimeTextWithoutCallDuration.isValid()
+      ? parsedDateTimeTextWithoutCallDuration.toISOString()
+      : null;
 
     // typescript expects same or narrower type as parameter for includes, not the wider
     const codecSend =

@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const callSchema = z
   .object({
     // dateTime
-    dateTime: z.string().min(1).nullable(),
+    dateTime: z.string().datetime().nullable(),
     // codecs
     codecs: z
       .object({

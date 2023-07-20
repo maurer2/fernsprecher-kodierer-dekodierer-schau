@@ -10,9 +10,10 @@
     "scrape:fritzbox": "ts-node src/index.ts"
   },
   "dependencies": {
+    "@total-typescript/ts-reset": "^0.4.2",
     "@types/node": "^18.11.18",
+    "dayjs": "^1.11.9",
     "dotenv": "^8.6.0",
-    "googleapis": "^112.0.0",
     "playwright": "^1.29.1",
     "prettier": "^2.8.1",
     "ts-node": "^10.9.1",
