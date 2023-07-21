@@ -10,6 +10,8 @@
     "scrape:fritzbox": "ts-node src/index.ts"
   },
   "dependencies": {
+    "@anatine/zod-mock": "^3.13.1",
+    "@faker-js/faker": "^8.0.2",
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/node": "^18.11.18",
     "dayjs": "^1.11.9",
