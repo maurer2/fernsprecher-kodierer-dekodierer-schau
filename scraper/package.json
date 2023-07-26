@@ -10,8 +10,6 @@
     "scrape:fritzbox": "ts-node src/index.ts"
   },
   "dependencies": {
-    "@anatine/zod-mock": "^3.13.1",
-    "@faker-js/faker": "^8.0.2",
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/node": "^18.11.18",
     "dayjs": "^1.11.9",
@@ -19,9 +17,8 @@
     "playwright": "^1.29.1",
     "prettier": "^2.8.1",
     "ts-node": "^10.9.1",
-    "tsc": "^2.0.4",
-    "typescript": "^4.9.4",
-    "zod": "^3.20.6"
+    "typescript": "5.1.6",
+    "zod": "3.20.6"
   },
   "devDependencies": {
     "@playwright/test": "^1.29.1",

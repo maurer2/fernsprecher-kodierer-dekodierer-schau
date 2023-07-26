@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { generateMock } from '@anatine/zod-mock';
 
 const codecNames =  z.union([
   z.literal('G.711'),
@@ -20,9 +19,3 @@ export const callSchema = z.object({
 .strict();
 
 export const callListSchema = z.array(callSchema);
-
-export const mockCallSchema = generateMock(callSchema);
-export const mockCallListSchema = generateMock(callListSchema, {
-  // recordKeysLength: 10,
-  // mapEntriesLength: 10,
-});
